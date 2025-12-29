@@ -1,0 +1,423 @@
+/* === MAIN CONTAINER === */
+.advance-u-invoice {
+    background: #fff;
+    margin: 0 auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+    width: 210mm;
+    min-height: 210mm;
+    padding: 20mm;
+    box-sizing: border-box;
+    overflow: hidden;
+    position: relative;
+}
+
+/* === HEADER === */
+.advance-u-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.advance-u-logo {
+    width: 130px;
+    height: 35px;
+    margin-bottom: 10px;
+}
+
+.advance-u-title {
+    font-weight: 800;
+    font-size: 28px;
+    text-transform: uppercase;
+    color: #222;
+}
+
+/* === DIVIDER === */
+.advance-u-divider {
+    display: flex;
+    align-items: center;
+}
+
+.advance-u-line {
+    flex: 1;
+    background-color: #000;
+    height: 2px;
+    border: none;
+    margin: 0;
+}
+
+.advance-u-site {
+    margin-left: 10px;
+    font-weight: 700;
+    font-size: 11px;
+    color: #000000ff;
+    white-space: nowrap;
+}
+
+/* === BILL SECTION === */
+.advance-u-bill-section {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.advance-u-bill-to h6 {
+    font-weight: 500;
+    font-size: 12px;
+}
+
+.advance-u-bill-name {
+    margin: 0;
+    font-weight: 700;
+    font-size: 15px;
+}
+
+.advance-u-bill-mobile,
+.advance-u-bill-email {
+    margin: 4px 0;
+    font-size: 12px;
+}
+
+.advance-u-bill-info {
+    text-align: right;
+}
+
+.advance-u-bill-info p {
+    margin: 2px 0;
+    font-size: 12px;
+}
+
+/* === TABLE === */
+.advance-u-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+.advance-u-table thead {
+    background: #000000ff;
+    color: white;
+}
+
+.advance-u-table tr:nth-child(even) {
+    background: #e7e6e6ff;
+
+}
+
+.advance-u-table td {
+    font-size: 12px;
+    padding: 6px;
+}
+
+/* === TOTALS === */
+.advance-u-total-section {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.advance-u-total-box {
+    width: 150px;
+    margin-bottom: 60px;
+}
+
+.advance-u-subtotal {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+    font-size: 12px;
+}
+
+.advance-u-grandtotal {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+    font-weight: 600;
+    background-color: black;
+    color: white;
+    font-size: 12px;
+    padding: 4px;
+}
+
+/* === PAYMENT === */
+.advance-u-payment-section .fa-circle-check {
+    color: green;
+    font-size: 50px;
+    margin-bottom: 20px;
+}
+
+.advance-u-success {
+    padding: 40px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.advance-u-success h6 {
+    white-space: nowrap;
+}
+
+/* === SEPARATOR === */
+.advance-u-separator {
+    margin: 20px 0;
+    border: 1px solid #000000ff;
+    margin-top: 175px;
+}
+
+/* === FOOTER === */
+.advance-u-footer {
+    font-size: 14px;
+}
+
+.advance-u-mail a {
+    color: black;
+    font-size: 14px;
+}
+
+.advance-pay-btn {
+    background-color: #2f4f4f;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 7px 10px;
+    font-size: 14px;
+    font-weight: 500;
+    min-width: 150px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(47, 79, 79, 0.4);
+    letter-spacing: 0.5px;
+    font-family: "poppins";
+}
+
+.advance-pay-btn:hover {
+    background-color: #3b5d5d;
+    box-shadow: 0 6px 14px rgba(47, 79, 79, 0.6);
+    transform: translateY(-2px);
+}
+
+.advance-pay-btn:active {
+    transform: scale(0.97);
+}
+
+.advance-u-table .tablehead {
+    font-size: 10px;
+    padding: 3px;
+    font-weight: 600;
+}
+
+.linkback-btn {
+    background: linear-gradient(69.65deg, #05599F -18.72%, #4199e0 105.46%);
+    color: #fff;
+    font-family: "Poppins", sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(5, 89, 159, 0.3);
+}
+
+.linkback-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(5, 89, 159, 0.4);
+}
+
+.linkback-btn i {
+    font-size: 13px;
+}
+
+.link-success {
+    background: #fff;
+    border-radius: 5px;
+    padding-right: 90px;
+    padding-left: 90px;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+    align-items: center;
+    align-content: center;
+}
+
+.link-success h2 {
+    font-family: "poppins";
+    font-size: 25px;
+    color: black;
+}
+
+.link-success .link-success-tick {
+    font-size: 50px;
+    color: green;
+    margin-bottom: 5px;
+}
+
+@media (max-width: 768px) {
+    .advance-u-logo {
+        width: 80px;
+        height: 20px;
+        padding: 0;
+        margin: 0;
+    }
+
+    .advance-u-title {
+        font-weight: 800;
+        font-size: 16px;
+        text-transform: uppercase;
+        color: #222;
+        padding: 0;
+        margin: 0;
+    }
+
+    .advance-u-site {
+        margin-left: 10px;
+        font-weight: 500;
+        font-size: 9px;
+        color: #000000ff;
+        white-space: nowrap;
+    }
+
+    .advance-u-table .tablehead {
+        font-size: 10px;
+        padding: 3px;
+        font-weight: 500;
+    }
+
+    .advance-u-table td {
+        font-size: 10px;
+        padding: 6px;
+    }
+
+    .advance-u-bill-to h6 {
+        font-size: 11px;
+    }
+
+    .advance-u-bill-name {
+        margin: 0;
+        font-weight: 700;
+        font-size: 13px;
+    }
+
+    .advance-u-bill-mobile,
+    .advance-u-bill-email {
+        margin: 4px 0;
+        font-size: 11px;
+    }
+
+    .advance-u-bill-info p {
+        margin: 2px 0;
+        font-size: 11px;
+    }
+
+    .advance-u-subtotal {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 5px;
+        font-size: 10px;
+    }
+
+    .advance-u-grandtotal {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 5px;
+        font-weight: 500;
+        background-color: black;
+        color: white;
+        font-size: 10px;
+        padding: 4px;
+    }
+
+    .advance-u-payment-section .fa-circle-check {
+        color: green;
+        font-size: 30px;
+        margin-bottom: 10px;
+    }
+
+    .advance-u-success {
+        padding: 0;
+        margin-top: 20px;
+        border-radius: 10px;
+        text-align: center;
+    }
+
+    .advance-u-success h6 {
+        white-space: nowrap;
+    }
+
+    .advance-u-total-box {
+        width: 150px;
+        margin-bottom: 5px;
+    }
+
+    .advance-u-invoice {
+        background: #fff;
+        margin: 0 auto;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+        width: 210mm;
+        min-height: 120mm;
+        padding: 20mm;
+        box-sizing: border-box;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .advance-u-separator {
+        margin: 20px 0;
+        border: 1px solid #000000ff;
+        margin-top: 40px;
+    }
+
+    .advance-u-footer {
+        font-size: 11px;
+    }
+
+    .advance-u-mail a {
+        color: black;
+        font-size: 11px;
+    }
+
+    .advance-u-success h6 {
+        font-size: 11px;
+    }
+
+    .advance-pay-btn {
+        background-color: #2f4f4f;
+        color: #fff;
+        border: none;
+        border-radius: 3px;
+        padding: 5px 6px;
+        font-size: 11px;
+        font-weight: 400;
+        min-width: 70px;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 10px rgba(47, 79, 79, 0.4);
+        letter-spacing: 0.5px;
+        font-family: "poppins";
+        margin-top: 40px;
+    }
+
+    .link-success {
+        background: #fff;
+        border-radius: 5px;
+        padding-right: 40px;
+        padding-left: 40px;
+        text-align: center;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+        align-items: center;
+        align-content: center;
+    }
+
+    .link-success h2 {
+        font-family: "poppins";
+        font-size: 18px;
+        color: black;
+    }
+
+    .link-success .link-success-tick {
+        font-size: 40px;
+        color: green;
+        margin-bottom: 5px;
+    }
+
+}

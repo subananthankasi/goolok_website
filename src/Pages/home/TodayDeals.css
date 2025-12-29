@@ -1,0 +1,106 @@
+/* ✅ Spacing for Carousel Cards */
+.p-carousel .p-carousel-item {
+  padding: 8px; /* subtle gap between cards */
+  box-sizing: border-box;
+}
+
+/*  Card Container */
+.deal-card {
+  position: relative;
+  border-radius: 18px;
+  overflow: hidden;
+  background-color: #fff;
+  transition: all 0.4s ease;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+}
+
+.deal-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.25);
+}
+
+/* 🖼️ Image Section */
+.deal-image-wrapper {
+  position: relative;
+}
+
+.deal-image {
+  width: 100%;
+  height: 270px;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.deal-card:hover .deal-image {
+  transform: scale(1.05);
+}
+
+/* 🌑 Beautiful Gradient Shadow */
+.deal-gradient {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 120px;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 1) 0%,       /* Deep black bottom */
+    rgba(0, 0, 0, 0.65) 40%,   /* Softer fade */
+    rgba(0, 0, 0, 0.25) 75%,   /* Light fade */
+    transparent 100%
+  );
+  z-index: 1;
+  transition: all 0.3s ease;
+}
+
+/*  Footer Content (Text Overlay) */
+.deal-footer {
+  position: absolute;
+  bottom: 15px;
+  width: 100%;
+  padding: 0 15px;
+  color: #fff;
+  text-align: center;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.deal-title {
+  font-size: 17px;
+  font-weight: 700;
+  margin: 0;
+  color: #fff;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+}
+
+.deal-offer-text {
+  margin-top: 6px;
+  background: linear-gradient(90deg, #ff3b3b, #ff8c00);
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+  letter-spacing: 0.3px;
+  display: inline-block;
+  text-transform: uppercase;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+}
+
+/* ✨ Section Styling */
+.todays-deals-section {
+  margin-top: 40px;
+  background: #fafafa;
+  padding: 20px 0;
+}
+
+.section-head h3 {
+  font-weight: 700;
+  color: #222;
+  text-align: center;
+  margin-bottom: 25px;
+  letter-spacing: 0.5px;
+}

@@ -1,0 +1,128 @@
+.who_who {
+  background-color: white;
+}
+.whomobileimg {
+  width: 550px;
+  height: 550px;
+}
+.who_para {
+  text-align: justify;
+  line-height: 1.8;
+}
+.who_list {
+  font-weight: bolder;
+}
+.lets_mobileimg {
+  width: 250px;
+  height: 220px;
+  border: 4px solid #071a9b;
+  border-radius: 15px;
+  padding: 10px;
+}
+
+.who_who {
+  background-color: white;
+}
+/* .whomobileimg{
+    width: 550px;
+    height: 550px;
+} */
+.who_para {
+  text-align: justify;
+  line-height: 1.8;
+}
+.who_list {
+  font-weight: bolder;
+}
+.lets_mobileimg {
+  width: 100%;
+  max-width: 250px;
+  height: auto;
+  border: 4px solid #0000ff;
+  border-radius: 0px;
+  padding: 10px;
+  display: block;
+  margin: 0 auto;
+}
+/* blogs */
+
+/* .blog_mobileimg{
+    width: 570px;
+    height: 570px;
+   
+} */
+.blog_mobileimg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.blog_mobileimgs {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+@media (min-width: 768px) {
+  .blog_mobileimg {
+    width: 60%;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+}
+.blog_lines {
+  /* display: flex;
+     justify-content: center;
+    align-items: center;  */
+  text-align: justify;
+  font-family: "poppins";
+}
+.blogsaleimg {
+  width: 300px;
+  height: 200px;
+}
+.blog_read {
+  background-color: #e4e6ef;
+  border-radius: 15px;
+  padding: 8px;
+}
+.blog_card {
+  background-color: aliceblue;
+  border-radius: 15px;
+}
+.grid-container-blogs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 380px);
+  gap: 20px;
+  border-radius: 8px;
+}
+.btn-light:hover {
+  background-color: #071a9b;
+  color: aliceblue;
+}
+.blogs_reader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.blog_next_btn {
+  padding: 7px 10px;
+  background-color: #0000ff;
+  color: white;
+  font-family: "poppins";
+}
+
+.modern-title {
+  font-family: "Poppins", sans-serif;
+  font-size: 34px;
+  font-weight: 600;
+  position: relative;
+  color: #222;
+  line-height: 1.3;
+}
+
+.modern-title::first-letter {
+  color: #0000ff;  
+  font-size: 48px; 
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-right: 2px;
+}

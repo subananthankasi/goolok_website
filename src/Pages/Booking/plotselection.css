@@ -1,0 +1,81 @@
+.seat-checkbox {
+    margin-bottom: 10px;
+  }
+  
+ .bookingplot input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 40px;
+    height: 40px;
+    border:1px solid #ccc; 
+    margin-right: 10px;
+    cursor: pointer;
+  }
+  
+  .bookingplot input[type="checkbox"]:checked {
+    background-color: #2b2e3a;
+    border-color: #2b2e3a;
+  }
+  
+  .bookingplot input[type="checkbox"]:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  label { 
+    color: #333;
+    cursor: pointer;
+  }
+  
+  .item { 
+    position: relative;
+  }
+  .item::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: -12px;
+    transform: translate(0, -50%);
+    width: 10px;
+    height: 10px;
+    background: rgb(255, 255, 255);
+    outline: 0.2mm solid rgb(120, 120, 120);
+    border-radius: 0.3mm;
+  }
+  .item:nth-child(2)::before {
+    background:#ccc;
+    outline: none;
+  }
+  .item:nth-child(3)::before {
+    background:#2b2e3a;
+    outline: none;
+  }
+
+  .status{
+      display: flex;
+      justify-content:space-between ;
+      
+  }
+  .pop_img{
+    object-fit: cover;
+    overflow: hidden;
+    max-height: 100% !important;
+  }
+  /* .pop_image{
+    height: 100%;
+  } */
+  .booking_slot{
+    max-height:440px;
+    overflow:auto;
+    overflow-x: hidden;
+  }
+
+  @media (min-width : 992px) and (max-width :1199px) {
+    .booking_slot{
+      max-height:300px !important;
+      overflow:auto;
+      overflow-x: hidden;
+    }
+  }
+  
