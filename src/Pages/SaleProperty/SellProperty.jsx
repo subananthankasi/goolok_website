@@ -95,20 +95,45 @@ const SellProperty = () => {
   };
   const [fileList, setFileList] = useState([]);
 
+  // const handleChange = (newFileList) => {
+  //   console.log("newFileList", newFileList)
+  //   if (newFileList.length > 0) {
+  //     const latestFile = newFileList[newFileList.length - 1];
+  //     setFileList([
+  //       {
+  //         ...latestFile,
+  //         name: latestFile.name,
+  //         blobFile: latestFile.blobFile,
+  //         fileKey: Date.now(),
+  //       },
+  //     ]);
+  //   } else {
+  //     setFileList([]);
+  //     console.log("file", fileList)
+  //   }
+  // };
+
+
   const handleChange = (newFileList) => {
-    if (newFileList.length > 0) {
-      const latestFile = newFileList[newFileList.length - 1];
-      setFileList([
-        {
-          ...latestFile,
-          name: latestFile.name,
-          fileKey: Date.now(),
-        },
-      ]);
-    } else {
+
+    if (!newFileList || newFileList.length === 0) {
       setFileList([]);
+      return;
     }
+
+    const latestFile = newFileList[newFileList.length - 1];
+
+    setFileList([
+      {
+        uid: Date.now(),
+        name: latestFile.name,
+        blobFile: latestFile.blobFile,
+        status: "done",
+      },
+    ]);
   };
+
+
   const PropertyTypeData = useSelector(
     (state) => state.PropertyType.PropertyTypeData
   );
@@ -185,6 +210,8 @@ const SellProperty = () => {
       alert.error("Failed to send your enquiry. Please try again later!");
     } finally {
       setloading(false);
+      setFileList([]);
+
     }
   };
 
@@ -277,7 +304,7 @@ const SellProperty = () => {
       />
       <div className="container-xl sell-property-container mt-3">
         <Breadcrumb
-         style={{fontFamily:"poppins"}}
+          style={{ fontFamily: "poppins" }}
           items={[
             { title: <Link to="/">Home</Link> },
             { title: "Sell Property" },
@@ -563,6 +590,7 @@ const SellProperty = () => {
                         fileList={fileList}
                         onChange={handleChange}
                         onRemove={() => setFileList([])}
+                        key={fileList.length === 0 ? "empty" : "filled"}
                       >
                         <div
                           style={{

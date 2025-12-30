@@ -3,7 +3,7 @@ const API_BASE_URL = "https://webman.co.in/goolok/api";
 export default API_BASE_URL;
 export const IMG_PATH = "https://webman.co.in/goolok/uploads/";
 export const LOGIN_BASE_URL = "https://webman.co.in/goolok";
-//test new
+
 //Goolok
 
 // const API_BASE_URL = "https://api.goolok.com/api";

@@ -61,6 +61,23 @@ const Mybooking = () => {
     setRows(event.rows);
   };
   const paginatedBookingData = bookingData.slice(first, first + rows);
+
+
+  const getBookingStatusUI = (status) => {
+    switch (status?.toLowerCase()) {
+      case "registered":
+        return { text: "Completed", bg: "green" };
+
+      case "booking":
+        return { text: "In Progress", bg: "orange" };
+
+      case "cancel":
+        return { text: "Cancelled", bg: "red" };
+
+      default:
+        return null;
+    }
+  };
   return (
     <>
       {/* <div className="container profile_edit">
@@ -125,7 +142,7 @@ const Mybooking = () => {
                             top: "20px",
                             zIndex: 1,
                             opacity: 0.3,
-                            pointerEvents: "none"
+                            pointerEvents: "none",
                           }}
                         />
                       )}
@@ -140,7 +157,47 @@ const Mybooking = () => {
                         >
                           {item.propertyName}
                         </h6>
-                        {item.booking_status?.toLowerCase() === "registered" ? (
+                        {/* <div
+                          className=""
+                          style={{
+                            position: "absolute",
+                            backgroundColor: "red",
+                            color: "white",
+                            padding: "5px 10px",
+                            right: "4px",
+                            fontWeight: "600"
+                          }}
+                        >
+                          Progress
+                        </div> */}
+                        {item.booking_status && (
+                          <div
+                            style={{
+                              position: "absolute",
+                              backgroundColor:
+                                item.booking_status.toLowerCase() === "registered"
+                                  ? "green"
+                                  : item.booking_status.toLowerCase() === "booking"
+                                    ? "#0ea5e9"
+                                    : "red",
+                              color: "white",
+                              padding: "5px 10px",
+                              right: "4px",
+                              fontWeight: "600",
+                              top: "10px"
+                            }}
+                          >
+                            {item.booking_status.toLowerCase() === "registered"
+                              ? "Completed"
+                              : item.booking_status.toLowerCase() === "booking"
+                                ? "In Progress"
+                                : "Cancelled"}
+                          </div>
+                        )}
+
+
+
+                        {/* {item.booking_status?.toLowerCase() === "registered" ? (
                           <Badge
                             value="Completed"
                             severity="success"
@@ -160,11 +217,13 @@ const Mybooking = () => {
                           ></Badge>
                         ) : (
                           ""
-                        )}
+                        )} */}
+
+
                       </div>
 
                       <div>
-                        <div className="d-flex justify-content-between mt-2">
+                        <div className="d-flex justify-content-between mt-4">
                           <h6
                             className="book-text mb-1"
                             style={{ fontWeight: "600", fontSize: "17px" }}

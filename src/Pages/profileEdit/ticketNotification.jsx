@@ -120,7 +120,7 @@ export default function TicketNotification() {
                 className="card p-4"
                 style={{
                   borderRadius: "18px",
-                  background: "linear-gradient(135deg, #f8f9fa, #ffffff)",
+                  background: "linear-gradient(135deg, #f1f8ffff, #f1f8ffff)",
                   boxShadow:
                     "0 4px 12px rgba(47, 79, 79, 0.15), inset 0 0 8px rgba(55, 69, 80, 0.05)",
                   minHeight: "260px",
@@ -165,7 +165,7 @@ export default function TicketNotification() {
                       <h5
                         className="fw-bold"
                         style={{
-                          color: "#2f4f4f",
+                          color: "black",
                           fontSize: "1.25rem",
                           marginBottom: "12px",
                         }}

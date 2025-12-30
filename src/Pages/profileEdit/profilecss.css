@@ -842,11 +842,11 @@ ikjkljkl/jktrhtrre43=-504=54 */
   box-shadow: 0 3px 8px rgba(0, 122, 255, 0.3);
 }
 .notify-btn {
-  background-color: #2f4f4f;
+  background-color: #0000ff;
   color: white;
   font-weight: 600;
   padding: 10px 35px;
-  border-radius: 50px;
+  border-radius: 0px;
   margin-top: 25px;
   border: none;
   font-size: 15px;
@@ -856,7 +856,7 @@ ikjkljkl/jktrhtrre43=-504=54 */
 }
 
 .notify-btn:hover {
-  background-color: #374550;
+  background-color: #0000ff;
   color: white;
 }
 .profile_name {
@@ -962,7 +962,7 @@ ikjkljkl/jktrhtrre43=-504=54 */
   border-radius: 6px;
   font-family: "Poppins", sans-serif;
 }
-.booking-box-mybooking{
+.booking-box-mybooking {
   background: #ffffff;
   padding: 8px;
   /* border: 1px solid #e6e6e6; */
@@ -1015,7 +1015,6 @@ ikjkljkl/jktrhtrre43=-504=54 */
   font-weight: 600;
   color: #000;
 }
-
 
 /* CONTAINER */
 .premium-pricing-wrapper-blue {
@@ -1145,26 +1144,22 @@ ikjkljkl/jktrhtrre43=-504=54 */
   color: #000070;
 }
 
-
-
-
 .profile-content {
   height: 100vh;
   overflow-y: auto;
   padding-right: 10px;
-  scrollbar-width: none; 
+  scrollbar-width: none;
   scroll-behavior: smooth;
 }
 
 .profile-content::-webkit-scrollbar {
-  display: none; 
+  display: none;
 }
 
 .profile-content::-webkit-scrollbar-thumb {
   background: #0000ff;
   border-radius: 10px;
 }
-
 
 /* profile side bar */
 
@@ -1189,14 +1184,18 @@ ikjkljkl/jktrhtrre43=-504=54 */
   font-family: "Poppins", sans-serif;
   font-weight: 500;
   color: #fff;
-  background: linear-gradient(90deg, rgba(255,255,255,0.06), rgba(255,255,255,0));
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.06),
+    rgba(255, 255, 255, 0)
+  );
   transition: all 0.3s ease;
   cursor: pointer;
 }
 
 .premium-sidebar .link:hover {
   transform: translateX(6px);
-  background: rgba(255,255,255,0.12);
+  background: rgba(255, 255, 255, 0.12);
 }
 
 .premium-sidebar .link.active {

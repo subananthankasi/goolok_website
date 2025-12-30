@@ -547,8 +547,11 @@ const AdvancePayment = ({ id }) => {
                         <button
                           className="btn  mt-3 text-white"
                           style={{
-                            backgroundColor: "#2f4f4f",
-                            minWidth: "200px",
+                            backgroundColor: "#0000ff",
+                            minWidth: "150px",
+                            fontFamily:"poppins",
+                            borderRadius:"0px",
+                            fontWeight:"600"
                           }}
                           // onClick={() => {
                           //   navigate(
