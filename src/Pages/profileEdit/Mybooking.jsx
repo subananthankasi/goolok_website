@@ -1,25 +1,14 @@
-import React, { useEffect, useState } from "react";
-import img from "../../assets/images/dummyimg.jpg";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import ProfileSideBar from "./ProfileSideBar";
-import plot from "../../assets/images/villa2.jpg";
-import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import { IMG_PATH, LOGIN_BASE_URL } from "../../Api/api";
 import { Skeleton } from "primereact/skeleton";
-import { Timeline } from "primereact/timeline";
-import {
-  faRulerCombined,
-  faMapMarkerAlt,
-} from "@fortawesome/free-solid-svg-icons";
-import { Badge } from "primereact/badge";
 import SearchOffIcon from "@mui/icons-material/SearchOff";
-import ProfileSidebarHeader from "./ProfileSidebarHeader";
 import { Paginator } from "primereact/paginator";
-import { Breadcrumb } from "antd";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
 import cancelimg from "../../assets/cancelled-stamp-icon-vector-design-template-in-white-background-2XGEPA0.jpg";
+
+
 const Mybooking = () => {
   const token = localStorage.getItem("zxcvbnm@#");
   const [bookingData, setBookingData] = useState([]);
@@ -80,10 +69,6 @@ const Mybooking = () => {
   };
   return (
     <>
-      {/* <div className="container profile_edit">
-        <div className="row">
-          <ProfileSideBar /> */}
-
       <div style={{ paddingTop: 50 }}>
         <div>
           <h5 className="text-center" style={{ color: "#36454f" }}>
@@ -121,6 +106,7 @@ const Mybooking = () => {
                           src={`${IMG_PATH}/enquiry/gallery/${item.image}`}
                           alt=""
                           className="img-fluid"
+                          loading="lazy"
                           style={{
                             height: "150px",
                             objectFit: "cover",

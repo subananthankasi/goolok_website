@@ -343,23 +343,7 @@ export const InvoicePayment = ({ id, tab }) => {
                 className="d-flex justify-content-between"
                 // style={{ marginBottom: "140px" }}
               >
-                <div>
-                  <h6
-                    style={{
-                      fontWeight: "700",
-                      marginBottom: "10px",
-                      fontSize: "12px",
-                    }}
-                  >
-                    PAYMENT METHOD :
-                  </h6>
-                  <p style={{ margin: "2px 0", fontSize: "11px" }}>
-                    <b> Bank Name :</b> State Bank of India
-                  </p>
-                  <p style={{ margin: "2px 0", fontSize: "11px" }}>
-                    <b> Account Number :</b> 123-456-7890
-                  </p>
-                </div>
+               
                 <div>
                   <h6
                     style={{

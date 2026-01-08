@@ -10,7 +10,7 @@ import { encryptData } from "../../Utils/encryptData";
 // import { truncateContent } from "../../Utils/truncateContent";
 import ProfileSideBar from "./ProfileSideBar";
 import { truncateContent } from "../../Utils/truncateContent";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import axiosInstance from "../../Api/axiosInstance";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
@@ -25,8 +25,10 @@ import groovyWalkAnimation from "../../assets/Celebrations Begin.json";
 export default function TicketNotification() {
   const dispatch = useDispatch();
   const location = useLocation();
-  const { navNotifiData, navSHow } = location.state || {};
+  const { navNotifiData,navSHow } = location.state || {};
   const [showFullMessage, setShowFullMessage] = useState(false);
+
+
   const [data, setData] = useState([]);
   const notifications =
     useSelector((state) => state.notificationData.notification) || [];
@@ -45,12 +47,22 @@ export default function TicketNotification() {
       setLoading(false);
     }
   };
+  // useEffect(() => {
+  //   fetch(navNotifiData?.id);
+  //   if (navSHow) {
+  //     setShowFullMessage(true);
+  //   }
+  // }, [navNotifiData?.id, navSHow]);
+
   useEffect(() => {
-    fetch(navNotifiData?.id);
-    if (navSHow) {
-      setShowFullMessage(true);
+    if (navNotifiData?.id) {
+      fetch(navNotifiData.id);
     }
+
+    setShowFullMessage(!!navSHow);
   }, [navNotifiData?.id, navSHow]);
+
+
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
@@ -89,6 +101,14 @@ export default function TicketNotification() {
     if (interval > 1) return `${interval} mins ago`;
 
     return `${seconds} seconds ago`;
+  };
+  const handleBack = () => {
+    setShowFullMessage(false);
+
+    navigate(".", {
+      replace: true,
+      state: null,
+    });
   };
 
   return (
@@ -136,7 +156,8 @@ export default function TicketNotification() {
                   <>
                     <button
                       className="btn d-flex align-items-center justify-content-center"
-                      onClick={() => setShowFullMessage(false)}
+                      // onClick={() => setShowFullMessage(false)}
+                      onClick={handleBack}
                       style={{
                         position: "absolute",
                         top: "15px",
@@ -150,12 +171,6 @@ export default function TicketNotification() {
                         boxShadow: "0 4px 10px rgba(47, 79, 79, 0.25)",
                         transition: "all 0.3s ease",
                       }}
-                      onMouseEnter={(e) =>
-                        (e.currentTarget.style.backgroundColor = "#0000ff")
-                      }
-                      onMouseLeave={(e) =>
-                        (e.currentTarget.style.backgroundColor = "#0000ff")
-                      }
                     >
                       <ArrowBackIcon />
                     </button>
@@ -290,17 +305,15 @@ export default function TicketNotification() {
                             }
                             className="btn shadow-sm"
                             style={{
-                              backgroundColor: "#2f4f4f",
+                              backgroundColor: "#0000ff",
                               color: "white",
                               fontWeight: "600",
                               padding: "10px 35px",
-                              borderRadius: "50px",
+                              borderRadius: "0px",
                               marginTop: "25px",
                               border: "none",
                               fontSize: "15px",
                               letterSpacing: "0.5px",
-                              boxShadow:
-                                "0 4px 10px rgba(47, 79, 79, 0.25)",
                               transition: "all 0.3s ease",
                             }}
                             onMouseEnter={(e) =>
@@ -315,10 +328,7 @@ export default function TicketNotification() {
                             Agree
                           </button>
                         ) : data?.type === "agreement success" ? (
-                          <CheckCircleOutlineIcon
-                            sx={{ fontSize: 55, color: "#2e7d32" }}
-                            className="mt-3"
-                          />
+                          ""
                         ) : (
                           ""
                         )}

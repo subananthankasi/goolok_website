@@ -39,6 +39,7 @@ function Notification() {
   };
   const [rowId, setRowId] = useState(null);
   const [showFullMessage, setShowFullMessage] = useState(false);
+  
   const handleClick = (notification) => {
     setRowId(notification.id);
     setShowFullMessage(true);

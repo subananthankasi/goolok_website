@@ -322,7 +322,7 @@ const SellProperty = () => {
           Sell Your Property, The Hassle-Free Way
         </h2>
         <div
-          className=""
+          className="mb-5"
           style={{
             border: "1px solid rgb(193 212 255)",
             backgroundColor: "rgb(238 243 255)",
@@ -648,14 +648,14 @@ const SellProperty = () => {
                       {loading ? (
                         <ThreeDots
                           visible={true}
-                          height="15"
-                          width="80"
+                          height="22"
+                          width="65"
                           color="#ffffff"
                           radius="18"
                           ariaLabel="three-dots-loading"
                           wrapperStyle={{
                             justifyContent: "center",
-                            fontSize: "12px",
+                            fontSize: "11px",
                           }}
                           wrapperClass=""
                         />

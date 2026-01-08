@@ -28,7 +28,6 @@ function ProfileSideBar() {
   const alert = useAlert();
   const [activeTab, setActiveTab] = useState("");
 
-
   useEffect(() => {
     if (location.pathname.includes("/profile_edit/mybooking")) {
       setActiveTab("mybooking");
@@ -140,7 +139,6 @@ function ProfileSideBar() {
   return (
     <>
       <div
-        className="d-none d-md-block"
         style={{
           padding: 22,
           boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
@@ -259,117 +257,6 @@ function ProfileSideBar() {
             </h6>
           </div>
         </div>
-
-        {/* <ul className="nav nav-pills flex-column" id="myTab" role="tablist">
-          <li className="nav-item">
-            <a
-              className={`nav-link ${activeTab === "address" || activeTab === "add_address"
-                ? "active"
-                : ""
-                }`}
-              onClick={() => {
-                setActiveTab("address");
-                navigate("/profile_edit/address");
-              }}
-              style={{ color: "white", fontWeight: "500", fontFamily: "poppins" }}
-            >
-              <AccountCircleIcon /> Profile
-            </a>
-          </li>
-          <li className="nav-item" style={{ color: "white" }}>
-            <a
-              // className={`nav-link ${activeTab === "mybooking" || activeTab === "bookdetails"
-              //   ? "active"
-              //   : ""
-              //   }`}
-              className={`nav-link ${location.pathname === "/profile_edit/mybooking" ||
-                  location.pathname.startsWith("/profile_edit/bookdetails")
-                  ? "active"
-                  : ""
-                }`}
-              onClick={() => {
-                setActiveTab("mybooking");
-                navigate("/profile_edit/mybooking");
-              }}
-              style={{ color: "white", fontWeight: "500", fontFamily: "poppins" }}
-            >
-              <ApartmentIcon /> My Bookings
-            </a>
-          </li>
-          <li className="nav-item">
-            <a
-              // className={`nav-link ${activeTab === "service"
-              //   ? "active"
-              //   : ""
-              //   }`}
-              className={`nav-link ${location.pathname === "/profile_edit/service" ||
-                  location.pathname.startsWith("/profile_edit/servicedetails")
-                  ? "active"
-                  : ""
-                }`}
-              onClick={() => {
-                setActiveTab("service");
-                navigate("/profile_edit/service");
-              }}
-              style={{ color: "white", fontWeight: "500", fontFamily: "poppins" }}
-            >
-              <DesignServicesIcon /> Services
-            </a>
-          </li>
-
-          <li className="nav-item">
-            <a
-              className={`nav-link ${location.pathname === "/profile_edit/notification"
-                ? "active"
-                : ""
-                }`}
-              onClick={() => navigate("/profile_edit/notification")}
-              style={{ color: "white", fontWeight: "500", fontFamily: "poppins" }}
-            >
-              <UnsubscribeIcon /> Notifications
-            </a>
-          </li>
-
-
-          <li className="nav-item">
-            <a
-              className={`nav-link ${location.pathname === "/profile_edit/my_property" ||
-                location.pathname.startsWith("/profile_edit/property_status/")
-                ? "active"
-                : ""
-                }`}
-              onClick={() => navigate("/profile_edit/my_property")}
-              style={{ color: "white", fontWeight: "500", fontFamily: "poppins" }}
-            >
-              <BookmarkBorderIcon /> My Properties
-            </a>
-          </li>
-          <li className="nav-item">
-            <a
-              className={`nav-link ${location.pathname === "/profile_edit/paymenthistory"
-                ? "active"
-                : ""
-                }`}
-              onClick={() => navigate("/profile_edit/paymenthistory")}
-              style={{ color: "white", fontWeight: "500", fontFamily: "poppins" }}
-            >
-              <HistoryIcon /> Payment History
-            </a>
-          </li>
-
-          <li className="nav-item">
-            <a
-              className={`nav-link ${location.pathname === "/profile_edit/customercare"
-                ? "active"
-                : ""
-                }`}
-              onClick={() => navigate("/profile_edit/customercare")}
-              style={{ color: "white", fontWeight: "500", fontFamily: "poppins" }}
-            >
-              <HeadsetMicIcon /> Customer Care
-            </a>
-          </li>
-        </ul> */}
         <ul className="premium-sidebar">
           <li>
             <a

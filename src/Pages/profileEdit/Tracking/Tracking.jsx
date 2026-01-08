@@ -67,40 +67,40 @@ function Tracking() {
 
   const statusToStepIndex = isApartment
     ? {
-        null: 0,
-        Document_verify: 1,
-        Invoice_verify: 2,
-        Proposal_verify: 3,
-        Payment_verify: 4,
-        Lawyer_verify: 5,
-        Survey_verify: 5,
-        Ownwer_agree: 6,
-      }
+      null: 0,
+      Document_verify: 1,
+      Invoice_verify: 2,
+      Proposal_verify: 3,
+      Payment_verify: 4,
+      Lawyer_verify: 5,
+      Survey_verify: 5,
+      Ownwer_agree: 6,
+    }
     : isAproject
-    ? {
+      ? {
         null: 0,
         Document_verify: 1,
         Lawyer_verify: 2,
         Ownwer_agree: 3,
       }
-    : isLayout
-    ? {
-        null: 0,
-        Document_verify: 1,
-        Invoice_verify: 2,
-        Lawyer_verify: 3,
-        Ownwer_agree: 4,
-      }
-    : {
-        null: 0,
-        Document_verify: 1,
-        Invoice_verify: 2,
-        Proposal_verify: 3,
-        Payment_verify: 4,
-        Lawyer_verify: 5,
-        Survey_verify: 6,
-        Ownwer_agree: 7,
-      };
+      : isLayout
+        ? {
+          null: 0,
+          Document_verify: 1,
+          Invoice_verify: 2,
+          Lawyer_verify: 3,
+          Ownwer_agree: 4,
+        }
+        : {
+          null: 0,
+          Document_verify: 1,
+          Invoice_verify: 2,
+          Proposal_verify: 3,
+          Payment_verify: 4,
+          Lawyer_verify: 5,
+          Survey_verify: 6,
+          Ownwer_agree: 7,
+        };
 
   const currentStatus = data[0]?.dpt_status;
   let currentStepIndex = statusToStepIndex[currentStatus] ?? null;
@@ -204,46 +204,46 @@ function Tracking() {
   const contentRef = useRef();
   const steps = isApartment
     ? [
-        {
-          title: "Document Verification",
-          component: (
-            <DocumentVerification docdata={data[0]?.docdata} fetch={fetch} />
+      {
+        title: "Document Verification",
+        component: (
+          <DocumentVerification docdata={data[0]?.docdata} fetch={fetch} />
+        ),
+      },
+      { title: "Advance Payment", component: <AdvancePayment id={id} /> },
+      {
+        title: "Price Proposal",
+        component: <PricePropasal id={id} activeTab={activeTab} />,
+      },
+      {
+        title: "Invoice Payment",
+        component: <InvoicePayment id={id} tab={activeTab} />,
+      },
+      {
+        title: "Legal Opinion",
+        component: <LawyerOpinion id={id} tab={activeTab} />,
+      },
+      // { title: "Land Owner Agreement", component: <ApartLandOwnerAgreement id={id} tab={activeTab} /> },
+      {
+        title: "Seller Owner Agreement",
+        component:
+          data[0]?.property_type === "Plot" ? (
+            <PlotLandOwnerAgrement id={id} tab={activeTab} />
+          ) : data[0]?.property_type === "House" ? (
+            <HouseLandOwnerAgreement id={id} tab={activeTab} />
+          ) : data[0]?.property_type === "Layout" ? (
+            <LayoutLandOwnerAgreement id={id} tab={activeTab} />
+          ) : data[0]?.property_type === "Commercial" ? (
+            <CommercialLandOwnerAgreement id={id} tab={activeTab} />
+          ) : data[0]?.property_type === "Apartment Project" ? (
+            <ApartProjectLandOwnerAgree id={id} tab={activeTab} />
+          ) : (
+            <ApartLandOwnerAgreement id={id} tab={activeTab} />
           ),
-        },
-        { title: "Advance Payment", component: <AdvancePayment id={id} /> },
-        {
-          title: "Price Proposal",
-          component: <PricePropasal id={id} activeTab={activeTab} />,
-        },
-        {
-          title: "Invoice Payment",
-          component: <InvoicePayment id={id} tab={activeTab} />,
-        },
-        {
-          title: "Legal Opinion",
-          component: <LawyerOpinion id={id} tab={activeTab} />,
-        },
-        // { title: "Land Owner Agreement", component: <ApartLandOwnerAgreement id={id} tab={activeTab} /> },
-        {
-          title: "Seller Owner Agreement",
-          component:
-            data[0]?.property_type === "Plot" ? (
-              <PlotLandOwnerAgrement id={id} tab={activeTab} />
-            ) : data[0]?.property_type === "House" ? (
-              <HouseLandOwnerAgreement id={id} tab={activeTab} />
-            ) : data[0]?.property_type === "Layout" ? (
-              <LayoutLandOwnerAgreement id={id} tab={activeTab} />
-            ) : data[0]?.property_type === "Commercial" ? (
-              <CommercialLandOwnerAgreement id={id} tab={activeTab} />
-            ) : data[0]?.property_type === "Apartment Project" ? (
-              <ApartProjectLandOwnerAgree id={id} tab={activeTab} />
-            ) : (
-              <ApartLandOwnerAgreement id={id} tab={activeTab} />
-            ),
-        },
-      ]
+      },
+    ]
     : isAproject
-    ? [
+      ? [
         {
           title: "Document Verification",
           component: (
@@ -260,514 +260,173 @@ function Tracking() {
           component: <ApartProjectLandOwnerAgree id={id} tab={activeTab} />,
         },
       ]
-    : isLayout
-    ? [
-        {
-          title: "Document Verification",
-          component: (
-            <DocumentVerification docdata={data[0]?.docdata} fetch={fetch} />
-          ),
-        },
-        { title: "Advance Payment", component: <AdvancePayment id={id} /> },
-        {
-          title: "Legal Opinion",
-          component: <LawyerOpinion id={id} tab={activeTab} />,
-        },
-        {
-          title: "Seller Owner Agreement",
-          component: <LayoutLandOwnerAgreement id={id} tab={activeTab} />,
-        },
-      ]
-    : [
-        {
-          title: "Document Verification",
-          component: (
-            <DocumentVerification docdata={data[0]?.docdata} fetch={fetch} />
-          ),
-        },
-        { title: "Advance Payment", component: <AdvancePayment id={id} /> },
-        {
-          title: "Price Proposal",
-          component: <PricePropasal id={id} activeTab={activeTab} />,
-        },
-        {
-          title: "Invoice Payment",
-          component: <InvoicePayment id={id} tab={activeTab} />,
-        },
-        {
-          title: "Legal Opinion",
-          component: <LawyerOpinion id={id} tab={activeTab} />,
-        },
-        {
-          title: "FMB Sketch",
-          component: <FMBSketch id={id} tab={activeTab} />,
-        },
-        {
-          title: "Seller Owner Agreement",
-          component: <LandOwnerAgreement id={id} tab={activeTab} />,
-        },
-      ];
+      : isLayout
+        ? [
+          {
+            title: "Document Verification",
+            component: (
+              <DocumentVerification docdata={data[0]?.docdata} fetch={fetch} />
+            ),
+          },
+          { title: "Advance Payment", component: <AdvancePayment id={id} /> },
+          {
+            title: "Legal Opinion",
+            component: <LawyerOpinion id={id} tab={activeTab} />,
+          },
+          {
+            title: "Seller Owner Agreement",
+            component: <LayoutLandOwnerAgreement id={id} tab={activeTab} />,
+          },
+        ]
+        : [
+          {
+            title: "Document Verification",
+            component: (
+              <DocumentVerification docdata={data[0]?.docdata} fetch={fetch} />
+            ),
+          },
+          { title: "Advance Payment", component: <AdvancePayment id={id} /> },
+          {
+            title: "Price Proposal",
+            component: <PricePropasal id={id} activeTab={activeTab} />,
+          },
+          {
+            title: "Invoice Payment",
+            component: <InvoicePayment id={id} tab={activeTab} />,
+          },
+          {
+            title: "Legal Opinion",
+            component: <LawyerOpinion id={id} tab={activeTab} />,
+          },
+          {
+            title: "FMB Sketch",
+            component: <FMBSketch id={id} tab={activeTab} />,
+          },
+          {
+            title: "Seller Owner Agreement",
+            component: <LandOwnerAgreement id={id} tab={activeTab} />,
+          },
+        ];
   return (
     <>
       {fetchError ? (
         <NotFound />
       ) : (
-        // <div className="container profile_edit">
-        //   <div className="row w-100">
-        //     <ProfileSideBar />
+        <div className="" style={{ margin: "20px 0px" }}>
+          <div className="shadow cardheight">
+            <div className="row">
+              <div className="col-lg-4 ">
+                <div
+                  className="rounded-0 p-4 property_tracking"
+                  style={{
+                    height: "100%",
+                    borderRight: "1px solid #00000042",
+                  }}
+                >
+                  <Steps
+                    current={currentStepIndex ?? -1}
+                    direction="vertical"
+                    progressDot={(dot, { index }) => {
+                      const isActive = index <= currentStepIndex;
+                      const isDotGreen =
+                        index <= currentStepIndex - 1 ||
+                        currentStepIndex === 7;
+                      const isLineGreen = index <= currentStepIndex;
 
-            <div className="" style={{ margin: "20px 0px" }}>
-              <div className="shadow cardheight">
-                <div className="row">
-                  {/* <div className="col-lg-4 ">
-                    <div
-                      className="rounded-0 p-4 property_tracking"
-                      style={{
-                        height: "100%",
-                        borderRight: "1px solid #00000042",
-                      }}
-                    >
-                      <div className="row">
-                        <ul
-                          className="nav nav-pills flex-column"
-                          id="myTab"
-                          role="tablist"
+                      return (
+                        <div
+                          style={{
+                            position: "relative",
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "center",
+                          }}
                         >
-                          <li className="nav-item">
-                            <a
-                              className={`nav-link ${activeTab == "1" ? "active_status" : ""
-                                }`}
-                              onClick={() => handleTabChange(1)}
-                              role="tab"
-                            >
-                              Document Verification
-                            </a>
-                          </li>
-
-                          <li className="nav-item">
-                            <a
-                              className={`nav-link ${activeTab == "2" ? "active_status" : ""
-                                }`}
-                              onClick={() => handleTabChange(2)}
-                              role="tab"
-                              aria-controls="2"
-                            >
-                              Advance Payment
-                            </a>
-                          </li>
-
-                          <li className="nav-item">
-                            <a
-                              className={`nav-link ${activeTab == "3" ? "active_status" : ""
-                                }`}
-                              onClick={() => handleTabChange(3)}
-                              role="tab"
-                              aria-controls="property"
-                              aria-selected={activeTab === "3"}
-                            >
-                              Price Proposal
-                            </a>
-                          </li>
-
-                          <li className="nav-item">
-                            <a
-                              className={`nav-link ${activeTab == "4" ? "active_status" : ""
-                                }`}
-                              onClick={() => handleTabChange(4)}
-                              role="tab"
-                              aria-controls="property"
-                              aria-selected={activeTab === "4"}
-                            >
-                              Invoice Payment
-                            </a>
-                          </li>
-
-
-                          <li className="nav-item">
-                            <a
-                              className={`nav-link ${activeTab == "5" ? "active_status" : ""
-                                }`}
-                              onClick={() => handleTabChange(5)}
-                              role="tab"
-                              aria-controls="property"
-                              aria-selected={activeTab === "5"}
-                            >
-                              Lawyer Opinion
-                            </a>
-                          </li>
-
-                          <li className="nav-item">
-                            <a
-                              className={`nav-link ${activeTab == "6" ? "active_status" : ""
-                                }`}
-                              onClick={() => handleTabChange(6)}
-                              role="tab"
-                              aria-controls="property"
-                              aria-selected={activeTab === "6"}
-                            >
-                              FMB sketch
-                            </a>
-                          </li>
-
-                          <li className="nav-item">
-                            <a
-                              className={`nav-link ${activeTab == "7" ? "active_status" : ""
-                                }`}
-                              onClick={() => handleTabChange(7)}
-                              role="tab"
-                              aria-controls="property"
-                              aria-selected={activeTab === "7"}
-                            >
-                              Land Owner Agreement
-                            </a>
-                          </li>
-
-                        </ul>
-                      </div>
-                    </div>
-                  </div>  */}
-
-                  <div className="col-lg-4 ">
-                    <div
-                      className="rounded-0 p-4 property_tracking"
-                      style={{
-                        height: "100%",
-                        borderRight: "1px solid #00000042",
-                      }}
-                    >
-                      {/* <Steps
-                        current={currentStepIndex}
-                        direction="vertical"
-                        progressDot={(dot, { index }) => {
-                          const isActive = index <= currentStepIndex;
-                       
-                          return (
+                          {/* Line */}
+                          {index !== 0 && (
                             <div
                               style={{
-                                position: "relative",
-                                display: "flex",
-                                flexDirection: "column",
-                                alignItems: "center",
+                                position: "absolute",
+                                top: -32,
+                                width: 2,
+                                height: 24,
+                                backgroundColor: isLineGreen
+                                  ? "#0000ff"
+                                  : "#d9d9d9",
                               }}
-                            >
-                           
-                              {index !== 0 && (
-                                <div
-                                  style={{
-                                    position: "absolute",
-                                    top: -32,
-                                    width: 2,
-                                    height: 24,
-                                    backgroundColor: index <= currentStepIndex ? "rgb(0, 97, 0)" : "#d9d9d9",
-                                    
-                                  }}
-                                />
-                              )}
-                              
-                              <span
-                                style={{
-                                  width: 12,
-                                  height: 12,
-                                  backgroundColor: isActive ? "rgb(0, 97, 0)" : "#d9d9d9",
-                                  borderRadius: "50%",
-                                  display: "inline-block",
-                                }}
-                              />
-                            </div>
-                          );
-                        }}
-                        onChange={(tab) => {
-                          if (tab <= currentStepIndex) {
-                            handleTabChange(tab);
-                          }
-                        }}
-                        items={[
-                          { title: <span style={{ color: activeTab === 0 ? "rgb(6, 6, 167)" : "black" }} onClick={() => handleTabChange(0)}>Document Verification</span> },
-                          { title: <span style={{ color: activeTab === 1 ? "rgb(6, 6, 167)" : "black" }} onClick={() => handleTabChange(1)}>Advance Payment</span> },
-                          { title: <span style={{ color: activeTab === 2 ? "rgb(6, 6, 167)" : "black" }} onClick={() => handleTabChange(2)}>Price Proposal</span> },
-                          { title: <span style={{ color: activeTab === 3 ? "rgb(6, 6, 167)" : "black" }} onClick={() => handleTabChange(3)}>Invoice Payment</span> },
-                          { title: <span style={{ color: activeTab === 4 ? "rgb(6, 6, 167)" : "black" }} onClick={() => handleTabChange(4)}>Lawyer Opinion</span> },
-                          { title: <span style={{ color: activeTab === 5 ? "rgb(6, 6, 167)" : "black" }} onClick={() => handleTabChange(5)}>FMB Sketch</span> },
-                          { title: <span style={{ color: activeTab === 6 ? "rgb(6, 6, 167)" : "black" }} onClick={() => handleTabChange(6)}>Land Owner Agreement</span> },
-                        ]}
-                      /> */}
-                      <Steps
-                        current={currentStepIndex ?? -1}
-                        direction="vertical"
-                        progressDot={(dot, { index }) => {
-                          const isActive = index <= currentStepIndex;
-                          const isDotGreen =
-                            index <= currentStepIndex - 1 ||
-                            currentStepIndex === 7;
-                          const isLineGreen = index <= currentStepIndex;
+                            />
+                          )}
 
-                          return (
-                            <div
-                              style={{
-                                position: "relative",
-                                display: "flex",
-                                flexDirection: "column",
-                                alignItems: "center",
-                              }}
-                            >
-                              {/* Line */}
-                              {index !== 0 && (
-                                <div
-                                  style={{
-                                    position: "absolute",
-                                    top: -32,
-                                    width: 2,
-                                    height: 24,
-                                    backgroundColor: isLineGreen
-                                      ? "rgb(0, 97, 0)"
-                                      : "#d9d9d9",
-                                  }}
-                                />
-                              )}
-
-                              {/* Dot */}
-                              <span
-                                style={{
-                                  width: 12,
-                                  height: 12,
-                                  backgroundColor: isDotGreen
-                                    ? "rgb(0, 97, 0)"
-                                    : "#d9d9d9",
-                                  borderRadius: "50%",
-                                  display: "inline-block",
-                                }}
-                              />
-                            </div>
-                          );
-                        }}
-                        onChange={(tab) => {
-                          if (tab <= currentStepIndex) {
-                            handleTabChange(tab);
-                          }
-                        }}
-                        // items={[
-                        //   { title: <span style={{ color: activeTab === 0 ? "rgb(6, 6, 167)" : "black" }} onClick={() => handleTabChange(0)}>Document Verification</span> },
-                        //   { title: <span style={{ color: activeTab === 1 ? "rgb(6, 6, 167)" : "black" }} onClick={() => handleTabChange(1)}>Advance Payment</span> },
-                        //   { title: <span style={{ color: activeTab === 2 ? "rgb(6, 6, 167)" : "black" }} onClick={() => handleTabChange(2)}>Price Proposal</span> },
-                        //   { title: <span style={{ color: activeTab === 3 ? "rgb(6, 6, 167)" : "black" }} onClick={() => handleTabChange(3)}>Invoice Payment</span> },
-                        //   { title: <span style={{ color: activeTab === 4 ? "rgb(6, 6, 167)" : "black" }} onClick={() => handleTabChange(4)}>Lawyer Opinion</span> },
-                        //   { title: <span style={{ color: activeTab === 5 ? "rgb(6, 6, 167)" : "black" }} onClick={() => handleTabChange(5)}>FMB Sketch</span> },
-                        //   { title: <span style={{ color: activeTab === 6 ? "rgb(6, 6, 167)" : "black" }} onClick={() => handleTabChange(6)}>Land Owner Agreement</span> },
-                        // ]}
-                        items={steps.map((step, index) => ({
-                          title: (
-                            <span
-                              style={{
-                                color:
-                                  activeTab === index
-                                    ? "#0000ff"
-                                    : "black",
-                              }}
-                              onClick={() => handleTabChange(index)}
-                            >
-                              {step.title}
-                            </span>
-                          ),
-                        }))}
-                      />
-                    </div>
-                  </div>
-
-                  {/* <div className="col-lg-4 ">
-                    <div
-                      className="rounded-0 p-4 property_tracking"
-                      style={{
-                        height: "100%",
-                        borderRight: "1px solid #00000042",
-                      }}
-                    >
-                      <div className="row">
-                        <ul
-                          className="nav nav-pills flex-column"
-                          id="myTab"
-                          role="tablist"
-                        >
-                          <li className="nav-item">
-                            <a
-                              className={`nav-link ${activeTab == "1" ? "active_status" : ""
-                                }`}
-                              onClick={() => handleTabChange(1)}
-                              role="tab"
-                            >
-                              Document Verification
-                            </a>
-                          </li>
-
-                          <li className="nav-item">
-                            <a
-                              className={`nav-link ${activeTab == "2" ? "active_status" : ""
-                                }`}
-                              onClick={() => handleTabChange(2)}
-                              role="tab"
-                              aria-controls="2"
-                            >
-                              Advance Payment
-                            </a>
-                          </li>
-
-                          <li className="nav-item">
-                            <a
-                              className={`nav-link ${activeTab == "3" ? "active_status" : ""
-                                }`}
-                              onClick={() => handleTabChange(3)}
-                              role="tab"
-                              aria-controls="property"
-                              aria-selected={activeTab === "3"}
-                            >
-                              Price Proposal
-                            </a>
-                          </li>
-
-                          <li className="nav-item">
-                            <a
-                              className={`nav-link ${activeTab == "4" ? "active_status" : ""
-                                }`}
-                              onClick={() => handleTabChange(4)}
-                              role="tab"
-                              aria-controls="property"
-                              aria-selected={activeTab === "4"}
-                            >
-                              Invoice Payment
-                            </a>
-                          </li>
-
-
-                          <li className="nav-item">
-                            <a
-                              className={`nav-link ${activeTab == "5" ? "active_status" : ""
-                                }`}
-                              onClick={() => handleTabChange(5)}
-                              role="tab"
-                              aria-controls="property"
-                              aria-selected={activeTab === "5"}
-                            >
-                              Lawyer Opinion
-                            </a>
-                          </li>
-
-                          <li className="nav-item">
-                            <a
-                              className={`nav-link ${activeTab == "6" ? "active_status" : ""
-                                }`}
-                              onClick={() => handleTabChange(6)}
-                              role="tab"
-                              aria-controls="property"
-                              aria-selected={activeTab === "6"}
-                            >
-                              FMB sketch
-                            </a>
-                          </li>
-
-                          <li className="nav-item">
-                            <a
-                              className={`nav-link ${activeTab == "7" ? "active_status" : ""
-                                }`}
-                              onClick={() => handleTabChange(7)}
-                              role="tab"
-                              aria-controls="property"
-                              aria-selected={activeTab === "7"}
-                            >
-                              Land Owner Agreement
-                            </a>
-                          </li>
-
-                        </ul>
-                      </div>
-                    </div>
-                  </div> */}
-
-                  {loading ? (
-                    Array(3)
-                      .fill(0)
-                      .map((_, index) => (
-                        <div className="col-md-2 mt-3 p-4 ">
-                          <Skeleton
-                            height={100}
-                            style={{ marginBottom: "10px" }}
+                          {/* Dot */}
+                          <span
+                            style={{
+                              width: 12,
+                              height: 12,
+                              backgroundColor: isDotGreen
+                                ? "#0000ff"
+                                : "#d9d9d9",
+                              borderRadius: "50%",
+                              display: "inline-block",
+                            }}
                           />
                         </div>
-                      ))
-                  ) : (
-                    // <div className="col-lg-8">
-                    //   <div className="ca rd p-4 cardheight">
-                    //     <div
-                    //       className={`tab-pane fade ${activeTab === 0 ? "show active" : "d-none"
-                    //         }`}
-                    //     >
-                    //       <DocumentVerification docdata={data[0]?.docdata} fetch={fetch} />
-                    //     </div>
+                      );
+                    }}
+                    onChange={(tab) => {
+                      if (tab <= currentStepIndex) {
+                        handleTabChange(tab);
+                      }
+                    }}
 
-                    //     <div
-                    //       className={`tab-pane fade ${activeTab === 1 ? "show active" : "d-none"
-                    //         }`}
-                    //     >
-                    //       <AdvancePayment id={id} />
-
-                    //     </div>
-                    //     <div
-                    //       className={`tab-pane fade ${activeTab === 2 ? "show active" : "d-none"}`}
-                    //     >
-                    //       <PricePropasal id={id} activeTab={activeTab} />
-                    //     </div>
-
-                    //     <div
-                    //       className={`tab-pane fade ${activeTab === 3 ? "show active" : "d-none"
-                    //         }`}
-                    //     >
-                    //       <InvoicePayment id={id} tab={activeTab} />
-
-                    //     </div>
-
-                    //     <div
-                    //       className={`tab-pane fade ${activeTab === 4 ? "show active" : "d-none"
-                    //         }`}
-                    //     >
-                    //       <LawyerOpinion id={id} tab={activeTab} />
-
-                    //     </div>
-
-                    //     <div
-                    //       className={`tab-pane fade ${activeTab === 5 ? "show active" : "d-none"
-                    //         }`}
-                    //     >
-                    //       <FMBSketch id={id} tab={activeTab} />
-
-                    //     </div>
-
-                    //     <div
-                    //       className={`tab-pane fade ${activeTab === 6 ? "show active" : "d-none"
-                    //         }`}
-                    //     >
-                    //       <LandOwnerAgreement id={id} tab={activeTab} />
-
-                    //     </div>
-
-                    //   </div>
-                    // </div>
-                    <div className="col-lg-8">
-                      <div className="card p-4 cardheight">
-                        {steps.map((step, index) => (
-                          <div
-                            key={index}
-                            className={`tab-pane fade ${
-                              activeTab === index ? "show active" : "d-none"
-                            }`}
-                          >
-                            {step.component}
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
+                    items={steps.map((step, index) => ({
+                      title: (
+                        <span
+                          style={{
+                            color:
+                              activeTab === index
+                                ? "#0000ff"
+                                : "black",
+                            // fontWeight: activeTab === index ? "600" : "",
+                            // fontFamily:activeTab === index ? "poppins" : "",
+                          }}
+                          onClick={() => handleTabChange(index)}
+                        >
+                          {step.title}
+                        </span>
+                      ),
+                    }))}
+                  />
                 </div>
               </div>
-            {/* </div>
-          </div> */}
+              {loading ? (
+                Array(3)
+                  .fill(0)
+                  .map((_, index) => (
+                    <div className="col-md-2 mt-3 p-4 ">
+                      <Skeleton
+                        height={100}
+                        style={{ marginBottom: "10px" }}
+                      />
+                    </div>
+                  ))
+              ) : (
+
+                <div className="col-lg-8">
+                  <div className="card p-4 cardheight">
+                    {steps.map((step, index) => (
+                      <div
+                        key={index}
+                        className={`tab-pane fade ${activeTab === index ? "show active" : "d-none"
+                          }`}
+                      >
+                        {step.component}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
         </div>
       )}
     </>

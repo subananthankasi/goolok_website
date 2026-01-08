@@ -63,13 +63,18 @@ const AdvancePayment = ({ id }) => {
       total: currencyFormatter.format(total),
     };
   };
+  console.log()
+  const [loading, setLoading] = useState(false)
   const fetch = async () => {
+    setLoading(true)
     try {
       const response = await axiosInstance.get(`/vendor/enquiry/${id}`);
       setData(response.data);
       setInvoiceData(response.data);
+      setLoading(false)
     } catch (error) {
       console.error(error);
+      setLoading(false)
     }
   };
   useEffect(() => {
@@ -145,6 +150,7 @@ const AdvancePayment = ({ id }) => {
     const pay = new window.Razorpay(options);
     pay.open();
   };
+
   return (
     <div>
       {data[0]?.advance === null ? (
@@ -152,10 +158,10 @@ const AdvancePayment = ({ id }) => {
           <h6 className="fw-bold">Waiting for your Advance Payment...</h6>
         </div>
       ) : paymentLoading ? (
-        <div>  
-         <Skeleton height= "600px" style={{ marginBottom: "10px"}} />
+        <div>
+          <Skeleton height="600px" style={{ marginBottom: "10px" }} />
         </div>
-      ):(
+      ) : (
         <>
           {data[0]?.advance?.status === "pending" ? (
             ""
@@ -189,115 +195,6 @@ const AdvancePayment = ({ id }) => {
               </button>
             </div>
           )}
-
-          {/* <article className="p-4" ref={contentRef} style={{ background: "#fff", }} >
-                                <h3 className="text-center" style={{ fontWeight: "800" }}> INVOICE </h3>
-                                <hr />
-                                <div className="d-flex justify-content-between ">
-                                    <div className="mt-3 mb-5">
-                                        <img src={logo} alt="goolok" style={{ width: "100px", height: "25px" }} />
-                                        <div className="m-0">
-                                            <p className='p-0 m-0' style={{ fontSize: "11px" }}><b>  Goolok Pvt ltd </b></p>
-                                            <p className='p-0 m-0' style={{ fontSize: "11px" }}> <b>2nd Floor, 129,</b></p>
-                                            <p className='p-0 m-0' style={{ fontSize: "11px" }}> <b>Nungambakkam, Chennai,</b> </p>
-                                            <p className='p-0 m-0' style={{ fontSize: "11px" }}> <b>Tamil Nadu 600034 </b></p>
-                                        </div>
-                                    </div>
-                                    {invoiceData?.map((item, index) => {
-                                        return (
-                                            <div className="mt-3 mb-5" key={index}>
-                                                <p className="p-0 m-0" style={{ fontSize: "11px" }}><b>Invoice no : </b> {item.advance?.invoice_id}  </p>
-                                                <p className="p-0 m-0" style={{ fontSize: "11px" }}><b> Name: </b> {item.customer}  </p>
-                                                <p className="p-0 m-0" style={{ fontSize: "11px" }}><b> Date:</b> {item.advance?.invoice_date} </p>
-                                                <p className="p-0 m-0" style={{ fontSize: "11px" }}><b>  Email:</b>{item.email_id} </p>
-                                                <p className="p-0 m-0" style={{ fontSize: "11px" }}><b>  Mobile:</b>{item.mobile} </p>
-
-                                            </div>
-                                        )
-                                    })}
-
-                                </div>
-                                <section className="line-items  ">
-                                    <table className="items--table w-100 mt-5 p-2 table-bordered">
-                                        <thead className="p-1">
-                                            <tr className="p-1">
-                                                <th className="p-1 text-center" style={{ fontSize: "11px" }}>S.NO</th>
-                                                <th className='text-center' style={{ fontSize: "11px" }}>Qty</th>
-                                                <th className='text-center' style={{ fontSize: "11px" }}>Description</th>
-                                                <th className='text-center' style={{ fontSize: "11px" }}>Advance Payment</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {invoiceData?.map((item, index) => (
-
-                                                <tr className="p-1" key={index}>
-                                                    <td className="p-1 text-center" style={{ fontSize: "11px" }}> 1</td>
-                                                    <td className='text-center' style={{ fontSize: "11px" }}>1</td>
-                                                    <td className='text-center' style={{ fontSize: "11px" }}>Advance payment</td>
-                                                    <td className='text-center' style={{ fontSize: "11px" }}>₹ {item.advance?.amount} </td>
-                                                </tr>
-
-                                            ))}
-
-                                        </tbody>
-                                        <tfoot>
-                                            <tr>
-                                                <td colSpan="3" className='text-end p-1' style={{ fontSize: "11px" }}>Sub Total</td>
-                                                <td colSpan="2" className='text-center' style={{ fontSize: "11px" }}>{calculateTotals().subtotal} </td>
-                                            </tr>
-                                            <tr>
-                                                <td colSpan="3" className='text-end p-1' style={{ fontSize: "11px" }}> GST(0%)</td>
-                                                <td colSpan="2" className='text-center' style={{ fontSize: "11px" }}>0.00 </td>
-                                            </tr>
-                                            <tr>
-                                                <td colSpan="3" className='text-end p-1' style={{ fontWeight: "600", fontSize: "11px" }}>Total</td>
-                                                <td colSpan="2" className='text-center' style={{ fontWeight: "600", fontSize: "11px" }}>{calculateTotals().total} </td>
-                                            </tr>
-
-                                        </tfoot>
-                                    </table>
-                                    <div className="mt-5 mb-5 w-50">
-                                        <p className="p-0 m-0 fw-bold">Terms & Conditions</p>
-                                        <p className='p-0 m-0' style={{ fontSize: "11px" }}>payment deadlines, acceptable payment methods, late payment penalties, and other important clauses.</p>
-                                    </div>
-                                    {data[0]?.advance?.status === "pending" ? (
-                                        <div className="row">
-                                            <div className="mt-3 mt-md-0">
-                                                <section className="car d p-4 cardheight">
-                                                  
-                                                    <div className="text-center">
-                                                        <button
-                                                            className="btn  mt-3 text-white"
-                                                            style={{
-                                                                backgroundColor: "#2f4f4f",
-                                                                minWidth: "200px",
-                                                            }}
-                                                            onClick={() => {
-                                                                navigate(
-                                                                    `/notification_details/${encryptData(
-                                                                        data[0]?.advance?.id
-                                                                    )}`
-                                                                );
-                                                            }}
-                                                        >
-                                                            Pay {data[0]?.advance?.amount}
-                                                        </button>
-                                                    </div>
-                                                </section>
-                                            </div>
-                                        </div>
-                                    ) : (
-                                        <div className="mt-5">
-                                            <h4 className="text-center mt-5">Thank You For Your Bussiness ! </h4>
-                                        </div>
-                                    )
-
-                                    }
-
-
-                                </section>
-
-                            </article> */}
           <article
             className="p-4"
             ref={contentRef}
@@ -357,7 +254,9 @@ const AdvancePayment = ({ id }) => {
                 GOOLOK.COM
               </h6>
             </div>
-            {invoiceData?.map((item) => (
+            {loading ? (
+              <Skeleton height='4rem' style={{ marginBottom: "10px", marginTop: "50px" }} />
+            ) : invoiceData?.map((item) => (
               <section
                 key={item.invoice_id}
                 style={{
@@ -392,12 +291,6 @@ const AdvancePayment = ({ id }) => {
                   >
                     {item.email_id}
                   </p>
-                  {/* <p
-                    style={{ margin: "4px 0", fontSize: "11px" }}
-                    className="roboto_left"
-                  >
-                    123 Anywhere St, chennai-600001
-                  </p> */}
                 </div>
                 <div style={{ textAlign: "right" }}>
                   <p style={{ margin: "2px 0", fontSize: "11px" }}>
@@ -406,9 +299,6 @@ const AdvancePayment = ({ id }) => {
                   <p style={{ margin: "2px 0", fontSize: "11px" }}>
                     <b>Date:</b> {DateFormateCustom(item.advance?.invoice_date)}
                   </p>
-                  {/* <p style={{ margin: "2px 0", fontSize: "11px" }}>
-                    <b>Payment Mode:</b> Online
-                  </p> */}
                   <p style={{ margin: "2px 0", fontSize: "11px" }}>
                     <b>PropertyName:</b> {item?.subpro_name}
                   </p>
@@ -416,130 +306,121 @@ const AdvancePayment = ({ id }) => {
               </section>
             ))}
 
-            <table
-              style={{
-                width: "100%",
-                borderCollapse: "collapse",
-                marginBottom: "20px",
-                fontSize: "14px",
-              }}
-              className="table-striped mb-2"
-            >
-              <thead style={{ background: "#000000ff", color: "white" }}>
-                <tr>
-                  <th style={thStyle}>NO</th>
-                  <th style={thStyle}>QTY</th>
-                  <th style={thStyle}>DESCRIPTION</th>
-                  <th style={thStyle}>PRICE</th>
-                </tr>
-              </thead>
-              <tbody>
-                {invoiceData?.map((item, index) => (
-                  <React.Fragment key={index}>
-                    <tr
-                      style={{
-                        background: index % 2 === 0 ? "#e7e6e6ff" : "white",
-                      }}
-                    >
-                      <td
-                        className="p-2 text-center"
-                        style={{ fontSize: "10px" }}
-                      >
-                        {" "}
-                        1
-                      </td>
-                      <td className="text-center" style={{ fontSize: "10px" }}>
-                        1
-                      </td>
-                      <td className="text-center" style={{ fontSize: "10px" }}>
-                        Advance Payment{" "}
-                      </td>
-                      <td className="text-center" style={{ fontSize: "10px" }}>
-                        ₹ {item.advance?.amount}{" "}
-                      </td>
+            {
+              loading ? (
+                <Skeleton height='3rem' style={{ marginBottom: "10px" }} />
+              ) : (
+                <table
+                  style={{
+                    width: "100%",
+                    borderCollapse: "collapse",
+                    marginBottom: "20px",
+                    fontSize: "14px",
+                  }}
+                  className="table-striped mb-2"
+                >
+                  <thead style={{ background: "#000000ff", color: "white" }}>
+                    <tr>
+                      <th style={thStyle}>NO</th>
+                      <th style={thStyle}>QTY</th>
+                      <th style={thStyle}>DESCRIPTION</th>
+                      <th style={thStyle}>PRICE</th>
                     </tr>
-                  </React.Fragment>
-                ))}
-              </tbody>
-            </table>
+                  </thead>
+                  <tbody>
+                    {invoiceData?.map((item, index) => (
+                      <React.Fragment key={index}>
+                        <tr
+                          style={{
+                            background: index % 2 === 0 ? "#e7e6e6ff" : "white",
+                          }}
+                        >
+                          <td
+                            className="p-2 text-center"
+                            style={{ fontSize: "10px" }}
+                          >
+                            {" "}
+                            1
+                          </td>
+                          <td className="text-center" style={{ fontSize: "10px" }}>
+                            1
+                          </td>
+                          <td className="text-center" style={{ fontSize: "10px" }}>
+                            Advance Payment{" "}
+                          </td>
+                          <td className="text-center" style={{ fontSize: "10px" }}>
+                            ₹ {item.advance?.amount}{" "}
+                          </td>
+                        </tr>
+                      </React.Fragment>
+                    ))}
+                  </tbody>
+                </table>
+              )
+            }
 
-            <div
-              style={{ display: "flex", justifyContent: "flex-end" }}
-              className=""
-            >
-              <div style={{ width: "150px", marginBottom: "160px" }}>
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    marginBottom: "5px",
-                    fontSize: "11px",
-                  }}
-                  className="roboto_left mt-2 "
-                >
-                  <span>Sub Total :</span>
-                  <span>₹{calculateTotals().subtotal}</span>
-                </div>
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    marginBottom: "5px",
-                    fontWeight: "600",
-                    backgroundColor: "black",
-                    color: "white",
-                    fontSize: "11px",
-                  }}
-                  className="p-1 "
-                >
-                  <span>TOTAL AMOUNT:</span>
-                  <span>₹{calculateTotals().total}</span>
-                </div>
-              </div>
-            </div>
-            <div>
-              {/* <div
-                className="d-flex justify-content-between"
+            {loading ? (
+              <div
+                style={{ display: "flex", justifyContent: "flex-end", marginBottom: "160px" }}
+                className=""
               >
-                <div>
-                  <h6
+                <Skeleton height='3rem' width="10rem" style={{ marginBottom: "10px" }} />
+              </div>
+
+            ) : (
+              <div
+                style={{ display: "flex", justifyContent: "flex-end" }}
+                className=""
+              >
+                <div style={{ width: "150px", marginBottom: "160px" }}>
+                  <div
                     style={{
-                      fontWeight: "700",
-                      marginBottom: "10px",
-                      fontSize: "12px",
-                    }}
-                  >
-                    PAYMENT METHOD :
-                  </h6>
-                  <p style={{ margin: "2px 0", fontSize: "11px" }}>
-                    <b> Bank Name :</b> State Bank of India
-                  </p>
-                  <p style={{ margin: "2px 0", fontSize: "11px" }}>
-                    <b> Account Number :</b> 123-456-7890
-                  </p>
-                </div>
-                <div>
-                  <h6
-                    style={{
-                      fontWeight: "700",
-                      marginBottom: "10px",
+                      display: "flex",
+                      justifyContent: "space-between",
+                      marginBottom: "5px",
                       fontSize: "11px",
                     }}
+                    className="roboto_left mt-2 "
                   >
-                    Term and Conditions :
-                  </h6>
-                  <p style={{ margin: "2px 0", fontSize: "11px" }}>
-                    Please send payment within 30 days <br /> of receiving this
-                    invoice.
-                  </p>
+                    <span>Sub Total :</span>
+                    <span>₹{calculateTotals().subtotal}</span>
+                  </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      marginBottom: "5px",
+                      fontWeight: "600",
+                      backgroundColor: "black",
+                      color: "white",
+                      fontSize: "11px",
+                    }}
+                    className="p-1 "
+                  >
+                    <span>TOTAL AMOUNT:</span>
+                    <span>₹{calculateTotals().total}</span>
+                  </div>
                 </div>
-              </div> */}
+              </div>
+            )}
+
+
+            <div>
+
             </div>
             <section
               style={{ textAlign: "center", marginBottom: "300px" }}
               className="mt-5 mb-5"
             >
-              {data[0]?.advance?.status === "pending" ? (
+              {loading ? (
+                <div
+                  style={{ display: "flex", justifyContent: "center" }}
+                  className="mt-3 mb-5"
+                >
+                  <Skeleton height='1.5rem' width='10rem' style={{ marginBottom: "10px" }} />
+                </div>
+
+              ) : data[0]?.advance?.status === "pending" ? (
                 <div className="row">
                   <div className="mt-3 mt-md-0">
                     <section className="car d p-4 cardheight">
@@ -549,17 +430,10 @@ const AdvancePayment = ({ id }) => {
                           style={{
                             backgroundColor: "#0000ff",
                             minWidth: "150px",
-                            fontFamily:"poppins",
-                            borderRadius:"0px",
-                            fontWeight:"600"
+                            fontFamily: "poppins",
+                            borderRadius: "0px",
+                            fontWeight: "600"
                           }}
-                          // onClick={() => {
-                          //   navigate(
-                          //     `/notification_details/${encryptData(
-                          //       data[0]?.advance?.id
-                          //     )}`
-                          //   );
-                          // }}
                           onClick={handlePayment}
                         >
                           Pay {data[0]?.advance?.amount}

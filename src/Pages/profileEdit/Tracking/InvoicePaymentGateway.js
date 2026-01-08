@@ -79,9 +79,11 @@ const InvoicePaymentGateway = ({ invoiceData, fetchInvoice }) => {
       <button
         className="btn text-white"
         style={{
-          backgroundColor: "#2f4f4f",
+          backgroundColor: "#0000ff",
           minWidth: "150px",
-          fontFamily: "poppins"
+          fontFamily: "poppins",
+          borderRadius: "0px",
+          fontWeight: "600"
         }}
         onClick={handlePayment}
       >

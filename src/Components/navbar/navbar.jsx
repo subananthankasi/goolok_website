@@ -563,8 +563,8 @@ function Navbar({ visibleRight, setVisibleRight }) {
                         sx={{ width: 28, height: 28, mr: 1 }}
                       />
                       {userData?.customer
-                        ? userData.customer.charAt(0).toUpperCase() +
-                        userData.customer.slice(1).toLowerCase()
+                        ? userData?.customer?.charAt(0).toUpperCase() +
+                        userData?.customer?.slice(1).toLowerCase()
                         : ""}
                     </MenuItem>
                     <MenuItem
