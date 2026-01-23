@@ -10,7 +10,7 @@ export const recommendGetThunk = createAsyncThunk(
             method: "get",
             url: `${API_BASE_URL}/recommend`,
             headers: {
-                "Gl-Root": userId,
+                "Gl-Root":String(userId),
             },
         });
         return response.data;

@@ -1,17 +1,12 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import TodaysDeal from "./todaysDeal";
 import Banner from "./banner";
-import Apartment from "./apartmenthouse";
-import TodayOffer from "./todayoffer";
 import TicketCarousel from "./TicketCarousel";
 import Slider from "./slider";
 import Banner1 from "./banner1";
 import Recentlyadded from "./recentproperty";
-import CateGory from "./category";
 import TrustImages from "./TrustImages";
-import { Recommend } from "@mui/icons-material";
 import Recommended from "./Recommended";
-import axiosInstance from "../../Api/axiosInstance";
 import API_BASE_URL from "../../Api/api";
 import axios from "axios";
 import TCarousal1 from "./TCarousal1";

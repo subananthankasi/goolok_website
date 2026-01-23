@@ -177,13 +177,10 @@ function PropertyButton({ property, eid, loading }) {
   };
 
   useEffect(() => {
-    fetch();
-  }, []);
-
-  const [isClicked, setIsClicked] = useState(false);
-  const [wishlistStatus, setWishlistStatus] = useState(null);
-
-  const status = property?.map((item) => item.whishlist);
+    if (token) {
+      fetch();
+    }
+  }, [token]);
 
   //...........................................
 
@@ -193,13 +190,15 @@ function PropertyButton({ property, eid, loading }) {
   const wishlistVerify = useSelector((state) => state.wishlistVerify.data);
 
   useEffect(() => {
-    fetchProducts();
-    fetchWishlist();
+    if (token) {
+      fetchWishlist();
+      fetchProducts();
+    }
     // fetchCardList()
     if (localStorageCartId) {
       // dispatch(cardListThunk(localStorageCartId));
     }
-  }, [localStorageCartId]);
+  }, [localStorageCartId, token]);
 
   const fetchProducts = async () => {
     try {
@@ -232,9 +231,12 @@ function PropertyButton({ property, eid, loading }) {
   // };
   useEffect(() => {
     // fetchShopingCard();
-    dispatch(wishlistGetThunk());
-    dispatch(wishlistVerifyThunk(eid));
-  }, []);
+    if (token) {
+      dispatch(wishlistGetThunk());
+      dispatch(wishlistVerifyThunk(eid));
+    }
+
+  }, [token, dispatch]);
 
   const fetchWishlist = async () => {
     try {
@@ -558,7 +560,7 @@ function PropertyButton({ property, eid, loading }) {
                         onClick={() => navigate(`/Checkoutpage/${item.id}`)}
                         disabled={isSoldOut}
                       >
-                       {isSoldOut ? "Sold Out" :"Buy now" } 
+                        {isSoldOut ? "Sold Out" : "Buy now"}
                       </button>) : (
                         <button
                           className=" premium-buy-btn btn-theme w-75 "

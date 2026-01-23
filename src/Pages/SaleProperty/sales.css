@@ -323,10 +323,9 @@
 }
 
 .input-group-text {
-  color:white;
+  color: white;
   background-color: #0000ff;
   border-radius: 0px;
-  
 }
 
 .label_name {
@@ -438,4 +437,99 @@
   /* border: 1px dashed #e5e5ea; */
   border: 2px dashed #c3ddfd !important;
   /* display: block; */
+}
+.sell-property-form-box {
+  border: 1px solid rgb(193 212 255);
+  background-color: #f8fcff;
+  margin-left: 50px;
+}
+
+/* ---------- Laptop 1024px ---------- */
+@media (max-width: 1200px) {
+  .sell-property-container img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+/* ---------- Tablet 768px ---------- */
+@media (max-width: 992px) {
+  .sell-property-container .row {
+    flex-direction: column;
+  }
+.sell-property-form-box {
+
+  margin-left: 0px;
+}
+  .sell-property-container .col-4,
+  .sell-property-container .col-8 {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .sell-property-container form {
+    margin-left: 0 !important;
+  }
+}
+
+/* ---------- Mobile 768 & below ---------- */
+@media (max-width: 768px) {
+  .sell-property-container h2 {
+    font-size: 20px;
+    text-align: center;
+  }
+
+  .sell-property-container img {
+    width: 100%;
+    height: auto;
+  }
+
+  .sell-property-container .p-4 {
+    padding: 12px !important;
+  }
+
+  .sell-property-container h6 {
+    font-size: 14px;
+  }
+
+  .sell-property-container p {
+    font-size: 12px;
+  }
+
+  .sell-submit-btn {
+    width: 100%;
+  }
+
+  .rs-uploader {
+    width: 100% !important;
+  }
+
+  .sell-property-container .text-center {
+    font-size: 12px !important;
+    padding: 8px !important;
+  }
+
+  .sell-property-container .d-flex.flex-wrap {
+    justify-content: center !important;
+  }
+}
+
+/* ---------- Small Mobile 480px ---------- */
+@media (max-width: 480px) {
+  .sell-property-container {
+    padding: 10px;
+  }
+
+  .sell-property-container h2 {
+    font-size: 18px;
+  }
+
+  .sell-property-container img {
+    border-radius: 8px;
+  }
+
+  .sell-submit-btn {
+    font-size: 14px;
+    padding: 8px 12px;
+  }
 }

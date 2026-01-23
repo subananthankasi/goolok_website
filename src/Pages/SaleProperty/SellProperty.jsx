@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo,useState } from "react";
 import { Uploader } from "rsuite";
 import "./sales.css";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,7 +8,6 @@ import axiosInstance from "../../Api/axiosInstance";
 import { ThreeDots } from "react-loader-spinner";
 import { useAlert } from "react-alert";
 import { useFormik } from "formik";
-import * as yup from "yup";
 import propertyImage from "../../assets/sell_images/sellPropetyImage.jpg";
 import NotesIcon from "@mui/icons-material/Notes";
 import HandshakeIcon from "@mui/icons-material/Handshake";
@@ -28,12 +27,8 @@ import { Link } from "react-router-dom";
 
 const SellProperty = () => {
   const alert = useAlert();
-  const pattaRef = useRef();
-  const aadhaarRef = useRef();
-  const SaledeedRef = useRef();
   const dispatch = useDispatch();
   const [loading, setloading] = useState(false);
-  const [selectedType, setSelectedType] = useState(null);
   const [selectedPropertyType, setSelectedPropertyType] = useState("1");
   const [selectedSubPropertyType, setSelectedSubPropertyType] = useState([]);
   const visualIcons = (item) => {
@@ -94,33 +89,11 @@ const SellProperty = () => {
     }
   };
   const [fileList, setFileList] = useState([]);
-
-  // const handleChange = (newFileList) => {
-  //   console.log("newFileList", newFileList)
-  //   if (newFileList.length > 0) {
-  //     const latestFile = newFileList[newFileList.length - 1];
-  //     setFileList([
-  //       {
-  //         ...latestFile,
-  //         name: latestFile.name,
-  //         blobFile: latestFile.blobFile,
-  //         fileKey: Date.now(),
-  //       },
-  //     ]);
-  //   } else {
-  //     setFileList([]);
-  //     console.log("file", fileList)
-  //   }
-  // };
-
-
   const handleChange = (newFileList) => {
-
     if (!newFileList || newFileList.length === 0) {
       setFileList([]);
       return;
     }
-
     const latestFile = newFileList[newFileList.length - 1];
 
     setFileList([
@@ -147,9 +120,6 @@ const SellProperty = () => {
     dispatch(fetchSubPropertyType());
   }, [dispatch]);
 
-  const [pattaFiles, setPattaFiles] = useState([]);
-  const [aadhaarFiles, setAadhaarFiles] = useState([]);
-  const [saledeedFiles, setSaledeedFiles] = useState([]);
 
   const token = localStorage.getItem("zxcvbnm@#");
   const onSubmit = async () => {
@@ -159,26 +129,19 @@ const SellProperty = () => {
     }
     if (!selectedPropertyType) {
       toast.error("Please select a Property Type");
-
       return;
     }
-
     if (!selectedSubPropertyType || selectedSubPropertyType.length === 0) {
       toast.error("Please Select Subproperty Type");
       return;
     }
-
     if (fileList.length === 0) {
       toast.error("Please upload your Title Document");
       return;
     }
     const formData = new FormData();
-    // Object.keys(values).forEach((key) => {
-    //   formData.append(key, values[key]);
-    // });
-
     formData.append("saledeed", fileList[0].blobFile);
-    formData.append("type", selectedType ? selectedType.value : "sale");
+    formData.append("type", "sale");
     formData.append(
       "property",
       selectedPropertyType ? selectedPropertyType : ""
@@ -192,7 +155,7 @@ const SellProperty = () => {
     formData.append("email", userData ? userData.mail : "");
     setloading(true);
     try {
-      const response = await axiosInstance.post("/vendor/enquiry", formData, {
+      await axiosInstance.post("/vendor/enquiry", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
       formik.resetForm({ values: formik.initialValues });
@@ -200,9 +163,6 @@ const SellProperty = () => {
       setSelectedPropertyType("1");
       setSelectedSubPropertyType("");
       setFileList([]);
-      setPattaFiles([]);
-      setAadhaarFiles([]);
-      setSaledeedFiles([]);
       alert.success(
         "Your enquiry has been successfully sent. Our team will contact you shortly!"
       );
@@ -217,9 +177,6 @@ const SellProperty = () => {
 
   const formik = useFormik({
     initialValues: {
-      // customer: "",
-      // mobile: "",
-      // email: "",
       property: "",
       subproperty: "",
       type: "",
@@ -227,28 +184,6 @@ const SellProperty = () => {
       aadhaar: null,
       saledeed: null,
     },
-    validationSchema: yup.object().shape({
-      // customer: yup.string().required("full name is required !!"),
-      // mobile: yup
-      //   .string()
-      //   .matches(/^[0-9]{10}$/, "mobile number must be exactly 10 digits")
-      //   .required("phone number is required !!"),
-      // email: yup
-      //   .string()
-      //   .email("invalid email format")
-      //   .required("email is required !!"),
-      // property: yup
-      //   .string()
-      //   .required(
-      //     "please select the type of sub property you wish to advertise !!"
-      //   ),
-      // subproperty: yup
-      //   .string()
-      //   .required(
-      //     "please select the type of sub property you wish to advertise !!"
-      //   ),
-      // saledeed: yup.string().required("title document is required!"),
-    }),
     onSubmit,
   });
 
@@ -328,12 +263,12 @@ const SellProperty = () => {
             backgroundColor: "rgb(238 243 255)",
           }}
         >
-          <div className="row p-3 g-4">
+          <div className="row  g-4 p-0 p-md-4 sell-property-form-row">
             <div className="col-4">
               <img
                 src={propertyImage}
                 alt=""
-                style={{ width: "397px", height: "264px" }}
+                style={{ width: "100%", height: "auto" }}
               />
               <h6
                 className="mt-3"
@@ -435,12 +370,7 @@ const SellProperty = () => {
             </div>
             <div className="col-8">
               <div
-                style={{
-                  border: "1px solid rgb(193 212 255)",
-                  backgroundColor: "#f8fcff",
-                  marginLeft: "50px",
-                }}
-                className="p-4"
+                className="p-4 sell-property-form-box"
               >
                 <form
                   onSubmit={(e) => {
@@ -456,7 +386,7 @@ const SellProperty = () => {
                         .map((item, index) => (
                           <div
                             key={index}
-                            className="col-6 mb-2"
+                            className="col-12 col-md-6 col-lg-16 mb-2"
                             onClick={() => handlePropertyTypeSelect(item.id)}
                           >
                             <div
@@ -471,11 +401,6 @@ const SellProperty = () => {
                                   selectedPropertyType === item.id
                                     ? "linear-gradient(69.65deg, #0000ff, #78bdf6)"
                                     : "#fff",
-                                // background:
-                                //   selectedPropertyType === item.id
-                                //     ? "linear-gradient(90deg, rgba(15, 49, 255, 1) 42%,rgba(94, 165, 241, 1) 100%)"
-                                //     : "#fff",
-
                                 color:
                                   selectedPropertyType === item.id
                                     ? "white"
@@ -527,62 +452,11 @@ const SellProperty = () => {
                         </div>
                       ))}
                     </div>
-                    {/* Subproperty error */}
-                    {/* {formik.errors.subproperty &&
-                      formik.touched.subproperty && (
-                        <p className="error_msg">{formik.errors.subproperty}</p>
-                      )} */}
                   </div>
                   <div>
                     <h6 className="mt-4">Title Document</h6>
                     <div className="mt-4">
-                      {/* <Uploader
-                        ref={formik.SaledeedRef}
-                        action={null}
-                        draggable
-                        autoUpload={false}
-                        // fileList={formik.saledeedFiles}
-                        fileList={
-                          formik.values.saledeed
-                            ? [
-                                {
-                                  name: formik.values.saledeed.name,
-                                  fileKey: 1,
-                                },
-                              ]
-                            : []
-                        }
-                        onChange={(fileList) => {
-                          const file =
-                            fileList.length > 0 ? fileList[0].blobFile : null;
-                          formik.setFieldValue("saledeed", file);
-                        }}
-                      >
-                        <div
-                          style={{
-                            height: 110,
-                            display: "flex",
-                            flexDirection: "column",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            backgroundColor: "#ddefff",
-                          }}
-                        >
-                          <NoteAddOutlinedIcon
-                            sx={{ color: "#05599f", fontSize: 32 }}
-                          />
 
-                          <span
-                            style={{
-                              color: "#05599f",
-                              cursor: "pointer",
-                            }}
-                            className="mt-2"
-                          >
-                            Document
-                          </span>
-                        </div>
-                      </Uploader> */}
                       <Uploader
                         action=""
                         draggable

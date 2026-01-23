@@ -1,14 +1,10 @@
-import React, { useCallback, useEffect, useState } from "react";
+import  { useCallback, useEffect, useState } from "react";
 import "../home/homestyle.css";
 import { Carousel } from "primereact/carousel";
 import "react-multi-carousel/lib/styles.css";
 import "@fortawesome/fontawesome-free/css/all.css";
-import i1 from "../../assets/newui_images/land.jpg";
-import a1 from "../../assets/newui_images/apartment.jpg";
-import a2 from "../../assets/newui_images/villa.jpg";
-import a3 from "../../assets/newui_images/independenthouse.jpg";
 import axios from "axios";
-import API_BASE_URL, { IMG_PATH, LOGIN_BASE_URL } from "../../Api/api";
+import  { IMG_PATH, LOGIN_BASE_URL } from "../../Api/api";
 import { Link } from "react-router-dom";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
@@ -18,7 +14,6 @@ import {
   wishlistPostThunk,
   wishlistVerifyThunk,
 } from "../../Redux/Action/WishlistThunk";
-import { buyPropertiesThunk } from "../../Redux/Action/BuyPropertiesThunk";
 import LoginForm from "../../Components/Login/LoginForm";
 import { useAlert } from "react-alert";
 import { Skeleton } from "primereact/skeleton";
@@ -32,18 +27,7 @@ function Recommended({ loading }) {
   const userid = localStorage.getItem("userid");
   const alert = useAlert();
   const dispatch = useDispatch();
-  const fetchHighReturnProperties = async () => {
-    try {
-      const response = await axios.get(`${API_BASE_URL}/recommend`, {
-        headers: {
-          "Gl-Root": userid,
-        },
-      });
-      // setGetData(response.data?.data);
-    } catch (error) {
-      console.error("Error fetching land data:", error);
-    }
-  };
+ 
   const getData =
     useSelector((state) => state.RecommendGetData?.data?.data) || [];
 
@@ -51,7 +35,7 @@ function Recommended({ loading }) {
   useEffect(() => {
     // fetchHighReturnProperties();
     dispatch(recommendGetThunk(userid))
-  }, []);
+  }, [userid,dispatch]);
 
   const responsiveOptions = [
     {

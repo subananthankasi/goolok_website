@@ -3,23 +3,15 @@ import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  fetchNotificationMsg,
   fetchNotificationMsgUpdate,
 } from "../../Redux/Action/NotificationAction";
-import { encryptData } from "../../Utils/encryptData";
-// import { truncateContent } from "../../Utils/truncateContent";
-import ProfileSideBar from "./ProfileSideBar";
 import { truncateContent } from "../../Utils/truncateContent";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import axiosInstance from "../../Api/axiosInstance";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import { Skeleton } from "primereact/skeleton";
-import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
-import ShowFullNotificationMessage from "../../Components/Notification/ShowFullNotificationMessage";
-import { NotificationGetThunk } from "../../Redux/Action/NotificationThunk";
 import Lottie from "lottie-react";
-// import groovyWalkAnimation from "./groovyWalk.json";
 import groovyWalkAnimation from "../../assets/Celebrations Begin.json";
 
 export default function TicketNotification() {
@@ -33,10 +25,6 @@ export default function TicketNotification() {
   const notifications =
     useSelector((state) => state.notificationData.notification) || [];
 
-  // useEffect(() => {
-  //   dispatch(fetchNotificationMsg());
-  // }, [dispatch]);
-
   const fetch = async (id) => {
     setLoading(true);
     try {
@@ -47,12 +35,6 @@ export default function TicketNotification() {
       setLoading(false);
     }
   };
-  // useEffect(() => {
-  //   fetch(navNotifiData?.id);
-  //   if (navSHow) {
-  //     setShowFullMessage(true);
-  //   }
-  // }, [navNotifiData?.id, navSHow]);
 
   useEffect(() => {
     if (navNotifiData?.id) {
@@ -67,7 +49,6 @@ export default function TicketNotification() {
   const [loading, setLoading] = useState(false);
 
   const markAsRead = async (row) => {
-    const encryptId = encryptData(row.id);
     setShowFullMessage(true);
     setLoading(true);
     fetch(row.id);
@@ -359,10 +340,11 @@ export default function TicketNotification() {
                               display: "flex",
                               justifyContent: "center",
                               alignItems: "center",
-                              width: "100%",
+                              width: "70%",
                               animation: "fadeUp 1s ease-in-out",
                               position: "absolute",
                               top: "0",
+                              left:"120px"
                             }}
                           >
                             <Lottie

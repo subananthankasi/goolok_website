@@ -26,7 +26,6 @@ import {
 import PdfDownloadPage from "./Test/PdfDownloadPage";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "primereact/resources/themes/lara-light-cyan/theme.css";
-import PurchaseProperty from "./Pages/profileEdit/PurchaseProperty";
 import Mybooking from "./Pages/profileEdit/Mybooking";
 import Service from "./Pages/profileEdit/Service";
 import BookDetails from "./Pages/profileEdit/BookDetails";
@@ -183,10 +182,6 @@ function App() {
             element={<AfterLogin element={EditAddress} />}
           /> */}
 
-            <Route
-              path="/profile_edit/purchase_property"
-              element={<AfterLogin element={PurchaseProperty} />}
-            />
             <Route
               path="/profile_edit/ledger"
               element={<AfterLogin element={Ledger} />}

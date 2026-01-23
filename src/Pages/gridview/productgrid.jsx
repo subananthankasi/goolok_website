@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { IMG_PATH, LOGIN_BASE_URL } from "../../Api/api";
 import { Skeleton } from "primereact/skeleton";
 import SearchOffIcon from "@mui/icons-material/SearchOff";
@@ -78,77 +78,24 @@ const ProductGrid = ({ landType, searchValue }) => {
 
   const paginatedProducts = sortedProducts.slice(first, first + rows);
   const alert = useAlert();
-  const [notLogin, setNotLogin] = useState(false);
   const [isModalOpenlogin, setIsModalOpenlogin] = useState(false);
 
   const isAuthenticated = token;
   const closeModalLogin = () => {
     setIsModalOpenlogin(false);
   };
-  // const [store, setStore] = useState([])
-
-  // const handleWishlistClick = async (eid) => {
-  //   if (!token) {
-  //     setIsModalOpenlogin(true)
-
-  //   } else {
-
-  //     try {
-  //       const payload = {
-  //         enqid: eid,
-
-  //       };
-  //       dispatch(wishlistPostThunk(payload)).then(() => {
-  //         dispatch(wishlistVerifyThunk(eid));
-  //         dispatch(wishlistGetThunk());
-  //         setStore((prev) => {
-  //           if (prev.includes(eid)) {
-  //             return prev.filter((id) => id !== eid);
-  //           } else {
-  //             return [...prev, eid];
-  //           }
-  //         });
-  //       });
-  //       await dispatch(wishlistGetThunk());
-  //       alert.success("Item added to your wishlist ");
-  //     } catch (error) {
-  //       console.error("Error during the request:", error);
-  //     } finally {
-  //       dispatch(wishlistVerifyThunk(eid));
-  //       dispatch(wishlistGetThunk());
-  //       // dispatch(buyPropertiesThunk());
-
-  //     }
-  //   }
-  // }
-
-  // const removeFromWishlist = async (eid) => {
-  //   try {
-  //     await axios.delete(`${LOGIN_BASE_URL}/vendor/wishlist/${eid}`, {
-  //       headers: {
-  //         Authorization: token,
-  //       },
-  //     });
-  //     dispatch(wishlistGetThunk());
-  //     dispatch(wishlistVerifyThunk(eid));
-  //     alert.success("Item removed from your wishlist");
-  //   } catch (error) {
-  //     console.error("Error during the request:", error);
-  //   } finally {
-  //     dispatch(wishlistGetThunk());
-  //     dispatch(wishlistVerifyThunk(eid));
-  //     dispatch(buyPropertiesThunk());
-  //   }
-  // };
   const [store, setStore] = useState([]);
   useEffect(() => {
-    dispatch(wishlistGetThunk()).then((res) => {
-      if (res?.payload?.data) {
-        const ids = res.payload.data.map((item) => item.enqid);
-        setStore(ids);
-      }
-    });
-  }, [dispatch]);
+    if (token) {
+      dispatch(wishlistGetThunk()).then((res) => {
+        if (res?.payload?.data) {
+          const ids = res.payload.data.map((item) => item.enqid);
+          setStore(ids);
+        }
+      });
+    }
+
+  }, [dispatch, token]);
 
   const handleWishlistClick = async (eid) => {
     if (!token) {
@@ -265,18 +212,11 @@ const ProductGrid = ({ landType, searchValue }) => {
                         borderRadius: "0",
                       }}
                     >
-                      {/* {mobileFilter ? "Close Filter" : "Filter"} */}
                       Filter
                     </Button>
                   </div>
                   <div className="me-3">
                     <Link
-                      // to={
-                      //   `/propertymap?level=${selectedFilters.join(",")}` +
-                      //   `&pr-start=${value[0]}` +
-                      //   `&pr-end=${value[1]}` +
-                      //   (landType ? `&pr-root=${landType}` : "")
-                      // }
                       to="/propertymap"
                       state={{ sortedProducts }}
                       className=" premium-map-btn"

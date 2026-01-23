@@ -1,35 +1,24 @@
-import React, { useCallback, useEffect, useState } from "react";
+import  { useCallback, useEffect, useState } from "react";
 import FavoriteBorderRoundedIcon from "@mui/icons-material/FavoriteBorderRounded";
-import img from "../../assets/images/villa4.jpg";
 import Badge from "@mui/material/Badge";
 import axios from "axios";
 import { IMG_PATH, LOGIN_BASE_URL } from "../../Api/api";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import { useDispatch, useSelector } from "react-redux";
 import Button from "@mui/material/Button";
-import Login from "../Login/Login";
 import { Link, useNavigate } from "react-router-dom";
 import {
   wishlistGetThunk,
   wishlistVerifyThunk,
 } from "../../Redux/Action/WishlistThunk";
 import LoginForm from "../Login/LoginForm";
-import {
-  cardGetThunk,
-  cardListThunk,
-  cardPostThunk,
-} from "../../Redux/Action/AddToCardThunk";
-import { openCartSidebar } from "../../Redux/Reducer/SliderForAddToCart";
-import { useAlert } from "react-alert";
 import { recommendGetThunk } from "../../Redux/Action/RecommendThunk";
 import UseLocationFetcher from "../../Pages/home/UseLocationFetcher";
 import { nearbyPropertiesGetThunk } from "../../Redux/Action/NearbyPropertiesThunk";
 
 const Wishlist = () => {
   const token = localStorage.getItem("zxcvbnm@#");
-  const alert = useAlert();
   const navigate = useNavigate();
-  //   const [data, setData] = useState([]);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const condition = useSelector((state) => state.auth.isAuthenticated);
   const dispatch = useDispatch();
@@ -41,40 +30,13 @@ const Wishlist = () => {
       setIsAuthenticated(token);
     }
   }, [condition, token]);
-  // const fetch = async () => {
-  //     try {
-
-  //         const response = await axios.get(
-  //             `${LOGIN_BASE_URL}/vendor/wishlist`,
-  //             {
-  //                 headers: {
-  //                     'Authorization': token,
-  //                 }
-  //             }
-  //         );
-  //         setData(response.data);
-  //     } catch (error) {
-  //         console.error('Error during the request:', error);
-  //     }
-  // };
+  
   useEffect(() => {
     if (token) {
-      // fetch();
       dispatch(wishlistGetThunk());
     }
-  }, [token]);
-  // useEffect(() => {
-  //     if (token) {
-  //         fetch();
-
-  //         const intervalId = setInterval(() => {
-  //             fetch();
-  //         }, 2000);
-
-  //         return () => clearInterval(intervalId);
-  //     }
-
-  // }, [token]);
+  }, [token,dispatch]);
+ 
   const userid = localStorage.getItem("userid");
 
   const handleLocation = useCallback(
@@ -133,34 +95,6 @@ const Wishlist = () => {
   const data = useSelector((state) => state.wishlist.wishlistItems);
   const wishlistCount = useSelector((state) => state.wishlist.wishlistCount);
 
-  const localStorageCartId = localStorage.getItem("cartId");
-
-  // const handleAddToCard = async (productId) => {
-  //   try {
-  //     const payload = {
-  //       enqid: localStorageCartId ? localStorageCartId : productId,
-  //     };
-  //     dispatch(cardPostThunk(payload)).then(() => {
-  //       // dispatch(cardListThunk(localStorageCartId));
-  //       // dispatch(cardGetThunk());
-  //       dispatch(wishlistGetThunk());
-  //     });
-  //     alert.success("Item added to your cart successfully 🛒");
-  //     await dispatch(cardGetThunk());
-  //     await dispatch(openCartSidebar());
-
-  //     // fetchShopingCard();
-  //   } catch (error) {
-  //     console.error("Error during the request:", error);
-  //     alert.error("Failed to add item to cart. Please try again.");
-  //   } finally {
-  //     // fetchCardList();
-  //     // dispatch(cardListThunk(localStorageCartId));
-  //     // dispatch(cardGetThunk());
-  //   }
-  // };
-  const cardList = useSelector((state) => state.shoppingCardListData?.data);
-  const isInCardList = cardList;
 
   return (
     <>

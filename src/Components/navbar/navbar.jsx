@@ -1,7 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-// import React from 'react';
-import logo from "../../assets/images/LOGO1.png";
-// import { Link } from "react-router-dom";
 import FinalLogo from "../../assets/images/Goolok Final Logo.png";
 import { InputIcon } from "primereact/inputicon";
 import { IconField } from "primereact/iconfield";
@@ -13,10 +10,6 @@ import "../../assets/bootstrap5/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.js";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import HomeIcon from "@mui/icons-material/Home";
-import PersonIcon from "@mui/icons-material/Person";
-import SettingsIcon from "@mui/icons-material/Settings";
-import AddIcon from "@mui/icons-material/Add";
-import SearchIcon from "@mui/icons-material/Search";
 import { Avatar } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutAuth } from "../../Redux/Action/LoginAction.js";
@@ -25,71 +18,38 @@ import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import axios from "axios";
 import API_BASE_URL, { IMG_PATH, LOGIN_BASE_URL } from "../../Api/api.js";
-import map from "../../assets/images/magnifying-glass.png";
 import EnquiryModal from "./enquirymodal.jsx";
-import Login from "../Login/Login.jsx";
 import Signin from "../Signin/Signin.jsx";
 import { fetchUserData } from "../../Redux/Action/UserData.js";
 import Notification from "../Notification/Notification.jsx";
 import Wishlist from "../Notification/Wishlist.jsx";
-import AddToCard from "../Notification/AddToCard.jsx";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import LoginIcon from "@mui/icons-material/Login";
-// import Button from "@mui/material/Button";
-import LogoutIcon from "@mui/icons-material/Logout";
-import HomeWorkIcon from "@mui/icons-material/HomeWork";
 import ApartmentIcon from "@mui/icons-material/Apartment";
 import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
-import AddBoxIcon from "@mui/icons-material/AddBox";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import HistoryIcon from "@mui/icons-material/History";
 import HeadsetMicIcon from "@mui/icons-material/HeadsetMic";
 import PercentIcon from "@mui/icons-material/Percent";
 import CreditCardIcon from "@mui/icons-material/CreditCard";
 import DesignServicesIcon from "@mui/icons-material/DesignServices";
-import {
-  FaHome,
-  FaTools,
-  FaBuilding,
-  FaStore,
-  FaUserCircle,
-} from "react-icons/fa";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBars,
-  faHeart,
-  faSearch,
-  faShoppingCart,
-  faUser,
   faUserCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import LoginForm from "../Login/LoginForm.jsx";
-import { BiHomeAlt } from "react-icons/bi";
 import { TbHome } from "react-icons/tb";
 import { encryptData } from "../../Utils/encryptData.js";
-import profileimage from "../../assets/User-Profile-PNG-Image.png";
 import { Skeleton } from "primereact/skeleton";
 
-function Navbar({ visibleRight, setVisibleRight }) {
+function Navbar() {
   const alert = useAlert();
 
-  const [isPopupVisible, setPopupVisible] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const dispatch = useDispatch();
-
-  const togglePopup = () => {
-    setPopupVisible(!isPopupVisible);
-  };
-
   const [showModal, setShowModal] = useState(false);
-
-  const handleShow = () => setShowModal(true);
   const handleClose = () => setShowModal(false);
-
-  const [isOpenCategory, setIsOpenCategory] = useState(false);
-  const [isOpenLocation, setIsOpenLocation] = useState(false);
 
   const dropdownCategoryRef = useRef(null);
   const dropdownLocationRef = useRef(null);
@@ -100,13 +60,13 @@ function Navbar({ visibleRight, setVisibleRight }) {
         dropdownCategoryRef.current &&
         !dropdownCategoryRef.current.contains(event.target)
       ) {
-        setIsOpenCategory(false);
+
       }
       if (
         dropdownLocationRef.current &&
         !dropdownLocationRef.current.contains(event.target)
       ) {
-        setIsOpenLocation(false);
+
       }
     };
 
@@ -117,13 +77,6 @@ function Navbar({ visibleRight, setVisibleRight }) {
     };
   }, []);
 
-  const toggleDropdownCategory = () => {
-    setIsOpenCategory(!isOpenCategory);
-  };
-
-  const toggleDropdownLocation = () => {
-    setIsOpenLocation(!isOpenLocation);
-  };
 
   const [activeItem, setActiveItem] = useState(" ");
   const handleItemClick = (index) => {
@@ -149,7 +102,7 @@ function Navbar({ visibleRight, setVisibleRight }) {
     if (location.pathname === "/property_sale") {
       handleItemClick(2);
     }
-  }, [location.pathname, handleItemClick]);
+  }, [location.pathname]);
 
   const logutAuth = async () => {
     try {
@@ -166,6 +119,13 @@ function Navbar({ visibleRight, setVisibleRight }) {
     } catch (error) {
       console.error(error);
       await localStorage.removeItem("zxcvbnm@#");
+      await localStorage.removeItem("userid");
+      await localStorage.removeItem("mobile");
+      await localStorage.removeItem("fcm_token");
+      await localStorage.removeItem("cartId");
+      await localStorage.removeItem("address");
+      await localStorage.removeItem("auth");
+      
       window.location.reload();
     }
   };
@@ -224,7 +184,7 @@ function Navbar({ visibleRight, setVisibleRight }) {
 
   useEffect(() => {
     if (token) {
-      dispatch(fetchUserData(navigate));
+      dispatch(fetchUserData());
     }
   }, [dispatch, token]);
 
@@ -237,20 +197,11 @@ function Navbar({ visibleRight, setVisibleRight }) {
     setAnchorEl(null);
   };
 
-  // const [query, setQuery] = useState("");
-  // const handleSearch = () => {
-  //   if (query.trim()) {
-  //     navigate(`/search?query=${query}`);
-  //   }
-  // };
-
   const [query, setQuery] = useState("");
-  const [suggestions, setSuggestions] = useState([]);
   const [showDropdown, setShowDropdown] = useState(false);
   const [filteredSuggestions, setFilteredSuggestions] = useState([]);
 
   const [data, setData] = useState([]);
-  const [noResultsMessage, setNoResultsMessage] = useState("");
 
   const fetchSuggestions = async (value) => {
     setQuery(value);
@@ -262,25 +213,18 @@ function Navbar({ visibleRight, setVisibleRight }) {
       setFilteredSuggestions(suggestions);
       setData(results);
       setShowDropdown(true);
-      if (suggestions.length === 0 && results.length === 0) {
-        setNoResultsMessage(`We could not find`);
-      } else {
-        setNoResultsMessage("");
-      }
+
     } catch (error) {
       console.error("Error fetching suggestions:", error);
       setFilteredSuggestions([]);
       setData([]);
       setShowDropdown(true);
-      setNoResultsMessage(
-        "We could not find any results related to your search."
-      );
+
     }
   };
 
   const handleSearch = () => {
     if (query.trim()) {
-      // navigate(`/search?query=${query}`);
       navigate("/properties", { state: { searchvalue: query } });
       const encryptquery = encryptData(query);
       sessionStorage.setItem("location", encryptquery);
@@ -290,7 +234,6 @@ function Navbar({ visibleRight, setVisibleRight }) {
 
   const handleSelect = (value) => {
     setQuery(value);
-    // navigate(`/search?query=${value}`);
     navigate("/properties", { state: { searchvalue: value } });
     const encryptquery = encryptData(query);
     sessionStorage.setItem("location", encryptquery);
@@ -313,7 +256,6 @@ function Navbar({ visibleRight, setVisibleRight }) {
     <>
       <EnquiryModal show={showModal} handleClose={handleClose} />
       <Signin isOpen={isModalOpen} closeModal={closeModal} />
-      {/* <Login isOpen={isModalOpenlogin} closeModal={closeModalLogin} /> */}
       <LoginForm isOpen={isModalOpenlogin} closeModal={closeModalLogin} />
 
       <nav
@@ -351,7 +293,6 @@ function Navbar({ visibleRight, setVisibleRight }) {
                 />
                 <InputText
                   value={query}
-                  // onChange={(e) => setQuery(e.target.value)}
                   onChange={(e) => {
                     const value = e.target.value;
                     setQuery(value);
@@ -492,7 +433,6 @@ function Navbar({ visibleRight, setVisibleRight }) {
               <div>
                 <Notification />
               </div>
-
               <Button
                 id="basic-button"
                 aria-controls={open ? "basic-menu" : undefined}
@@ -774,7 +714,6 @@ function Navbar({ visibleRight, setVisibleRight }) {
               >
                 <Wishlist />
                 <Notification />
-
                 <Button
                   id="basic-button"
                   aria-controls={open ? "basic-menu" : undefined}
@@ -827,9 +766,6 @@ function Navbar({ visibleRight, setVisibleRight }) {
             <Link to={"profile_edit/notification"}>
               <NotificationsActiveIcon /> Notifications
             </Link>
-            {/* <Link to={"profile_edit/add_property"}>
-              <AddBoxIcon /> Add Property
-            </Link> */}
             <Link to={"profile_edit/my_property"}>
               <BookmarkIcon /> My Property
             </Link>
@@ -869,7 +805,6 @@ function Navbar({ visibleRight, setVisibleRight }) {
               <div className="d-flex" style={{ flexDirection: "column" }}>
                 <div
                   className="d-flex align-items-center justify-content-end"
-                  // style={{ gap: "50px" }}
                   style={{ gap: "17px" }}
                 >
                   <div className="d-flex align-items-center justify-content-between nav_search_before">
@@ -1103,7 +1038,6 @@ function Navbar({ visibleRight, setVisibleRight }) {
                       </div>
                     </div>
                   </div>
-
                   <div className="d-none d-lg-block">
                     <div className="d-flex align-items-center justify-content-end">
                       <div
@@ -1116,12 +1050,6 @@ function Navbar({ visibleRight, setVisibleRight }) {
                         <div>
                           <Notification />
                         </div>
-                        {/* <div>
-                          <AddToCard
-                            visibleRight={visibleRight}
-                            setVisibleRight={setVisibleRight}
-                          />
-                        </div> */}
                       </div>
                     </div>
                   </div>
@@ -1204,53 +1132,15 @@ function Navbar({ visibleRight, setVisibleRight }) {
 
                                   </div>
                                 )}
-
-                                {/* {userData?.profile ? (
-                                  <img
-                                    src={`${IMG_PATH}profile/${userData.profile}`}
-                                    alt="Preview"
-                                    style={{
-                                      width: "45px",
-                                      height: "45px",
-                                      borderRadius: "50%",
-                                      objectFit: "cover",
-                                    }}
-                                  />
-                                ) : (
-                                  <div
-                                  >
-                                    {userData?.customer?.charAt(0)?.toUpperCase() || <img
-                                      src={profileimage}
-                                      alt="Preview"
-                                      style={{
-                                        width: "45px",
-                                        height: "45px",
-                                        borderRadius: "50%",
-                                        objectFit: "cover",
-
-                                      }}
-                                    />}
-                                  </div>
-                                )} */}
                               </div>
                               <span style={{ marginLeft: "10px" }}>
                                 {loading ? (
                                   <Skeleton width="3.9rem"></Skeleton>
                                 ) : (
-                                  userData.customer.charAt(0).toUpperCase() +
-                                  userData.customer.slice(1).toLowerCase()
+                                  userData.customer?.charAt(0).toUpperCase() +
+                                  userData.customer?.slice(1).toLowerCase()
                                 )}
                               </span>
-
-                              {/* {userData?.customer ? (
-                                <span style={{ marginLeft: "10px" }}>
-                                  {userData.customer.charAt(0).toUpperCase() + userData.customer.slice(1).toLowerCase()}
-                                </span>
-                              ) : (
-                                <span style={{ marginLeft: "10px" }}>
-                                  <Skeleton width="4.2rem" className=""></Skeleton>
-                                </span>
-                              )} */}
                             </div>
                           </div>
                         </>
@@ -1261,102 +1151,7 @@ function Navbar({ visibleRight, setVisibleRight }) {
               </div>
             </div>
           </div>
-          {/* </div> */}
 
-          {/* <ul className="navbar-nav ms-auto mb-2 mb-lg-0 d-flex gap-4" style={{ alignItems: "center" }}>
-            {!isAuthenticated ? (
-              <>
-                <Wishlist />
-                <AddToCard />
-
-
-                <li className="nav-item">
-                  <a
-                    onClick={openModal}
-                    className="nav-link d-block "
-                    aria-current="page"
-                    href="#"
-                    style={{ textAlign: 'center' }}
-                  >
-
-                    <i className="fa-solid fa-user"></i>
-
-                    <p className=""> Sign up</p>
-                  </a>
-                </li>
-
-                <li className="nav-item">
-                  <a onClick={openModallogin} className="nav-link d-block" href="#" style={{ textAlign: 'center' }}>
-         
-                    <i class="fa-solid fa-right-to-bracket"></i>
-                    <p className=""> Login</p>
-
-                  </a>
-                </li>
-                <Notification />
-
-              </>
-            ) : (
-              <>
-                <Wishlist />
-                <AddToCard />
-                <Notification />
-                <li className="nav-item dropdown">
-                  <a
-                    href="#"
-                    className="nav-link dropdown-toggle d-flex align-items-center"
-                    id="navbarDropdown"
-                    role="button"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    <Avatar
-                      src={
-                        "https://i.pinimg.com/originals/17/f3/9c/17f39c6f7a4a5457f39dba2368f0d077.jpg"
-                      }
-                      style={{
-                        marginLeft: "10px",
-                      }}
-                    />
-                    &nbsp;{userData?.customer ? userData.customer.charAt(0).toUpperCase() + userData.customer.slice(1).toLowerCase() : ''}
-                  </a>
-                  <ul
-                    className="dropdown-menu"
-                    aria-labelledby="navbarDropdown"
-                    style={{ left: '-30px' }}
-                  >
-                    <li>
-                      <Link to="/profile_edit/dashboard" className="dropdown-item">
-                        Profile
-                      </Link>
-                    </li>
-
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        onClick={handleLogout}
-                        href="#"
-                      >
-                        Logout
-                      </a>
-                    </li>
-                  </ul>
-                </li>
-
-
-              </>
-            )}
-          </ul> */}
-
-          {/* <div>
-            <Link
-              to="/profile_edit"
-              className="ms-3 mobile_top_profile text-dark"
-            >
-              <PersonIcon />
-              &nbsp;You
-            </Link>
-          </div> */}
         </div>
       </nav>
       {/* Footer Menu */}
@@ -1454,18 +1249,6 @@ function Navbar({ visibleRight, setVisibleRight }) {
                 </a>
               </Link>
             </li>
-
-            {/* <li
-              className={`nav__item ${activeItem === 4 ? "active" : ""}`}
-              onClick={() => handleItemClick(4)}
-            >
-              <Link to="/profile_edit" className="nav__item-link">
-                <div className="nav__item-icon">
-                  <AccountCircleIcon sx={{ fontSize: 25 }} />
-                </div>
-                <span className="nav__item-text">Profile</span>
-              </Link>
-            </li> */}
           </ul>
         </div>
       </nav>

@@ -1,20 +1,15 @@
-import React, { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import "../home/homestyle.css";
 import { Carousel } from "primereact/carousel";
 import "react-multi-carousel/lib/styles.css";
 import "@fortawesome/fontawesome-free/css/all.css";
-import i1 from "../../assets/newui_images/land.jpg";
-import a1 from "../../assets/newui_images/apartment.jpg";
-import a2 from "../../assets/newui_images/villa.jpg";
-import a3 from "../../assets/newui_images/independenthouse.jpg";
 import axios from "axios";
-import API_BASE_URL, { IMG_PATH, LOGIN_BASE_URL } from "../../Api/api";
+import { IMG_PATH, LOGIN_BASE_URL } from "../../Api/api";
 import { Link } from "react-router-dom";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { useDispatch, useSelector } from "react-redux";
 import { wishlistGetThunk, wishlistPostThunk, wishlistVerifyThunk } from "../../Redux/Action/WishlistThunk";
-import { buyPropertiesThunk } from "../../Redux/Action/BuyPropertiesThunk";
 import LoginForm from "../../Components/Login/LoginForm";
 import { useAlert } from "react-alert";
 import { Skeleton } from "primereact/skeleton";
@@ -23,8 +18,6 @@ import { recommendGetThunk } from "../../Redux/Action/RecommendThunk";
 import UseLocationFetcher from "./UseLocationFetcher";
 
 function Recentlyadded({ loading }) {
-  // const [getData, setGetData] = useState([]);
-  const [locationName, setLocationName] = useState("");
   const token = localStorage.getItem("zxcvbnm@#");
   const userid = localStorage.getItem("userid");
   const dispatch = useDispatch()
@@ -49,153 +42,6 @@ function Recentlyadded({ loading }) {
     },
     [dispatch, userid]
   );
-
-
-  const { mapLoading } = UseLocationFetcher(handleLocation);
-
-  // useEffect(() => {
-  //   const fetchLocation = async () => {
-  //     if (!navigator.geolocation) {
-  //       console.error("Geolocation not supported by this browser");
-  //       return;
-  //     }
-
-  //     navigator.geolocation.getCurrentPosition(
-  //       async (position) => {
-  //         const userLat = position.coords.latitude;
-  //         const userLon = position.coords.longitude;
-
-  //         try {
-  //           const googleApiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
-
-  //           const geoRes = await axios.get(
-  //             `https://maps.googleapis.com/maps/api/geocode/json?latlng=${userLat},${userLon}&key=${googleApiKey}`
-  //           );
-
-  //           const components = geoRes.data.results[0]?.address_components || [];
-  //           const neighborhood =
-  //             components.find((c) => c.types.includes("sublocality_level_1"))
-  //               ?.long_name ||
-  //             components.find((c) => c.types.includes("locality"))?.long_name ||
-  //             components.find((c) =>
-  //               c.types.includes("administrative_area_level_2")
-  //             )?.long_name ||
-  //             components.find((c) => c.types.includes("country"))?.long_name ||
-  //             "Unknown";
-
-  //           // const response = await axios.get(
-  //           //   `${API_BASE_URL}/nearbyproperties`,
-  //           //   {
-  //           //     headers: {
-  //           //       "Gl-Status": token ? true : false,
-  //           //       "Pr-Start": userLat,
-  //           //       "Pr-End": userLon,
-  //           //       Level: neighborhood,
-  //           //       "Pr-Root": userid,
-  //           //       "Gl-Root": userid
-  //           //     },
-  //           //   }
-  //           // );
-  //           dispatch(
-  //             nearbyPropertiesGetThunk({
-  //               userLat,
-  //               userLon,
-  //               neighborhood,
-  //               userid,
-  //             })
-  //           );
-  //           // setGetData(response.data?.data);
-  //         } catch (error) {
-  //           console.error("Error fetching location:", error);
-  //         }
-  //       },
-  //       (error) => {
-  //         console.error("Geolocation error:", error);
-  //       }
-  //     );
-  //   };
-
-  //   fetchLocation();
-  // }, [token, userid]);
-
-  // useEffect(() => {
-  //   const fetchLocation = async () => {
-  //     const googleApiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
-
-  //     const runApi = async (lat, lon, neighborhood = "Chennai") => {
-  //       // try {
-  //       //   const response = await axios.get(`${API_BASE_URL}/nearbyproperties`, {
-  //       //     headers: {
-  //       //       "Gl-Status": token ? true : false,
-  //       //       "Pr-Start": lat || "",
-  //       //       "Pr-End": lon || "",
-  //       //       Level: neighborhood,
-  //       //       "Pr-Root": userid,
-  //       //       "Gl-Root": userid
-  //       //     },
-  //       //   });
-  //       //   setGetData(response.data?.data);
-  //       // } catch (error) {
-  //       //   console.error("Error running API:", error);
-  //       // }
-  //       try {
-  //         dispatch(
-  //           nearbyPropertiesGetThunk({
-  //             lat,
-  //             lon,
-  //             neighborhood,
-  //             userid,
-  //           })
-  //         );
-  //       } catch (error) {
-  //         console.error("Error running API:", error);
-  //       }
-  //     };
-
-  //     if (!navigator.geolocation) {
-  //       console.warn("Geolocation not supported");
-  //       runApi(null, null, "Chennai");
-  //       return;
-  //     }
-
-  //     navigator.geolocation.getCurrentPosition(
-  //       async (position) => {
-  //         const userLat = position.coords.latitude;
-  //         const userLon = position.coords.longitude;
-
-  //         try {
-  //           const geoRes = await axios.get(
-  //             `https://maps.googleapis.com/maps/api/geocode/json?latlng=${userLat},${userLon}&key=${googleApiKey}`
-  //           );
-
-  //           const components = geoRes.data.results[0]?.address_components || [];
-
-  //           const neighborhood =
-  //             components.find((c) => c.types.includes("sublocality_level_1"))
-  //               ?.long_name ||
-  //             components.find((c) => c.types.includes("locality"))?.long_name ||
-  //             components.find((c) =>
-  //               c.types.includes("administrative_area_level_2")
-  //             )?.long_name ||
-  //             components.find((c) => c.types.includes("country"))?.long_name ||
-  //             "Chennai";
-
-  //           runApi(userLat, userLon, neighborhood);
-  //         } catch (error) {
-  //           console.error("Reverse geocode failed:", error);
-  //           runApi(userLat, userLon, "Chennai");
-  //         }
-  //       },
-  //       (error) => {
-  //         console.warn("User denied or error:", error);
-  //         runApi(null, null, "Chennai");
-  //       }
-  //     );
-  //   };
-
-  //   fetchLocation();
-  // }, [token, userid]);
-
 
   const responsiveOptions = [
     {
@@ -228,13 +74,15 @@ function Recentlyadded({ loading }) {
 
   const [store, setStore] = useState([]);
   useEffect(() => {
-    dispatch(wishlistGetThunk()).then((res) => {
-      if (res?.payload?.data) {
-        const ids = res.payload.data.map((item) => item.enqid);
-        setStore(ids);
-      }
-    });
-  }, [dispatch]);
+    if (token) {
+      dispatch(wishlistGetThunk()).then((res) => {
+        if (res?.payload?.data) {
+          const ids = res.payload.data.map((item) => item.enqid);
+          setStore(ids);
+        }
+      });
+    }
+  }, [dispatch, token]);
 
   const handleWishlistClick = async (eid) => {
     if (!token) {
@@ -251,7 +99,6 @@ function Recentlyadded({ loading }) {
 
       }
     });
-
     try {
       const payload = { enqid: eid };
       await dispatch(wishlistPostThunk(payload));

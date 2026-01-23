@@ -30,6 +30,7 @@ const LoginForm = ({ isOpen, closeModal, onLoginSuccess }) => {
   // const [timer, setTimer] = useState(60);
   const [timer, setTimer] = useState(600);
   const dispatch = useDispatch();
+  const token = localStorage.getItem("zxcvbnm@#");
 
   const [fcmToken, setFcmToken] = useState(null);
   const [notification, setNotification] = useState(null);
@@ -46,24 +47,6 @@ const LoginForm = ({ isOpen, closeModal, onLoginSuccess }) => {
     };
     fetchToken();
   }, []);
-  // const sendTokenToBackend = async () => {
-  //   try {
-  //     const payload = { token: fcmToken };
-
-  //     const response = await axios.post(
-  //       `${LOGIN_BASE_URL}/vendor/notificationuser`,
-  //       payload,
-  //       {
-  //         headers: {
-  //           Authorization: headerToken,
-  //         },
-  //       }
-  //     );
-
-  //   } catch (error) {
-  //     console.error("🔥 Error sending FCM token to backend:", error);
-  //   }
-  // };
 
   const sendTokenToBackend = async (loginToken) => {
     try {
@@ -91,23 +74,6 @@ const LoginForm = ({ isOpen, closeModal, onLoginSuccess }) => {
     }
   };
 
-  // useEffect(() => {
-  //   const unsubscribe = onMessageListener()
-  //     .then((payload) => {
-  //       const notificationData = payload?.data
-  //         ? payload?.data
-  //         : {
-  //             data: payload.data,
-  //           };
-  //       setNotification(notificationData);
-  //       // alert(`${notificationData.notif_title}\n${notificationData.notif_content}`);
-  //       alert.success("Notify success. Happy to see you again!");
-  //       dispatch(fetchNotificationMsg());
-  //     })
-  //     .catch((err) => console.log("Error receiving foreground message:", err));
-
-  //   return () => unsubscribe;
-  // }, []);
   message.config({
     top: 100,
     duration: 3,
@@ -134,13 +100,15 @@ const LoginForm = ({ isOpen, closeModal, onLoginSuccess }) => {
         ),
         // duration: 60
       });
-      dispatch(fetchNotificationMsg());
+      if (token) {
+        dispatch(fetchNotificationMsg());
+      }
     });
 
     return () => {
       if (unsubscribe) unsubscribe();
     };
-  }, [dispatch, alert]);
+  }, [dispatch, alert, token]);
 
   const mobileChange = (event) => {
     const { name, value } = event.target;
@@ -187,99 +155,23 @@ const LoginForm = ({ isOpen, closeModal, onLoginSuccess }) => {
     }
   }, [timer, input]);
 
-  // const LoginOtp = async (e) => {
-  //   e.preventDefault();
-  //   const result = validation(mobileData);
-
-  //   if (result.isValid) {
-  //     setLoading(true);
-  //     // setTimer(60);
-  //     setTimer(600);
-  //     setError("");
-  //     try {
-  //       const response = await axios.post(
-  //         `${LOGIN_BASE_URL}/Login/Signin`,
-  //         mobileData,
-  //         {
-  //           headers: { "Content-Type": "application/json" },
-  //         }
-  //       );
-  //       setOtpData(response.data);
-  //       setInput(true);
-  //       setLoading(false);
-  //     } catch (error) {
-  //       setError(error.response.data.messages);
-  //       setLoading(false);
-  //     }
-  //   } else {
-  //     setError(result.errors);
-  //   }
-  // };
-
-  // const VerifyOtp = async (e) => {
-  //   e.preventDefault();
-  //   const otpValue = otp.join("");
-  //   if (otpValue) {
-  //     setLoading(true);
-  //     // setOtp(["","","",""]);
-  //     try {
-  //       const response = await axios.post(
-  //         `${LOGIN_BASE_URL}/Login/Verify`,
-  //         { userID: otpData.userID, otp: otpValue },
-  //         {
-  //           headers: { "Content-Type": "application/json" },
-  //         }
-  //       );
-  //       const token = response.data.token;
-  //       const mobile = response.data.mobile_no;
-  //       const userid = response.data.user_id;
-  //       localStorage.setItem("zxcvbnm@#", token);
-  //       localStorage.setItem("auth", true);
-  //       localStorage.setItem("mobile", mobile);
-  //       localStorage.setItem("userid", userid);
-  //       await sendTokenToBackend(token);
-
-  //       dispatch(fetchNotificationMsg());
-  //       dispatch(loginAuth());
-  //       setLoading(false);
-  //       setInput(false);
-  //       alert.success("Login complete. Happy to see you again!");
-  //       dispatch(fetchUserData());
-
-  //       closeModal();
-  //       if (onLoginSuccess) {
-  //         onLoginSuccess();
-  //       }
-  //     } catch (error) {
-  //       setError(error.response.data.messages);
-  //       setLoading(false);
-  //     }
-  //   }
-  // };
-
 
   const LoginOtp = async (e) => {
     e.preventDefault();
     const result = validation(mobileData);
-
     if (result.isValid) {
       setLoading(true);
       setTimer(600);
       setError("");
-
       try {
         const response = await axios.post(
           `${LOGIN_BASE_URL}/Login/Signin`,
           mobileData,
           { headers: { "Content-Type": "application/json" } }
         );
-
         const userId = response.data.userID;
-
         setOtpData(response.data);
-
         localStorage.setItem("tempUserId", userId);
-
         setInput(true);
         setLoading(false);
       } catch (error) {
@@ -297,11 +189,8 @@ const LoginForm = ({ isOpen, closeModal, onLoginSuccess }) => {
     const otpValue = otp.join("");
 
     if (!otpValue) return;
-
     const storedUserId = localStorage.getItem("tempUserId");
-
     setLoading(true);
-
     try {
       const response = await axios.post(
         `${LOGIN_BASE_URL}/Login/Verify`,
@@ -371,7 +260,7 @@ const LoginForm = ({ isOpen, closeModal, onLoginSuccess }) => {
                 closeModal();
                 setSignupForm(false);
               }}
-              style={{color:"black"}}
+              style={{ color: "black" }}
             >
               <span aria-hidden="true">&times;</span>
             </button>

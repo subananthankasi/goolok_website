@@ -22,7 +22,12 @@ import axiosInstance from "../../Api/axiosInstance";
 import SimilarProperties from "./SimilarProperties";
 import { Breadcrumb } from "antd";
 import { Skeleton } from "primereact/skeleton";
+
+
 function Propertyview() {
+
+
+  const token = localStorage.getItem("zxcvbnm@#");
   const [products, SetProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const { eid, landType } = useParams();
@@ -44,6 +49,8 @@ function Propertyview() {
 
     fetch(eid);
   }, [eid]);
+
+
   const [giftData, setGiftData] = useState([]);
   const fetchGift = async () => {
     try {
@@ -54,8 +61,10 @@ function Propertyview() {
     }
   };
   useEffect(() => {
-    fetchGift();
-  }, []);
+    if (token) {
+      fetchGift();
+    }
+  }, [token]);
 
 
 
@@ -63,9 +72,9 @@ function Propertyview() {
     <div>
       <section className="mt-3">
         <div className="container">
-          {loading ?(
-              <Skeleton height="1rem" width="25%" className="mb-3 " />
-          ): (
+          {loading ? (
+            <Skeleton height="1rem" width="25%" className="mb-3 " />
+          ) : (
             <div className="mb-3">
               <Breadcrumb
                 style={{ fontFamily: "poppins" }}

@@ -5,9 +5,9 @@ import coupen from "../../assets/images/coupon.png";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import img1 from "../../assets/images/apart1.jpg"; // Replace with your image path
-import img2 from "../../assets/images/apart1.jpg"; // Replace with your image path
-import img3 from "../../assets/images/apart1.jpg"; // Replace with your image path
+import img1 from "../../assets/images/apart1.jpg"; 
+import img2 from "../../assets/images/apart1.jpg";
+import img3 from "../../assets/images/apart1.jpg"; 
 
 const Refferals = () => {
   const settings = {
