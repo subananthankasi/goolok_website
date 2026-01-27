@@ -1,9 +1,3 @@
-import React from "react";
-import b2 from "../../assets/images/sale_banner1.jpg";
-import b3 from "../../assets/images/sale_banner2.jpg";
-import mb1 from "../../assets/images/MobileView/mob_banner1.jpg";
-import mb2 from "../../assets/images/MobileView/mob_banner2.jpg";
-import banner from "../../assets/newui_images/panner.jpg";
 import { IMG_PATH } from "../../Api/api";
 import { Skeleton } from "primereact/skeleton";
 function Banner1({ promotion_banner3, Mobile_promotion_banner3, loading }) {

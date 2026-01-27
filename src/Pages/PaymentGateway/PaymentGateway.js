@@ -1,7 +1,6 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import { useRazorpay } from "react-razorpay";
-import API_BASE_URL, { PAYMENT_KEY, PAYMENT_KEY_SECRET } from "../../Api/api";
+import  { PAYMENT_KEY, PAYMENT_KEY_SECRET } from "../../Api/api";
 import { useAlert } from "react-alert";
 import axiosInstance from "../../Api/axiosInstance";
 

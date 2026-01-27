@@ -1,5 +1,4 @@
-import React from 'react';
-import { Row, Col, Card, Badge } from 'react-bootstrap';
+import { Row, Col, Card } from 'react-bootstrap';
 import gallery3 from "../../assets/images/land3.jpg";
 import gallery4 from "../../assets/images/land4.jpg";
 import CustomPagination from './pagination';
@@ -40,42 +39,42 @@ function GridViewlist() {
       type: "Attach Single",
       beds: "5 Beds",
       baths: "4.5 Baths",
-      address: "508 Dement Circle # C, Panama City Beach, FL" 
+      address: "508 Dement Circle # C, Panama City Beach, FL"
     }
   ];
 
   return (
     <div className='container'>
-    <Row className="gy-4 mt-3">
-      {properties.map((property, index) => (
-        <Col md={4} lg={3} key={index} className='mb-3'>
-          <Card className="h-100 d-flex flex-column ">
-            <div className="position-relative plot">
-              <Card.Img variant="top" src={property.img} alt="Property Image" />
-              <span 
-                bg="secondary" 
-                className="position-absolute top-0 start-0 m-2 px-3 py-1 badge"
-                style={{ fontSize: '0.8rem' }}
-              >
-                JUST LISTED
-              </span>
-            </div>
-            <Card.Body className="flex-grow-1">
-              <Card.Title>{property.price}</Card.Title>
-              <Card.Text>
-                <span>{property.size}</span> - <span>{property.type}</span><br />
-                <strong>{property.beds}</strong> + <strong>{property.baths}</strong><br />
-                <small>{property.address}</small>
-              </Card.Text>
-            </Card.Body>
-          </Card>
-        </Col>
-        
-      ))}
-      <div className="text-center mb-3 mt-3">
-              <CustomPagination />
+      <Row className="gy-4 mt-3">
+        {properties.map((property, index) => (
+          <Col md={4} lg={3} key={index} className='mb-3'>
+            <Card className="h-100 d-flex flex-column ">
+              <div className="position-relative plot">
+                <Card.Img variant="top" src={property.img} alt="Property Image" />
+                <span
+                  bg="secondary"
+                  className="position-absolute top-0 start-0 m-2 px-3 py-1 badge"
+                  style={{ fontSize: '0.8rem' }}
+                >
+                  JUST LISTED
+                </span>
+              </div>
+              <Card.Body className="flex-grow-1">
+                <Card.Title>{property.price}</Card.Title>
+                <Card.Text>
+                  <span>{property.size}</span> - <span>{property.type}</span><br />
+                  <strong>{property.beds}</strong> + <strong>{property.baths}</strong><br />
+                  <small>{property.address}</small>
+                </Card.Text>
+              </Card.Body>
+            </Card>
+          </Col>
+
+        ))}
+        <div className="text-center mb-3 mt-3">
+          <CustomPagination />
         </div>
-    </Row>
+      </Row>
     </div>
   );
 }
@@ -107,7 +106,7 @@ export default GridViewlist;
 //       <div className="">
 //         <Row>
 //           <Col className="col-sm-12  mt-4 topfilterAndView">
-//             <div className="row mt-1"> 
+//             <div className="row mt-1">
 //             {allData.map((plot) => {
 //                const urlName = plot.project_name.toLowerCase().replace(/ /g, '-');
 //                const urlLocation = plot.project_address.toLowerCase().replace(/,/g, '-');

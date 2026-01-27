@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { IMG_PATH, LOGIN_BASE_URL } from "../../Api/api";
 import { Skeleton } from "primereact/skeleton";
@@ -54,7 +54,6 @@ const ProductGrid = ({ landType, searchValue }) => {
 
   const sortedProducts = useMemo(() => {
     if (!Array.isArray(products)) return [];
-
     const parsePrice = (product) => {
       const priceString =
         product.disc_status === "true" ? product.total_aft_disc : product.price;
@@ -63,11 +62,9 @@ const ProductGrid = ({ landType, searchValue }) => {
       );
       return isNaN(numericPrice) ? 0 : numericPrice;
     };
-
     const sorted = [...products].sort((a, b) => {
       const priceA = parsePrice(a);
       const priceB = parsePrice(b);
-
       if (sort === "price-low-to-high") return priceA - priceB;
       if (sort === "price-high-to-low") return priceB - priceA;
       return 0;
@@ -111,7 +108,6 @@ const ProductGrid = ({ landType, searchValue }) => {
         return [...prev, eid];
       }
     });
-
     try {
       const payload = { enqid: eid };
       await dispatch(wishlistPostThunk(payload));
@@ -163,7 +159,6 @@ const ProductGrid = ({ landType, searchValue }) => {
                     ].filter(Boolean)}
                   />
                 </div>
-
                 <div className="text-start mb-3">
                   <h2
                     style={{
@@ -277,7 +272,6 @@ const ProductGrid = ({ landType, searchValue }) => {
                 </div>
               </div>
             </div>
-
             <div className="row">
               <div className="col-xl-3 col-lg-4 col-md-6 mx-md-auto ">
                 {/* <Filter /> */}
@@ -541,7 +535,6 @@ const ProductGrid = ({ landType, searchValue }) => {
                                 )}
                               </div>
                             </div>
-
                           </div>
                         </Link>
                       </div>

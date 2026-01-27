@@ -1,4 +1,4 @@
-import  { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import TodaysDeal from "./todaysDeal";
 import Banner from "./banner";
 import TicketCarousel from "./TicketCarousel";
@@ -111,23 +111,19 @@ function Home() {
       <TicketCarousel addBlock_1={addBlock_1} loading={loading} mobile_addBlock_1={mobile_addBlock_1} />
       <TodaysDeal loading={loading} />
       <Slider promotion_banner={promotion_banner} loading={loading} Mobile_Promotion_banner={Mobile_Promotion_banner} />
-      <PremiumProperties loading = {loading} />
+      <PremiumProperties loading={loading} />
       <TCarousal1 addBlock_2={addBlock_2} loading={loading} />
-      <Coupons loading ={loading} />
-      {/* <CateGory/> */}
-      {/* <Slider/> */}
+      <Coupons loading={loading} />
       <TrustImages
         promotion_banner2={promotion_banner2}
         loading={loading}
         Mobile_promotion_banner2={Mobile_promotion_banner2}
       />
-      {/* <TodayOffer /> */}
-      <HighreturnProperties  loading={loading}/>
+      <HighreturnProperties loading={loading} />
       <TCarousal2 addBlock_3={addBlock_3} loading={loading} />
-      {/* <Apartment/> */}
-      <Recommended loading={loading}/>
+      <Recommended loading={loading} />
       <Banner1 promotion_banner3={promotion_banner3} loading={loading} Mobile_promotion_banner3={Mobile_promotion_banner3} />
-      <Recentlyadded loading={loading}/>
+      <Recentlyadded loading={loading} />
     </div>
   );
 }

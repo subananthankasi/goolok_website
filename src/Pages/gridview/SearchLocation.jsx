@@ -1,26 +1,21 @@
-import React, { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect } from "react";
 import {
   GoogleMap,
   useJsApiLoader,
-  MarkerClusterer,
   Marker,
   InfoWindow,
   Polygon,
   OverlayView,
 } from "@react-google-maps/api";
-import { markers } from "./markers";
-import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
-import { Row, Col, Card } from "react-bootstrap";
-import MapPolygon from "./map/Draw";
 import { IMG_PATH } from "../../Api/api";
-import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
+import { Link } from "react-router-dom";
 import { Carousel } from "react-bootstrap";
 import { decryptData } from "../../Utils/encryptData";
-import L from "leaflet";
-import "leaflet/dist/leaflet.css";
-import { MdLocationPin } from "react-icons/md";
 import loc from "../../assets/loc.png";
+import "leaflet/dist/leaflet.css";
+
+
+
 const containerStyle = {
   width: "100%",
   height: "100%",
@@ -482,24 +477,18 @@ const loaderOptions = {
 };
 
 const SearchLocation = ({ propertyData }) => {
-  // box border start
-  const [boxdata, setBoxdata] = useState([]);
+
   const [activeMarker, setActiveMarker] = useState(null);
   const [polygonCoords, setPolygonCoords] = useState([]);
   const [mapCenter, setMapCenter] = useState(center);
-  const navigate = useNavigate();
-
 
   const coverLocation = sessionStorage.getItem("location");
   const decryCoverLocation = coverLocation ? decryptData(coverLocation) : "";
-
   const data =
     Array.isArray(propertyData) && propertyData.length > 0 ? propertyData : [];
 
   const { isLoaded } = useJsApiLoader(loaderOptions);
   const [map, setMap] = useState(null);
-  const [selectedMarker, setSelectedMarker] = useState(null);
-  const [mapRef, setMapRef] = useState(null);
   const [mapZoom, setMapZoom] = useState(6);
 
   useEffect(() => {
@@ -558,12 +547,10 @@ const SearchLocation = ({ propertyData }) => {
           )}`
         );
         const nominatimData = await nominatimRes.json();
-
         if (!nominatimData?.length) {
           console.warn("No location found, showing Tamil Nadu fallback.");
           return showTamilNaduBoundary();
         }
-
         const bestMatch = nominatimData[0];
         const { lat, lon, boundingbox, geojson, display_name } = bestMatch;
 
@@ -593,7 +580,6 @@ const SearchLocation = ({ propertyData }) => {
             maxLon,
             64
           );
-
           setPolygonCoords(roundedPolygon);
           setMapCenter({ lat: centerLat, lng: centerLng });
           setMapZoom(10)
@@ -625,23 +611,12 @@ const SearchLocation = ({ propertyData }) => {
     },
     [polygonCoords]
   );
-  // const onLoad = useCallback((map) => {
-  //   setMap(map);
-  // }, []);
 
   const onUnmount = useCallback(() => {
     setMap(null);
   }, []);
 
-  const handleCloseClick = () => {
-    setSelectedMarker(null);
-  };
-  const handleMarkerClick = (lat, lng) => {
-    if (mapRef) {
-      mapRef.panTo({ lat, lng });
-      mapRef.setZoom(15);
-    }
-  };
+
 
   const handleMarkerHover = (index) => {
     setActiveMarker((prevIndex) => {
@@ -656,12 +631,10 @@ const SearchLocation = ({ propertyData }) => {
     }, 0);
   };
 
-  const mapClick = (id) => {
-    navigate(`/property/${id}`);
-  };
   const closeClick = (id) => {
     setActiveMarker(null);
   };
+
   const mapTheme = [
     {
       featureType: "administrative",
@@ -902,12 +875,10 @@ const SearchLocation = ({ propertyData }) => {
                 console.warn("Invalid coordinates:", { lat, lng });
                 return null;
               }
-
               return (
                 <>
                   {(() => {
                     const currentProduct = data.find((p) => p.id === item.id);
-
                     return (
                       <>
                         <Marker
@@ -1000,8 +971,6 @@ const SearchLocation = ({ propertyData }) => {
                     );
                   })()}
                 </>
-
-
               );
             })}
             {polygonCoords.length > 0 && (
