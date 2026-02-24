@@ -1,6 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
-// import "../signin/signcss.css";
-// import './logincss.css'
+import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { LOGIN_BASE_URL } from "../../Api/api";
@@ -280,17 +278,6 @@ const SignUpForm = ({ SignUpForm, setSignupForm, closeModal }) => {
         {errors.error && <div className="validation_msg">{errors.error}</div>}
 
         <div className="mt-2">
-          {/* {timer > 0 ? (
-            <span>OTP expiry in {timer} seconds</span>
-          ) : (
-            <a
-              href="javascript:void(0)"
-              className="text-dark"
-              onClick={handleOTPResend}
-            >
-              Resend otp
-            </a>
-          )} */}
           {timer > 0 ? (
             <span>
               OTP expiry in{" "}

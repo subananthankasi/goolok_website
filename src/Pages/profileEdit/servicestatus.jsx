@@ -1,4 +1,3 @@
-import { ThreeDots } from 'react-loader-spinner';
 import ServiceStatusGetPatta from './ServiceStatusGetPatta';
 import ServiceStatusGmap from './ServiceStatusGmap';
 import { Skeleton } from 'primereact/skeleton';

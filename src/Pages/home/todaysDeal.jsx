@@ -1,14 +1,7 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "../home/homestyle.css";
-import "react-multi-carousel/lib/styles.css";
-import sideimage from "../../assets/images/SalesAd/salesAd.jpg";
 import "@fortawesome/fontawesome-free/css/all.css";
 import { Link } from "react-router-dom";
-import i1 from "../../assets/images/individual-house.jpg";
-import a1 from "../../assets/images/villa1.jpg";
-import a2 from "../../assets/newui_images/villa.jpg";
-import a3 from "../../assets/newui_images/land.jpg";
-import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Carousel } from "primereact/carousel";
@@ -16,11 +9,9 @@ import axios from "axios";
 import API_BASE_URL, { IMG_PATH } from "../../Api/api";
 import { Skeleton } from "primereact/skeleton";
 
-//css from homestyles
 
 function TodaysDeal({ loading }) {
   const [getData, setGetData] = useState([]);
-  // const [loading, setLoading] = useState(false)
   const fetchTodayDeals = async () => {
     try {
       const response = await axios.get(`${API_BASE_URL}/todaydeals`);
@@ -28,7 +19,6 @@ function TodaysDeal({ loading }) {
     } catch (error) {
       console.error("Error fetching land data:", error);
     }
-
   };
   useEffect(() => {
     fetchTodayDeals();

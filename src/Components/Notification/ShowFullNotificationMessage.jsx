@@ -1,20 +1,17 @@
-import { useLocation, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import {  useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import axiosInstance from "../../Api/axiosInstance";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import { Skeleton } from "primereact/skeleton";
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
+
+
 const ShowFullNotificationMessage = ({ id, setShowFullMessage }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const location = useLocation();
-  const {
-    notification: selectedNotification,
-    showFullMessage: showFullFromHeader,
-  } = location.state || {};
-  //   const [showFullMessage, setShowFullMessage] = useState(false);
+
   const [loading, setLoading] = useState(false);
 
   const [data, setData] = useState([]);

@@ -1,17 +1,7 @@
-import React, { useEffect, useState } from "react";
-// import ProfileSideBar from "./ProfileSideBar";
-import patta from "../../assets/images/patta.jpg";
-// import Bookslider from "./bookslider";
-// import Pricedetails from "./pricedetails";
-// import TimelineAccordion from "./timelineaccordion";
-import { FaDownload } from "react-icons/fa6";
-import ProfileSideBar from "./ProfileSideBar";
+import { useEffect, useState } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import img1 from "../../assets/images/apart1.jpg";
-import img2 from "../../assets/images/apart1.jpg";
-import img3 from "../../assets/images/apart1.jpg";
 import PriceDetails from "./PriceDetails";
 import TimeLineAccordian from "./TimeLineAccordian";
 import { IMG_PATH, LOGIN_BASE_URL } from "../../Api/api";
@@ -61,16 +51,7 @@ const BookDetails = () => {
 
   return (
     <>
-      {/* <div className="container profile_edit">
-        <div className="row w-100">
-          <ProfileSideBar /> */}
-
       <div className="col-md-9 mx-auto py-5" style={{ paddingTop: 50 }}>
-        {/* <div>
-              <h6>Order Id : 123456</h6>
-              <hr />
-            </div> */}
-
         <div className="Mybooking">
           <h5 class="mt-2 mb-3 text-center" style={{ fontFamily: "poppins", color: "#0000ff" }}>{viewData[0]?.propertyName}</h5>
           <div className="carousel">
@@ -104,7 +85,7 @@ const BookDetails = () => {
           </div>
 
           <div>
-            <PriceDetails pricingData={viewData[0]?.pricings} />
+            <PriceDetails pricingData={viewData[0]?.pricings} plotPricing={viewData[0]}/>
           </div>
 
           <TimeLineAccordian

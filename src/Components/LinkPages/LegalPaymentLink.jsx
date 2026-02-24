@@ -1,9 +1,9 @@
 import axios from "axios";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import logo from "../../assets/images/Goolok Final Logo copy.png";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useRazorpay } from "react-razorpay";
 import { useAlert } from "react-alert";
 import { LOGIN_BASE_URL, PAYMENT_KEY, PAYMENT_KEY_SECRET } from "../../Api/api";
@@ -14,28 +14,10 @@ import { Skeleton } from "primereact/skeleton";
 
 const LegalPaymentLink = () => {
   const { error, isLoading, Razorpay } = useRazorpay();
-  const location = useLocation();
   const alert = useAlert();
   const { id } = useParams();
   const [invoiceData, setInvoiceData] = useState([]);
   const contentRef = useRef();
-
-  const generatePdf = () => {
-    const input = contentRef.current;
-    if (!input) {
-      console.error("contentRef is not available");
-      return;
-    }
-
-    html2canvas(input, { scale: 2 }).then((canvas) => {
-      const imgData = canvas.toDataURL("image/png");
-      const pdf = new jsPDF("p", "mm", "a4");
-      const imgWidth = 210;
-      const imgHeight = (canvas.height * imgWidth) / canvas.width;
-      pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight);
-      pdf.save("invoice.pdf");
-    });
-  };
 
   const calculateTotals = () => {
     const subtotal = invoiceData[0]?.quentity?.reduce((acc, item) => {
@@ -87,14 +69,6 @@ const LegalPaymentLink = () => {
     }
   }, [id]);
 
-
-  const thStyle = {
-    border: "1px solid #ccc",
-    padding: "5px",
-    textAlign: "center",
-    fontWeight: "600",
-    fontSize: "10px",
-  };
 
   const paymentIdHandle = async (response) => {
     if (!invoiceData) {

@@ -411,7 +411,7 @@ ikjkljkl/jktrhtrre43=-504=54 */
 }
 
 .coupon-card {
-  border-radius: 10px;
+  border-radius: 0px;
   overflow: hidden;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
@@ -607,6 +607,11 @@ ikjkljkl/jktrhtrre43=-504=54 */
   background: linear-gradient(135deg, #a3e635, #65a30d);
   /* Soft green gradient */
   color: #156831;
+}
+.status-closed {
+  background: linear-gradient(135deg, #e63535, #a30d0d);
+  /* Soft green gradient */
+  color: white;
 }
 
 .table > :not(:last-child) > :last-child > * {

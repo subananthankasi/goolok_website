@@ -1,18 +1,14 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import axiosInstance from "../../../Api/axiosInstance";
 import Skeleton from "react-loading-skeleton";
-import unsign from "../../../assets/images/profile/unsign.jpg";
 import { ThreeDots } from "react-loader-spinner";
 import { IMG_PATH } from "../../../Api/api";
 import { DateFormateCustom } from "../../../Utils/DateFormateCustom";
-import VisibilityIcon from "@mui/icons-material/Visibility";
-import { Document, Page, pdfjs } from "react-pdf";
-import DownloadIcon from "@mui/icons-material/Download";
 import { useAlert } from "react-alert";
 import { FaHandshakeSimple } from "react-icons/fa6";
 import { PiHandshakeFill } from "react-icons/pi";
 
-pdfjs.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
+
 const PricePropasal = ({ id, activeTab }) => {
     const [proposalData, setProposalData] = useState([]);
     const [loadingProposal, setLoadingProposal] = useState(true);
@@ -58,7 +54,7 @@ const PricePropasal = ({ id, activeTab }) => {
     };
 
     useEffect(() => {
-        if (activeTab == 2) {
+        if (activeTab === 2) {
             fetchProposal();
         }
     }, [activeTab]);

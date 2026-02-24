@@ -1,11 +1,7 @@
-import React, { useEffect, useState } from "react";
-import PropertyComparison from "./propertyomparison";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Accordion, Placeholder } from 'rsuite';
-import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import { useEffect, useState } from "react";
+import { Accordion} from 'rsuite';
 import { Loader } from "@googlemaps/js-api-loader";
-import { FaAngleDoubleDown, FaArrowAltCircleDown, FaArrowDown } from 'react-icons/fa';
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import { FaAngleDoubleDown } from 'react-icons/fa';
 import {
   ApartmentOwnerPre,
   ApartmentProjectOwnerPreview,
@@ -16,8 +12,6 @@ import {
   PlotOwnerPreview,
 } from "./PreviewLandOwnerDetails/OwnerPreviewPageDetails";
 import * as FaIcons from "react-icons/fa";
-import { color } from "framer-motion";
-// import * as FaIcons from "react-icons/fa6";
 import { Skeleton } from "primereact/skeleton";
 
 
@@ -34,11 +28,8 @@ function Propertyaddress({ property, loading }) {
     const fetchLocationNames = async () => {
       try {
         const loader = new Loader(loaderOptions);
-
         const google = await loader.load();
-
         const geocoder = new google.maps.Geocoder();
-
         const locationPromises = property.map(async (item, index) => {
           if (item.location) {
             const [lat, lng] = item.location.split(",").map(Number);
@@ -91,18 +82,11 @@ function Propertyaddress({ property, loading }) {
   const exteriorFeatureData = property
     ? property.map((item) => item.exterior)
     : [];
-  // const localities = property
-  //   ? property.map((item) => item.nearByLocalities)
-  //   : [];
   const localities = property[0]?.nearByLocalities
-
-
-  const general = generalFeatureData.flat().map((item) => item);
   return (
     <>
       <div className="mt-2">
         {property?.map((item, index) => {
-          const locationName = locationNames[index] || "not found location";
           return (
             <div className="single  homes-content1 details mb-30 " key={index}>
               <div className="row">
@@ -329,11 +313,9 @@ function Propertyaddress({ property, loading }) {
                             );
                           })}
                         </div>
-
                       </Accordion.Panel>
                     </Accordion>
                   )}
-
                 </div>
               )}
             </div>

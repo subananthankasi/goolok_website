@@ -1,5 +1,5 @@
 import { useJsApiLoader } from "@react-google-maps/api";
-import React, { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Skeleton } from "primereact/skeleton";
 
 
@@ -13,24 +13,33 @@ function PropertyStreetView({ property, loading }) {
   const { isLoaded } = useJsApiLoader(loaderOptions);
   const [isStreetViewAvailable, setIsStreetViewAvailable] = useState(true);
 
-  const data = property ? property : {};
-  const locationStringArray = data?.flat().map((item) => item.location) || [];
-  const locationString =
-    locationStringArray.length > 0 ? locationStringArray[0] : null;
+  const data = useMemo(() => property || {}, [property]);
 
-  const locationArray = locationString ? locationString.split(",") : [];
-  const location =
-    locationArray.length === 2
-      ? {
+  const locationStringArray = useMemo(() => {
+    const arr = Array.isArray(data) ? data.flat() : [];
+    return arr.map((item) => item.location);
+  }, [data]);
+
+  const locationString = useMemo(() => {
+    return locationStringArray.length > 0 ? locationStringArray[0] : null;
+  }, [locationStringArray]);
+
+  const locationArray = useMemo(() => {
+    return locationString ? locationString.split(",") : [];
+  }, [locationString]);
+
+  const location = useMemo(() => {
+    if (locationArray.length === 2) {
+      return {
         lat: parseFloat(locationArray[0].trim()),
         lng: parseFloat(locationArray[1].trim()),
-      }
-      : null;
+      };
+    }
+    return null;
+  }, [locationArray]);
 
   useEffect(() => {
     if (!isLoaded || !location) return;
-
-    // ensure google maps API is ready
     if (window.google && window.google.maps && window.google.maps.StreetViewService) {
       const service = new window.google.maps.StreetViewService();
       service.getPanorama({ location, radius: 50 }, (data, status) => {
@@ -57,6 +66,7 @@ function PropertyStreetView({ property, loading }) {
       )}
       {isStreetViewAvailable && location && !loading && (
         <iframe
+          title="Google Street View"
           src={streetViewURL}
           width="100%"
           height="350px"

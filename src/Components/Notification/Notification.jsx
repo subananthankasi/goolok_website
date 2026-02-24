@@ -1,13 +1,12 @@
 import {
   fetchNotificationMsg,
-  fetchNotificationMsgUpdate,
 } from "../../Redux/Action/NotificationAction";
 import { useDispatch, useSelector } from "react-redux";
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import { useNavigate } from "react-router-dom";
-import { encryptData } from "../../Utils/encryptData";
 import { useEffect, useState } from "react";
-import CircleIcon from "@mui/icons-material/Circle";
+
+
 function Notification() {
   const token = localStorage.getItem("zxcvbnm@#");
   const dispatch = useDispatch();
@@ -23,20 +22,6 @@ function Notification() {
 
   const navigate = useNavigate();
 
-  const markAsRead = async (notification) => {
-    const enid = encryptData(notification.id);
-
-    const updateData = {
-      status: "true",
-      id: notification.id,
-    };
-    try {
-      await dispatch(fetchNotificationMsgUpdate(updateData));
-    } catch (error) { }
-    navigate("/profile_edit/notification", {
-      state: { notification, showFullMessage: true },
-    });
-  };
   const [rowId, setRowId] = useState(null);
   const [showFullMessage, setShowFullMessage] = useState(false);
   
@@ -166,93 +151,6 @@ function Notification() {
           </div>
         )}
       </ul>
-      {/* <ul
-        className="dropdown-menu p-0"
-        aria-labelledby="navbarDropdown"
-        style={{
-          minWidth: "18rem",
-          maxHeight: "400px",
-          overflowY: "auto",
-          scrollbarWidth: "none",
-          msOverflowStyle: "none",
-          padding: "0px",
-          left: "-200px",
-        }}
-      >
-        {notifications.length ? (
-          notifications.map((notification) => (
-            <div
-              key={notification.id}
-              onClick={() => handleClick(notification)}
-              style={{
-                padding: "12px 14px",
-                margin: "6px 8px",
-                borderRadius: "10px",
-                cursor: "pointer",
-                backgroundColor:
-                  notification.notif_read === "false" ? "#f0f8ff" : "#ffffff",
-                boxShadow:
-                  notification.notif_read === "false"
-                    ? "0 4px 12px rgba(0,123,255,0.1)"
-                    : "0 2px 6px rgba(0,0,0,0.05)",
-                transition: "all 0.2s ease-in-out",
-              }}
-              className="notification-card"
-            >
-              <div
-                className={notification.notif_read === "false" ? "fw-bold" : ""}
-              >
-                <div
-                  className="mb-1 d-flex justify-content-between align-items-center"
-                  style={{ fontSize: "14px", lineHeight: "1.3" }}
-                >
-                  {notification.notif_title}
-                  {notification.notif_type === "invoice" && (
-                    <span
-                      className={`badge rounded-pill px-2 py-1 ${
-                        notification.status !== "active"
-                          ? "bg-success text-white"
-                          : "bg-warning text-dark"
-                      }`}
-                      style={{
-                        fontSize: "11px",
-                        fontWeight: "500",
-                        boxShadow: "0 2px 5px rgba(0,0,0,0.15)",
-                      }}
-                    >
-                      {notification.status !== "active" ? "Success" : "Pending"}
-                    </span>
-                  )}
-                </div>
-              </div>
-              <div
-                className="text-dark text-end"
-                style={{ fontSize: "11px", color: "#666" }}
-              >
-                {timeAgo(notification.notif_time)}
-              </div>
-            </div>
-          ))
-        ) : (
-          <div className="d-flex justify-content-center p-3 text-muted">
-            No notifications available
-          </div>
-        )}
-
-        <style>
-          {`
-      .dropdown-menu::-webkit-scrollbar {
-        display: none;
-      }
-
-      .notification-card:hover {
-        background-color: #e6f0ff;
-        box-shadow: 0 6px 15px rgba(0,123,255,0.15);
-        transform: translateY(-1px);
-      }
-    `}
-        </style>
-      </ul> */}
     </div>
   );
 }

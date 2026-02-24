@@ -1,4 +1,3 @@
-import React from 'react';
 import '../propertyDetails/propertydetailscss.css';
 import gallery1 from '../../assets/images/land8.jpg'; 
 import gallery3 from '../../assets/images/land3.jpg';
@@ -6,9 +5,7 @@ import gallery4 from '../../assets/images/land4.jpg';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import ReactImageGallery from "react-image-gallery"; 
-import "react-image-gallery/styles/css/image-gallery.css"; // Import the CSS for React Image Gallery
-import "react-rater/lib/react-rater.css";
-// import video from '../../assets/images/video/plot_video.mp4';
+import "react-image-gallery/styles/css/image-gallery.css"; 
 import video from '../../assets/images/video/videoplayimg.jpg'
 import videothumb from '../../assets/images/video/videoplayimg.jpg';
 import { useLocation } from 'react-router-dom';

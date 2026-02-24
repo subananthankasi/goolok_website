@@ -75,14 +75,10 @@ const Wishlist = () => {
     } catch (error) {
       console.error("Error during the request:", error);
     } finally {
-      // fetch()
-      // window.location.reload()
       dispatch(wishlistGetThunk());
       dispatch(wishlistVerifyThunk(data?.[0]?.id));
     }
   };
-
-  //   const count = data.length;
   const [isModalOpenlogin, setIsModalOpenlogin] = useState(false);
 
   const openModallogin = () => {
@@ -98,7 +94,6 @@ const Wishlist = () => {
 
   return (
     <>
-      {/* <Login isOpen={isModalOpenlogin} closeModal={closeModalLogin} /> */}
       <LoginForm isOpen={isModalOpenlogin} closeModal={closeModalLogin} />
 
       <div style={{ fontFamily: "poppins" }}>
@@ -235,16 +230,6 @@ const Wishlist = () => {
                             />
                             <span className="mx-1">{item.village}</span>
                           </p>
-                          {/* <div className="price-properties footer d-flex justify-content-between p-0">
-                              <p className="bottom_price mb-0 p-0">
-                                <i
-                                  className="fa fa-inr"
-                                  aria-hidden="true"
-                                  style={{ fontSize: 12 }}
-                                />
-                                {item.price}
-                              </p>
-                            </div> */}
                           <div className="d-flex justify-content-between mt-2 mx-1">
                             <p className="bottom_price">
                               <i
@@ -254,36 +239,6 @@ const Wishlist = () => {
                               />
                               {item.price}
                             </p>
-                            {/* {item?.cart_status === "active" ? (
-                              <button
-                                className=""
-                                style={{
-                                  backgroundColor: "#2e7d32",
-                                  color: "white",
-                                  fontSize: "11px",
-                                  padding: "2px 5px",
-                                  borderRadius: "3px",
-                                  marginRight: "15px",
-                                }}
-                              >
-                                Added
-                              </button>
-                            ) : (
-                              <button
-                                className=""
-                                onClick={() => handleAddToCard(item.id)}
-                                style={{
-                                  backgroundColor: "#2b2e3a",
-                                  color: "white",
-                                  fontSize: "11px",
-                                  padding: "2px 5px",
-                                  borderRadius: "3px",
-                                  marginRight: "15px",
-                                }}
-                              >
-                                Add to Cart
-                              </button>
-                            )} */}
                             <button
                               style={{
                                 backgroundColor: "#2b2e3a",

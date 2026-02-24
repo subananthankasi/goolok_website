@@ -1,24 +1,9 @@
 import React, { useEffect, useMemo, useState } from "react";
-import axios from "axios";
-import { FaRegCheckCircle } from "react-icons/fa";
 import { Skeleton } from "primereact/skeleton";
-import { Link } from "react-router-dom";
-import { IoMdArrowRoundForward } from "react-icons/io";
-import API_BASE_URL, { IMG_PATH } from "../../Api/api";
-import { encryptData } from "../../Utils/encryptData";
 import "./WholeService.css";
-import { FaSearch } from "react-icons/fa";
-import { FaLocationDot } from "react-icons/fa6";
-import { IoDocumentText } from "react-icons/io5";
-import { TiHome } from "react-icons/ti";
-import { FaVectorSquare } from "react-icons/fa";
-import { ImHammer2 } from "react-icons/im";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchPropertyType } from "../../Redux/Action/PropertyTypeAction";
 import { fetchSubPropertyType } from "../../Redux/Action/SubPropertyAction";
-import NotesIcon from "@mui/icons-material/Notes";
-import HandshakeIcon from "@mui/icons-material/Handshake";
-import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
 import NoteAddOutlinedIcon from "@mui/icons-material/NoteAddOutlined";
 import { FaRegBuilding } from "react-icons/fa";
 import { PiHouse } from "react-icons/pi";
@@ -38,6 +23,7 @@ const ServiceReachOutForm = ({
   selectedService,
   setSelectedService,
   getData,
+  proLoading,
 }) => {
   const alert = useAlert();
   const [loading, setLoading] = useState(false);
@@ -121,10 +107,10 @@ const ServiceReachOutForm = ({
     }
   };
   const PropertyTypeData = useSelector(
-    (state) => state.PropertyType.PropertyTypeData
+    (state) => state.PropertyType.PropertyTypeData,
   );
   const SubPropertyTypeData = useSelector(
-    (state) => state.SubPropertyType.SubPropertyTypeData
+    (state) => state.SubPropertyType.SubPropertyTypeData,
   );
   const userData = useSelector((state) => state.userData.userData);
   const dispatch = useDispatch();
@@ -136,11 +122,11 @@ const ServiceReachOutForm = ({
 
   const filteredSubPropertyTypeData = useMemo(() => {
     return SubPropertyTypeData?.filter(
-      (item) => item.property === selectedPropertyType
+      (item) => item.property === selectedPropertyType,
     );
   }, [SubPropertyTypeData, selectedPropertyType]);
 
-  useEffect(() => { }, [selectedPropertyType]);
+  useEffect(() => {}, [selectedPropertyType]);
 
   const handlePropertyTypeSelect = (type) => {
     setSelectedPropertyType(type);
@@ -156,7 +142,7 @@ const ServiceReachOutForm = ({
 
   // Sort and limit property data
   const sortedProperties = PropertyTypeData?.slice().sort(
-    (a, b) => a.id - b.id
+    (a, b) => a.id - b.id,
   );
   const visibleProperties = showAllProperties
     ? sortedProperties
@@ -312,7 +298,7 @@ const ServiceReachOutForm = ({
       setRemark("");
       setSelectedDocument(null);
       alert.success(
-        "Your enquiry has been successfully sent. Our team will contact you shortly!"
+        "Your enquiry has been successfully sent. Our team will contact you shortly!",
       );
     } catch (error) {
       alert.error("Failed to send your enquiry. Please try again later!");
@@ -364,7 +350,7 @@ const ServiceReachOutForm = ({
         </h6> */}
         <div className="d-flex justify-content-between align-items-center mb-3 mt-2 px-3">
           {(selectedService?.service_title?.toLowerCase() ===
-            "missing documents"
+          "missing documents"
             ? ["Document", "Property", "Upload"]
             : ["Property", "Upload"]
           ).map((step, index, arr) => {
@@ -454,42 +440,60 @@ const ServiceReachOutForm = ({
                 >
                   Document List
                 </h6>
-                <div className="row mt-3 property_type_element">
-                  {DocumentList?.map((item, index) => (
-                    <div
-                      key={index}
-                      className={`mb-2 ${item === "ANY OTHER DOCUMENTS" ? "col-6" : "col-6"
-                        }`}
-                      onClick={() => setSelectedDocument(item)}
-                    >
+                {proLoading ? (
+                  <div className="row mt-4">
+                    {[1, 2, 3, 4, 5, 6]?.map((index) => (
                       <div
-                        className="text-center"
-                        style={{
-                          border: "1px solid #c0d5e7",
-                          fontSize: "13px",
-                          fontWeight: "500",
-                          padding: "7px 10px",
-                          cursor: "pointer",
-                          background:
-                            selectedDocument === item
-                              ? "linear-gradient(69.65deg, #0000ff, #78bdf6)"
-                              : "#fff",
-                          color: selectedDocument === item ? "white" : "black",
-                          transition: "0.3s",
-                          display: "flex",
-                          gap: "8px",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          whiteSpace: "nowrap",
-                          overflow: "hidden",
-                          textOverflow: "ellipsis",
-                        }}
+                        key={index}
+                        className="col-12 col-md-6 col-lg-16 mb-2"
                       >
-                        <p style={{ margin: 0 }}>{item}</p>
+                        <Skeleton height="1.9rem" className="" />
                       </div>
+                    ))}
+                    <div className="col-12 ">
+                      <Skeleton height="1.9rem" />
                     </div>
-                  ))}
-                </div>
+                  </div>
+                ) : (
+                  <div className="row mt-3 property_type_element">
+                    {DocumentList?.map((item, index) => (
+                      <div
+                        key={index}
+                        className={`mb-2 ${
+                          item === "ANY OTHER DOCUMENTS" ? "col-6" : "col-6"
+                        }`}
+                        onClick={() => setSelectedDocument(item)}
+                      >
+                        <div
+                          className="text-center"
+                          style={{
+                            border: "1px solid #c0d5e7",
+                            fontSize: "13px",
+                            fontWeight: "500",
+                            padding: "7px 10px",
+                            cursor: "pointer",
+                            background:
+                              selectedDocument === item
+                                ? "linear-gradient(69.65deg, #0000ff, #78bdf6)"
+                                : "#fff",
+                            color:
+                              selectedDocument === item ? "white" : "black",
+                            transition: "0.3s",
+                            display: "flex",
+                            gap: "8px",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            whiteSpace: "nowrap",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                          }}
+                        >
+                          <p style={{ margin: 0 }}>{item}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
               <div className="mt-3 mb-3">
                 <h6
@@ -520,48 +524,63 @@ const ServiceReachOutForm = ({
                 >
                   Property Type
                 </h6>
-                <div className="row mt-3 property_type_element">
-                  {PropertyTypeData?.sort(
-                    (a, b) => Number(a.id) - Number(b.id)
-                  )?.map((item, index) => (
-                    <div
-                      key={index}
-                      className="col-6 mb-2"
-                      onClick={() => handlePropertyTypeSelect(item?.id)}
-                    >
+                {proLoading ? (
+                  <div className="row mt-4">
+                    {[1, 2, 3, 4, 5, 6]?.map((index) => (
                       <div
-                        className="text-center"
-                        style={{
-                          border: "1px solid #c0d5e7",
-                          fontSize: "13px",
-                          fontWeight: "500",
-                          padding: "7px 10px",
-                          cursor: "pointer",
-                          background:
-                            selectedPropertyType === item?.id
-                              ? "linear-gradient(69.65deg, #0000ff, #78bdf6)"
-                              : "#fff",
-                          color:
-                            selectedPropertyType === item?.id
-                              ? "white"
-                              : "black",
-                          transition: "0.3s",
-                          display: "flex",
-                          gap: "8px",
-                          alignItems: "center",
-                          whiteSpace: "nowrap",
-                          overflow: "hidden",
-                          textOverflow: "ellipsis",
-                        }}
+                        key={index}
+                        className="col-12 col-md-6 col-lg-16 mb-2"
                       >
-                        <p style={{ margin: 0 }}>
-                          {visualIForPropertycons(item)} {item?.property_type}
-                        </p>
+                        <Skeleton height="1.9rem" className="" />
                       </div>
+                    ))}
+                    <div className="col-12 ">
+                      <Skeleton height="1.9rem" />
                     </div>
-                  ))}
-                </div>
-
+                  </div>
+                ) : (
+                  <div className="row mt-3 property_type_element">
+                    {PropertyTypeData?.sort(
+                      (a, b) => Number(a.id) - Number(b.id),
+                    )?.map((item, index) => (
+                      <div
+                        key={index}
+                        className="col-6 mb-2"
+                        onClick={() => handlePropertyTypeSelect(item?.id)}
+                      >
+                        <div
+                          className="text-center"
+                          style={{
+                            border: "1px solid #c0d5e7",
+                            fontSize: "13px",
+                            fontWeight: "500",
+                            padding: "7px 10px",
+                            cursor: "pointer",
+                            background:
+                              selectedPropertyType === item?.id
+                                ? "linear-gradient(69.65deg, #0000ff, #78bdf6)"
+                                : "#fff",
+                            color:
+                              selectedPropertyType === item?.id
+                                ? "white"
+                                : "black",
+                            transition: "0.3s",
+                            display: "flex",
+                            gap: "8px",
+                            alignItems: "center",
+                            whiteSpace: "nowrap",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                          }}
+                        >
+                          <p style={{ margin: 0 }}>
+                            {visualIForPropertycons(item)} {item?.property_type}
+                          </p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
                 {/* {PropertyTypeData?.length > 4 && (
                 <div className="text-start mt-2" style={{ fontSize: "12px" }}>
                   <button
@@ -588,34 +607,44 @@ const ServiceReachOutForm = ({
                 >
                   Subproperty Type
                 </h6>
-                <div className="d-flex flex-wrap justify-content-center gap-3 mt-4">
-                  {filteredSubPropertyTypeData?.map((item, index) => (
-                    <div
-                      key={index}
-                      onClick={() => handleSubPropertySelect(item.id)}
-                      style={{
-                        border: "1px solid #c0d5e7",
-                        fontSize: "13px",
-                        fontWeight: "500",
-                        padding: "7px 10px",
-                        cursor: "pointer",
-                        background: selectedSubPropertyType.includes(item.id)
-                          ? "linear-gradient(69.65deg, #0000ff, #78bdf6)"
-                          : "#fff",
-                        color: selectedSubPropertyType.includes(item.id)
-                          ? "white"
-                          : "black",
-                        // margin: "3px",
-                        display: "inline-block",
-                        whiteSpace: "nowrap",
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
-                      }}
-                    >
-                      {item.subproperty}
-                    </div>
-                  ))}
-                </div>
+                {proLoading ? (
+                  <div className="row mt-4 justify-content-center  ">
+                    {[1, 2, 3]?.map((index) => (
+                      <div className="col-12 col-md-4 col-lg-4 mb-2">
+                        <Skeleton key={index} height="1.8rem" className="" />
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="d-flex flex-wrap justify-content-center gap-3 mt-4">
+                    {filteredSubPropertyTypeData?.map((item, index) => (
+                      <div
+                        key={index}
+                        onClick={() => handleSubPropertySelect(item.id)}
+                        style={{
+                          border: "1px solid #c0d5e7",
+                          fontSize: "13px",
+                          fontWeight: "500",
+                          padding: "7px 10px",
+                          cursor: "pointer",
+                          background: selectedSubPropertyType.includes(item.id)
+                            ? "linear-gradient(69.65deg, #0000ff, #78bdf6)"
+                            : "#fff",
+                          color: selectedSubPropertyType.includes(item.id)
+                            ? "white"
+                            : "black",
+                          // margin: "3px",
+                          display: "inline-block",
+                          whiteSpace: "nowrap",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                        }}
+                      >
+                        {item.subproperty}
+                      </div>
+                    ))}
+                  </div>
+                )}
 
                 {/* {filteredSubPropertyTypeData?.length > 3 && (
                   <div className="text-start mt-2">
@@ -758,38 +787,38 @@ const ServiceReachOutForm = ({
           {(next === "missingdocument" ||
             next === "property" ||
             !next === "document") && (
-              <div
+            <div
+              style={{
+                position: "absolute",
+                bottom: "15px",
+                left: "50%",
+                transform: "translateX(-50%)",
+                // width: "90%",
+              }}
+            >
+              <button
+                className=" w-100"
                 style={{
-                  position: "absolute",
-                  bottom: "15px",
-                  left: "50%",
-                  transform: "translateX(-50%)",
-                  // width: "90%",
+                  background: "linear-gradient(69.65deg, #0000ff, #0000ff)",
+                  padding: "7px 10px",
+                  color: "white",
+                  fontWeight: "500",
+                  boxShadow: "0 4px 12px rgba(5,89,159,0.3)",
+                  transition: "all 0.3s ease",
                 }}
+                onClick={handleNextButton}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = "translateY(-3px)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = "translateY(0)";
+                }}
+                type="button"
               >
-                <button
-                  className=" w-100"
-                  style={{
-                    background: "linear-gradient(69.65deg, #0000ff, #0000ff)",
-                    padding: "7px 10px",
-                    color: "white",
-                    fontWeight: "500",
-                    boxShadow: "0 4px 12px rgba(5,89,159,0.3)",
-                    transition: "all 0.3s ease",
-                  }}
-                  onClick={handleNextButton}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = "translateY(-3px)";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = "translateY(0)";
-                  }}
-                  type="button"
-                >
-                  Next <EastIcon />
-                </button>
-              </div>
-            )}
+                Next <EastIcon />
+              </button>
+            </div>
+          )}
 
           {next === "document" && (
             <div className="mt-3">
@@ -802,7 +831,7 @@ const ServiceReachOutForm = ({
                   boxShadow: "0 4px 12px rgba(5,89,159,0.3)",
                   transition: "all 0.3s ease",
                   width: "100%",
-                  padding: "7px 10px"
+                  padding: "7px 10px",
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.transform = "translateY(-3px)";

@@ -1,10 +1,9 @@
-import  { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import "../home/homestyle.css";
 import { Carousel } from "primereact/carousel";
-import "react-multi-carousel/lib/styles.css";
 import "@fortawesome/fontawesome-free/css/all.css";
 import axios from "axios";
-import  { IMG_PATH, LOGIN_BASE_URL } from "../../Api/api";
+import { IMG_PATH, LOGIN_BASE_URL } from "../../Api/api";
 import { Link } from "react-router-dom";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
@@ -21,21 +20,20 @@ import { recommendGetThunk } from "../../Redux/Action/RecommendThunk";
 import { nearbyPropertiesGetThunk } from "../../Redux/Action/NearbyPropertiesThunk";
 import UseLocationFetcher from "./UseLocationFetcher";
 
+
 function Recommended({ loading }) {
-  // const [getData, setGetData] = useState([]);
+
   const token = localStorage.getItem("zxcvbnm@#");
   const userid = localStorage.getItem("userid");
   const alert = useAlert();
   const dispatch = useDispatch();
- 
+
   const getData =
     useSelector((state) => state.RecommendGetData?.data?.data) || [];
 
-
   useEffect(() => {
-    // fetchHighReturnProperties();
     dispatch(recommendGetThunk(userid))
-  }, [userid,dispatch]);
+  }, [userid, dispatch]);
 
   const responsiveOptions = [
     {
@@ -81,74 +79,111 @@ function Recommended({ loading }) {
     [dispatch, userid]
   );
 
-
   const { mapLoading, locationData } = UseLocationFetcher(handleLocation);
+
+  // const handleWishlistClick = async (eid) => {
+  //   if (!token) {
+  //     setIsModalOpenlogin(true);
+  //   } else {
+  //     try {
+  //       const payload = {
+  //         enqid: eid,
+  //       };
+  //       dispatch(wishlistPostThunk(payload)).then(() => {
+  //         dispatch(wishlistVerifyThunk(eid));
+  //         dispatch(wishlistGetThunk());
+  //       });
+  //       await dispatch(wishlistGetThunk());
+  //       alert.success("Great choice! This property successfully added to your wishlist ");
+  //     } catch (error) {
+  //       console.error("Error during the request:", error);
+  //     } finally {
+  //       dispatch(wishlistVerifyThunk(eid));
+  //       dispatch(wishlistGetThunk());
+  //       dispatch(recommendGetThunk(userid))
+  //       dispatch(
+  //         nearbyPropertiesGetThunk({
+  //           lat: locationData?.lat,
+  //           lon: locationData?.lon,
+  //           neighborhood: locationData?.neighborhood,
+  //           userid,
+  //         })
+  //       );
+  //     }
+  //   }
+  // };
+
+  // const removeFromWishlist = async (eid) => {
+  //   try {
+  //     await axios.delete(`${LOGIN_BASE_URL}/vendor/wishlist/${eid}`, {
+  //       headers: {
+  //         Authorization: token,
+  //       },
+  //     });
+  //     dispatch(wishlistGetThunk());
+  //     dispatch(wishlistVerifyThunk(eid));
+  //     alert.success("Item removed from your wishlist");
+  //   } catch (error) {
+  //     console.error("Error during the request:", error);
+  //   } finally {
+  //     dispatch(wishlistGetThunk());
+  //     dispatch(wishlistVerifyThunk(eid));
+  //     dispatch(recommendGetThunk(userid))
+  //     dispatch(
+  //       nearbyPropertiesGetThunk({
+  //         lat: locationData?.lat,
+  //         lon: locationData?.lon,
+  //         neighborhood: locationData?.neighborhood,
+  //         userid,
+  //       })
+  //     );
+  //   }
+  // };
+
 
   const handleWishlistClick = async (eid) => {
     if (!token) {
       setIsModalOpenlogin(true);
-    } else {
-      try {
-        const payload = {
-          enqid: eid,
-        };
-        dispatch(wishlistPostThunk(payload)).then(() => {
-          dispatch(wishlistVerifyThunk(eid));
-          dispatch(wishlistGetThunk());
-        });
-        await dispatch(wishlistGetThunk());
-        alert.success("Great choice! This property successfully added to your wishlist ");
-      } catch (error) {
-        console.error("Error during the request:", error);
-      } finally {
-        dispatch(wishlistVerifyThunk(eid));
-        dispatch(wishlistGetThunk());
-        // fetchHighReturnProperties();
-        dispatch(recommendGetThunk(userid))
-        // if (locationData) {
-        dispatch(
-          nearbyPropertiesGetThunk({
-            lat: locationData?.lat,
-            lon: locationData?.lon,
-            neighborhood: locationData?.neighborhood,
-            userid,
-          })
-        );
-        // }
-      }
+      return;
+    }
+    try {
+      await dispatch(wishlistPostThunk({ enqid: eid }));
+      dispatch(wishlistVerifyThunk(eid));
+      dispatch(wishlistGetThunk());
+      alert.success("Great choice! This property successfully added to your wishlist ");
+      setCarouselData((prev) =>
+        prev.map((item) =>
+          item.id === eid ? { ...item, whishlist: "false" } : item
+        )
+      );
+    } catch (error) {
+      console.error("Wishlist error:", error);
     }
   };
-
   const removeFromWishlist = async (eid) => {
     try {
       await axios.delete(`${LOGIN_BASE_URL}/vendor/wishlist/${eid}`, {
-        headers: {
-          Authorization: token,
-        },
+        headers: { Authorization: token },
       });
+
       dispatch(wishlistGetThunk());
       dispatch(wishlistVerifyThunk(eid));
-      alert.success("Item removed from your wishlist");
-    } catch (error) {
-      console.error("Error during the request:", error);
-    } finally {
-      dispatch(wishlistGetThunk());
-      dispatch(wishlistVerifyThunk(eid));
-      // fetchHighReturnProperties();
-      dispatch(recommendGetThunk(userid))
-      // if (locationData) {
-      dispatch(
-        nearbyPropertiesGetThunk({
-          lat: locationData?.lat,
-          lon: locationData?.lon,
-          neighborhood: locationData?.neighborhood,
-          userid,
-        })
+      alert.success("Removed from wishlist ");
+
+      setCarouselData((prev) =>
+        prev.map((item) =>
+          item.id === eid ? { ...item, whishlist: true } : item
+        )
       );
-      // }
+    } catch (error) {
+      console.error("Remove wishlist error:", error);
     }
   };
 
+
+
+
+  const carouselKey = "recommended-carousel";
   const productTemplate = (product) => {
     return (
       <div className="todaysdeal-card">
@@ -252,6 +287,13 @@ function Recommended({ loading }) {
       </div>
     );
   };
+
+
+  const [carouselData, setCarouselData] = useState([]);
+  useEffect(() => {
+    setCarouselData(getData);
+  }, [getData]);
+
   return (
     <section className="section_container">
       <LoginForm isOpen={isModalOpenlogin} closeModal={closeModalLogin} />
@@ -292,14 +334,25 @@ function Recommended({ loading }) {
           </div>
         ) : getData.length >= 4 ? (
           <div className="mt-2 buyer_property">
-            <Carousel
+            {/* <Carousel
               value={getData}
               numVisible={4}
               numScroll={3}
               responsiveOptions={responsiveOptions}
               itemTemplate={productTemplate}
               circular
+            /> */}
+            <Carousel
+              key={carouselKey}
+              value={carouselData}
+              numVisible={4}
+              numScroll={3}
+              responsiveOptions={responsiveOptions}
+              itemTemplate={productTemplate}
+              circular
             />
+
+
           </div>
         ) : (
           <div className="d-flex justify-content-center gap-3 mt-2">

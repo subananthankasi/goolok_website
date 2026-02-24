@@ -2,9 +2,8 @@ import axios from 'axios';
 
 
 const axiosInstance = axios.create({
-  // baseURL: "https://api.goolok.com",
-  // baseURL: "https://api.rooptek.in",
-  baseURL: 'https://webman.co.in/goolok'
+  baseURL: "https://api.goolok.com",
+  // baseURL: 'https://webman.co.in/goolok'
 });
 
  axiosInstance.interceptors.request.use(

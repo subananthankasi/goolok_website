@@ -1,30 +1,26 @@
 import React, { useRef } from 'react';
 import jsPDF from 'jspdf';
-// import paid from '../assets/images/profile/paid.png'
+
 
 const PdfDownloadPage = () => {
-    const contentRef = useRef();
+  const contentRef = useRef();
 
-    const downloadPdf = () => {
-        const doc = new jsPDF();
+  const downloadPdf = () => {
+    const doc = new jsPDF();
 
-        doc.html(contentRef.current, {
-            callback: (pdf) => {
-                pdf.save('invoice.pdf');
-            },
-            x: 10,
-            y: 10,
-            html2canvas: { scale: 0.2 },  
-        });
-    };
+    doc.html(contentRef.current, {
+      callback: (pdf) => {
+        pdf.save('invoice.pdf');
+      },
+      x: 10,
+      y: 10,
+      html2canvas: { scale: 0.2 },
+    });
+  };
 
-    return (
-        <div >
-            <div ref={contentRef} className='container'style={{maxWidth:"950px"}}>
- 
-              
-      
-            
+  return (
+    <div >
+      <div ref={contentRef} className='container' style={{ maxWidth: "950px" }}>
         <h1 className="header--i nvoice m-auto mb-3">INVOICE</h1>
         <header className="headerinvoice">
           <h1 className="header--invoice">
@@ -99,33 +95,27 @@ const PdfDownloadPage = () => {
           <div className="col-7">
             <h5>Payment Instructions</h5>
             <p>
-              Ensure to reference Invoice Number 
+              Ensure to reference Invoice Number
               {/* <b>{invoiceData.invoice_id}</b>  */}
               in your payment.
               Thank you for your prompt attention to this matter.
             </p>
           </div>
           <div className="col-5 text-end">
-           
-              <div className="text-end">
-                <img 
+
+            <div className="text-end">
+              <img
                 // src= {paid}  
-                style={{width:"150px",height:"150px"}}/>
-                </div>
-            
-            
-           
+                style={{ width: "150px", height: "150px" }} alt='paid'/>
             </div>
           </div>
- 
-             </div>
-           
-
-            <button onClick={downloadPdf} style={{ marginTop: '20px', padding: '10px 20px', cursor: 'pointer' }}>
-                Download as PDF
-            </button>
         </div>
-    );
+      </div>
+      <button onClick={downloadPdf} style={{ marginTop: '20px', padding: '10px 20px', cursor: 'pointer' }}>
+        Download as PDF
+      </button>
+    </div>
+  );
 };
 
 export default PdfDownloadPage;

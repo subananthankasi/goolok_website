@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState } from "react";
 import ImageGallery from "react-image-gallery";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -122,69 +122,3 @@ const MyGallery = ({ property, loading }) => {
 };
 
 export default MyGallery;
-
-// import React, { useRef } from "react";
-// import ImageGallery from "react-image-gallery";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
-// import "react-image-gallery/styles/css/image-gallery.css";
-// import i1 from "../../assets/images/in1.jpg";
-// import a1 from "../../assets/images/apart1.jpg";
-// import a2 from "../../assets/images/apart2.jpg";
-// import a3 from "../../assets/images/apart3.jpg";
-// import a4 from "../../assets/images/apart4.jpg";
-
-// const images = [
-//   {
-//     original: i1,
-//     thumbnail: i1,
-//   },
-//   {
-//     original: a1,
-//     thumbnail: a1,
-//   },
-//   {
-//     original: a2,
-//     thumbnail: a2,
-//   },
-//   {
-//     original: a3,
-//     thumbnail: a3,
-//   },
-//   {
-//     original: a4,
-//     thumbnail: a4,
-//   },
-// ];
-
-// const MyGallery = () => {
-//   const galleryRef = useRef(null);
-
-//   const handleNext = () => {
-//     if (galleryRef.current) {
-//       galleryRef.current.slideToIndex(galleryRef.current.getCurrentIndex() + 1);
-//     }
-//   };
-
-//   const handlePrev = () => {
-//     if (galleryRef.current) {
-//       galleryRef.current.slideToIndex(galleryRef.current.getCurrentIndex() - 1);
-//     }
-//   };
-
-//   return (
-//     <div>
-//       <ImageGallery ref={galleryRef} items={images} showThumbnails={true} />
-//       <div style={{ display: "flex", justifyContent: "center", marginTop: "10px" }}>
-//         <button onClick={handlePrev} style={{ marginRight: "10px", background: "none", border: "1px solid gray" }}>
-//           <FontAwesomeIcon icon={faChevronLeft} size="2x" />
-//         </button>
-//         <button onClick={handleNext} style={{ background: "none", border: "1px solid gray" }}>
-//           <FontAwesomeIcon icon={faChevronRight} size="2x" />
-//         </button>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default MyGallery;

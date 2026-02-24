@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { IMG_PATH, LOGIN_BASE_URL } from "../../Api/api";
 import { Skeleton } from "primereact/skeleton";
 import SearchOffIcon from "@mui/icons-material/SearchOff";
-import { MagnifyingGlass } from "react-loader-spinner";
 import { Paginator } from "primereact/paginator";
 import { Carousel } from "react-bootstrap";
 import FilterOfProducts from "./FilterOfProducts";
@@ -26,6 +25,8 @@ import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";
 import { FaMapLocationDot } from "react-icons/fa6";
 
 const ProductGrid = ({ landType, searchValue }) => {
+
+  
   const token = localStorage.getItem("zxcvbnm@#");
   const [mobileFilter, setMobileFilter] = useState(false);
   const dispatch = useDispatch();
@@ -40,8 +41,6 @@ const ProductGrid = ({ landType, searchValue }) => {
 
   const products = useSelector((state) => state.buyPropertiesData?.data);
   const loading = useSelector((state) => state.buyPropertiesData?.loading);
-
-  const [filterLoading, setFilterLoading] = useState(false);
 
   const [first, setFirst] = useState(0);
   const [rows, setRows] = useState(9);
@@ -165,7 +164,6 @@ const ProductGrid = ({ landType, searchValue }) => {
                       fontFamily: "Poppins, sans-serif",
                       fontWeight: "600",
                       fontSize: "25px",
-                      // color: "#05599F",
                       color: "#0000ff",
                     }}
                   >
@@ -177,7 +175,6 @@ const ProductGrid = ({ landType, searchValue }) => {
                       color: "#555",
                       maxWidth: "550px",
                       margin: "0 auto 0",
-                      // lineHeight: "1.6",
                       fontFamily: "Poppins, sans-serif",
                     }}
                   >
@@ -188,7 +185,7 @@ const ProductGrid = ({ landType, searchValue }) => {
                   </p>
                 </div>
               </div>
-              <div className=" col-md-7 ">
+              <div className="col-md-7 ">
                 <div className="d-flex align-items-center justify-content-sm-between justify-content-md-end gap-3">
                   <div className="d-md-block d-lg-none d-xl-none d-xxl-none ">
                     <Button
@@ -322,24 +319,6 @@ const ProductGrid = ({ landType, searchValue }) => {
                         <Skeleton height={352} />
                       </div>
                     </>
-                  ) : filterLoading ? (
-                    <div
-                      className="d-flex justify-content-center align-items-center"
-                      style={{ height: "60vh" }}
-                    >
-                      <div style={{ textAlign: "center" }}>
-                        <MagnifyingGlass
-                          visible={true}
-                          height="100"
-                          width="100"
-                          ariaLabel="magnifying-glass-loading"
-                          wrapperStyle={{}}
-                          wrapperClass="magnifying-glass-wrapper"
-                          glassColor="#efefef"
-                          color="#2b2e3a"
-                        />
-                      </div>
-                    </div>
                   ) : paginatedProducts.length > 0 ? (
                     paginatedProducts?.map((product) => (
                       <div
@@ -441,72 +420,6 @@ const ProductGrid = ({ landType, searchValue }) => {
                                 </button>
                               )}
                             </div>
-                            {/* <div className="property-info">
-                              <div
-                                className="homes-content p-2"
-                                style={{ height: "150px" }}
-                              >
-                                <h3 className="p-0 m-0">
-                                  <a href="#" className="p-0 m-0">
-                                    {product?.landType}{" "}
-                                  </a>
-                                </h3>
-                                <ul className="homes-list homes-list1 clearfix mb-0">
-                                  <li className="the-icons mb-2">
-                                    <span style={{
-                                      display: "inline-block",
-                                      maxWidth: "300px",
-                                      whiteSpace: "nowrap",
-                                      overflow: "hidden",
-                                      textOverflow: "ellipsis",
-                                    }}>{product?.propertyName} </span>
-                                  </li>
-                                  <li className="the-icons mb-1">
-                                    <i className="fa-solid fa-ruler-combined"></i>
-                                    <span className="m-0 p-0">
-                                      {product?.land_extent_display}
-                                    </span>
-                                  </li>
-                                </ul>
-                                <ul className="homes-list homes-list1 clearfix pb-1 mb-0">
-                                  <a href="javascript:void(0)">
-                                    <li className="the-icons">
-                                      <i className="fa fa-map-marker" />
-                                      <span>{product?.taluk}</span>
-                                    </li>
-                                  </a>
-                                </ul>
-                                <div className="price-properties footer mt-1 pb-0">
-                                  <p className="bottom_price mb-0">
-                                    {product?.disc_status === "true" ? (
-                                      <p className="bottom_price mb-0">
-                                        <span>₹ {product.total_aft_disc}</span>
-                                        <span
-                                          style={{
-                                            color: "gray",
-                                            fontSize: "12px",
-                                            textDecoration: "line-through",
-                                            marginLeft: "8px",
-                                          }}
-                                        >
-                                          ₹ {product.price}
-                                        </span>
-                                      </p>
-                                    ) : (
-                                      <p className="bottom_price mb-0">
-                                        <i
-                                          className="fa fa-inr"
-                                          aria-hidden="true"
-                                          style={{ fontSize: 12 }}
-                                        />
-
-                                        {product.price}
-                                      </p>
-                                    )}
-                                  </p>
-                                </div>
-                              </div>
-                            </div> */}
                             <div className="property-card p-3">
                               <h6 className="property_landtype">
                                 {product?.landType}

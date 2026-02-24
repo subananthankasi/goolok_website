@@ -10,31 +10,24 @@ import { useDispatch } from "react-redux";
 import { fetchUserData } from "../../Redux/Action/UserData";
 import SignUpForm from "./SignUpForm";
 import {
-  initOnMessageListener,
   onMessageListener,
   requestForToken,
 } from "../Firebase";
 import { fetchNotificationMsg } from "../../Redux/Action/NotificationAction";
-import { Button, message, Space } from "antd";
-import { BellOutlined } from "@ant-design/icons";
+import { message } from "antd";
 import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 
 const LoginForm = ({ isOpen, closeModal, onLoginSuccess }) => {
   const [signupForm, setSignupForm] = useState(false);
-  const [otpData, setOtpData] = useState();
   const [input, setInput] = useState(true);
   const [otp, setOtp] = useState(["", "", "", ""]);
   const [mobileData, setMobileData] = useState({ mobile: "" });
   const [errors, setError] = useState({});
   const [loading, setLoading] = useState(false);
-  // const [timer, setTimer] = useState(60);
   const [timer, setTimer] = useState(600);
   const dispatch = useDispatch();
   const token = localStorage.getItem("zxcvbnm@#");
-
   const [fcmToken, setFcmToken] = useState(null);
-  const [notification, setNotification] = useState(null);
-  const headerToken = localStorage.getItem("zxcvbnm@#");
   const alert = useAlert();
   const [messageApi, contextHolder] = message.useMessage();
   useEffect(() => {
@@ -170,7 +163,6 @@ const LoginForm = ({ isOpen, closeModal, onLoginSuccess }) => {
           { headers: { "Content-Type": "application/json" } }
         );
         const userId = response.data.userID;
-        setOtpData(response.data);
         localStorage.setItem("tempUserId", userId);
         setInput(true);
         setLoading(false);
@@ -183,11 +175,9 @@ const LoginForm = ({ isOpen, closeModal, onLoginSuccess }) => {
     }
   };
 
-
   const VerifyOtp = async (e) => {
     e.preventDefault();
     const otpValue = otp.join("");
-
     if (!otpValue) return;
     const storedUserId = localStorage.getItem("tempUserId");
     setLoading(true);
@@ -209,18 +199,13 @@ const LoginForm = ({ isOpen, closeModal, onLoginSuccess }) => {
       localStorage.setItem("auth", true);
       localStorage.setItem("mobile", mobile);
       localStorage.setItem("userid", userid);
-
       await sendTokenToBackend(token);
-
       dispatch(fetchNotificationMsg());
       dispatch(loginAuth());
-
       setLoading(false);
       setInput(false);
       alert.success("Login complete. Happy to see you again!");
-
       dispatch(fetchUserData());
-
       localStorage.removeItem("tempUserId");
 
       closeModal();
@@ -255,7 +240,6 @@ const LoginForm = ({ isOpen, closeModal, onLoginSuccess }) => {
             <button
               type="button"
               className="close closebutton"
-              // onClick={closeModal}
               onClick={() => {
                 closeModal();
                 setSignupForm(false);
@@ -336,18 +320,6 @@ const LoginForm = ({ isOpen, closeModal, onLoginSuccess }) => {
                 )}
 
                 <div className={`mt-2 ${input ? "" : "d-none"}`}>
-                  {/* {timer > 0 ? (
-                    <span>OTP expiry in {timer} seconds</span>
-                  ) : (
-                    <a
-                      href="javascript:void(0)"
-                      className="text-dark"
-                      onClick={LoginOtp}
-                    >
-                      Resend otp
-                    </a>
-                  )} */}
-
                   {timer > 0 ? (
                     <span>
                       OTP expiry in{" "}

@@ -8,24 +8,17 @@ import ScrollToTop from "./Components/ScrollToTop";
 import PublicRoute from "./Routes/PublicRoute";
 import Propertyview from "./Pages/property/propertyview";
 import PropertyMap from "./Pages/propertymap/propertymap";
-import Tickets from "./Pages/profileEdit/Tickets";
-import EditProfile from "./Pages/profileEdit/editProfile";
-import AddProperty from "./Pages/profileEdit/AddProperty";
 import YourProperty from "./Pages/profileEdit/YourProperty";
 import Ledger from "./Pages/profileEdit/ledger";
 import TicketNotification from "./Pages/profileEdit/ticketNotification";
 import AfterLogin from "./Routes/AfterLogin";
 import Tracking from "./Pages/profileEdit/Tracking/Tracking";
 import NotificationDetails from "./Components/Notification/NotificationDetails";
-import ForumHome from "./Pages/Forum/ForumHome";
-import Replies from "./Pages/Forum/Replies";
 import {
   PaymentFailed,
   PaymentSuccess,
 } from "./Pages/PaymentGateway/PaymentResponse";
 import PdfDownloadPage from "./Test/PdfDownloadPage";
-import "bootstrap/dist/js/bootstrap.bundle.min.js";
-import "primereact/resources/themes/lara-light-cyan/theme.css";
 import Mybooking from "./Pages/profileEdit/Mybooking";
 import Service from "./Pages/profileEdit/Service";
 import BookDetails from "./Pages/profileEdit/BookDetails";
@@ -42,15 +35,12 @@ import SearchResults from "./Components/navbar/SearchResults";
 import ServicePreviewPage from "./Pages/ServicePages/ServicePreviewPage";
 import WhoWeAre from "./Components/Footer/FooterComponents/WhoWeAre";
 import Blogs from "./Components/Footer/FooterComponents/Blogs";
-import CustomerCareFooter from "./Components/Footer/FooterComponents/CustomerCareFooter";
 import HowItsWork from "./Components/Footer/FooterComponents/HowItsWork";
 import PrivacyPolicy from "./Components/Footer/FooterComponents/PrivacyPolicy";
 import RefundPolicy from "./Components/Footer/FooterComponents/RefundPolicy";
-import SiteMap from "./Components/Footer/FooterComponents/SiteMap";
 import TermsAndCondition from "./Components/Footer/FooterComponents/TermsAndCondition";
 import AboutUs from "./Components/Footer/FooterComponents/AboutUs";
 import ContactUs from "./Components/Footer/FooterComponents/ContactUs";
-import NewLoginPage from "./Components/Login/NewLoginPage";
 import WholeService from "./Pages/ServicePages/WholeService";
 import LegalPaymentLink from "./Components/LinkPages/LegalPaymentLink";
 import LegalpaymentInvoiceDownload from "./Components/LinkPages/LegalpaymentInvoiceDownload";
@@ -58,26 +48,24 @@ import LinkPage from "./Components/LinkPages/LinkPage";
 import AutoInvoiceDownload from "./Components/LinkPages/AutoInvoiceDownload";
 import AgreementRedirect from "./Components/LinkPages/AgreementRedirect";
 import PaymentSheduleRedirect from "./Components/LinkPages/PaymentSheduleRedirect";
-import MyProfile from "./Pages/profileEdit/MyProfile";
 import PriceProposalRedirect from "./Components/LinkPages/PriceProposalRedirect";
 import ProfileLayout from "./Pages/profileEdit/ProfileLayout";
+import LayoutBooking from "./Pages/property/LayoutBooking";
+import LayoutCheckoutPage from "./Components/Notification/LayoutCheckoutPage";
+
+
 
 
 function App() {
   return (
 
-    <BrowserRouter basename="/goolokweb">
+    <BrowserRouter>
       <div className="app-layout">
         <Navbar />
         <ScrollToTop />
         <main className="app-content">
           <Routes>
             <Route exact path="/" element={<PublicRoute element={Home} />} />
-            <Route
-              exact
-              path="/new"
-              element={<PublicRoute element={NewLoginPage} />}
-            />
             <Route
               path="/properties/"
               element={<PublicRoute element={Gridview} />}
@@ -124,20 +112,7 @@ function App() {
             path="/profile_edit/servicedetails/:eid"
             element={<AfterLogin element={ServiceDetails} />}
           /> */}
-            <Route
-              path="/profile_edit/tickets"
-              element={<AfterLogin element={Tickets} />}
-            />
             {/* <Route path="/profile_edit/dashboard" element={<AfterLogin element={Dashboard} />} /> */}
-
-            <Route
-              path="/profile_edit/profile"
-              element={<AfterLogin element={EditProfile} />}
-            />
-            <Route
-              path="/profile_edit/add_property"
-              element={<AfterLogin element={AddProperty} />}
-            />
             {/* <Route
             path="/profile_edit/my_property"
             element={<AfterLogin element={YourProperty} />}
@@ -190,10 +165,6 @@ function App() {
             path="/profile_edit/notification"
             element={<AfterLogin element={TicketNotification} />}
           /> */}
-            <Route
-              path="/profile_edit/myprofile"
-              element={<AfterLogin element={MyProfile} />}
-            />
             {/* <Route
             path="/profile_edit/property_status/:id"
             element={<AfterLogin element={Tracking} />}
@@ -210,9 +181,6 @@ function App() {
               path="/schedule/:id"
               element={<PaymentSheduleRedirect />}
             />
-            {/* forum   */}
-            <Route path="/forum" element={<PublicRoute element={ForumHome} />} />
-            <Route path="/replies" element={<PublicRoute element={Replies} />} />
 
             {/* payment gateway */}
             <Route
@@ -250,10 +218,6 @@ function App() {
 
             <Route path="/blogs" element={<PublicRoute element={Blogs} />} />
             <Route
-              path="/customercare_footer"
-              element={<PublicRoute element={CustomerCareFooter} />}
-            />
-            <Route
               path="/howitswork"
               element={<PublicRoute element={HowItsWork} />}
             />
@@ -265,7 +229,6 @@ function App() {
               path="/refundpolicy"
               element={<PublicRoute element={RefundPolicy} />}
             />
-            <Route path="/sitemap" element={<PublicRoute element={SiteMap} />} />
             <Route
               path="/terms"
               element={<PublicRoute element={TermsAndCondition} />}
@@ -295,6 +258,16 @@ function App() {
               path="/invoice/:id?"
               element={<PublicRoute element={AutoInvoiceDownload} />}
             />
+            <Route
+              path="/layout"
+              element={<PublicRoute element={LayoutBooking} />}
+            />
+            <Route
+              path="/layoutcheckout"
+              element={<PublicRoute element={LayoutCheckoutPage} />}
+            />
+           
+           
           </Routes>
         </main>
         <Footer />
@@ -306,3 +279,4 @@ function App() {
 }
 
 export default App;
+

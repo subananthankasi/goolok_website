@@ -1,6 +1,5 @@
-import React, { useEffect, useMemo, useState } from "react";
+import  { useEffect, useMemo, useState } from "react";
 import { FaRegPaperPlane } from "react-icons/fa6";
-import { FaCircleCheck } from "react-icons/fa6";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { styled } from "@mui/material/styles";
@@ -11,7 +10,7 @@ import DialogActions from "@mui/material/DialogActions";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import axios from "axios";
-import API_BASE_URL, { IMG_PATH } from "../../Api/api";
+import API_BASE_URL from "../../Api/api";
 import { Link, useParams } from "react-router-dom";
 import { decryptData } from "../../Utils/encryptData";
 import "./FirstBanner.css";
@@ -23,18 +22,10 @@ import { fetchSubPropertyType } from "../../Redux/Action/SubPropertyAction";
 import axiosInstance from "../../Api/axiosInstance";
 import { ThreeDots } from "react-loader-spinner";
 import {
-  FaCalendarAlt,
-  FaUser,
-  FaPhone,
-  FaEnvelope,
   FaFilePdf,
-  FaRegBuilding,
 } from "react-icons/fa";
-import { Divider } from "@mui/material";
 import { useAlert } from "react-alert";
 import { Skeleton } from "primereact/skeleton";
-import { DatePicker, Space } from "antd";
-import dayjs from "dayjs";
 import findimg from "../../assets/ServiceImages/services/findimg.jpg";
 import getpattaImg from "../../assets/ServiceImages/services/getpatta.jpg";
 import missingImg from "../../assets/ServiceImages/services/missing.jpg";

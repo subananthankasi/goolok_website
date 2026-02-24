@@ -23,23 +23,6 @@ const LinkPage = () => {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate()
 
-  const generatePdf = () => {
-    const input = contentRef.current;
-    if (!input) {
-      console.error("contentRef is not available");
-      return;
-    }
-
-    html2canvas(input, { scale: 2 }).then((canvas) => {
-      const imgData = canvas.toDataURL("image/png");
-      const pdf = new jsPDF("p", "mm", "a4");
-      const imgWidth = 210;
-      const imgHeight = (canvas.height * imgWidth) / canvas.width;
-      pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight);
-      pdf.save("invoice.pdf");
-    });
-  };
-
   const calculateTotals = () => {
     const subtotal = invoiceData?.reduce((acc, item) => {
       const chargesTotal = item.amount;
@@ -91,13 +74,7 @@ const LinkPage = () => {
       navigate("/");
     }
   }, [id]);
-  const thStyle = {
-    border: "1px solid #ccc",
-    padding: "5px",
-    textAlign: "center",
-    fontWeight: "600",
-    fontSize: "10px",
-  };
+
   const paymentIdHandle = async (response) => {
     if (!invoiceData || invoiceData?.length === 0) return;
     const payload = {

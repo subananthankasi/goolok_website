@@ -1,15 +1,8 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "../home/homestyle.css";
-// import Carousel from "react-multi-carousel";
 import { Carousel } from "primereact/carousel";
-import "react-multi-carousel/lib/styles.css";
-import sideimage from "../../assets/images/SalesAd/salesAd.jpg";
 import "@fortawesome/fontawesome-free/css/all.css";
 import { Link } from "react-router-dom";
-import i1 from "../../assets/newui_images/land.jpg";
-import a1 from "../../assets/newui_images/apartment.jpg";
-import a2 from "../../assets/newui_images/villa.jpg";
-import a3 from "../../assets/newui_images/independenthouse.jpg";
 import API_BASE_URL, { IMG_PATH } from "../../Api/api";
 import axios from "axios";
 import { Skeleton } from "primereact/skeleton";

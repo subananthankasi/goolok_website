@@ -13,7 +13,6 @@ import { TiHome } from "react-icons/ti";
 import { FaVectorSquare } from "react-icons/fa";
 import { ImHammer2 } from "react-icons/im";
 import ServiceReachOutForm from "./ServiceReachOutForm";
-import offerImg from "../../assets/ServiceImages/offertag.png";
 import FaqBlog from "./FaqBlog";
 import { Breadcrumb } from "antd";
 
@@ -109,18 +108,18 @@ const WholeService = () => {
   };
 
   const maxChars = 180;
-  const plainText = serviceDiscription[0]?.description.replace(/<[^>]+>/g, "");
+  const plainText = serviceDiscription[0]?.description?.replace(/<[^>]+>/g, "");
 
   const shortText =
     plainText?.length > maxChars
-      ? plainText.substring(0, maxChars).trim() + "..."
+      ? plainText?.substring(0, maxChars)?.trim() + "..."
       : plainText;
 
   return (
     <div className="container-xl service_container mt-3 mb-5">
       <div className="text-center mb-5">
         <Breadcrumb
-        style={{fontFamily:"poppins"}}
+          style={{ fontFamily: "poppins" }}
           items={[
             { title: <Link to="/">Home</Link> },
             { title: "Services" },
@@ -176,12 +175,12 @@ const WholeService = () => {
               </div>
             ) : (
               <div className="row">
-                {getData.map((item, i) => (
+                {getData?.map((item, i) => (
                   <div className="col-6 mb-3" key={i}>
                     <div
                       className={`service_item ${selectedService?.service_id === item.service_id
-                          ? "active"
-                          : ""
+                        ? "active"
+                        : ""
                         }`}
                       onClick={() => {
                         setSelectedService(item);
@@ -257,7 +256,7 @@ const WholeService = () => {
                   {plainText?.length > maxChars && (
                     <Link
                       to={`/servicepreview/${encryptData(
-                        selectedService.service_id
+                        selectedService?.service_id
                       )}`}
                     >
                       <span
@@ -296,18 +295,12 @@ const WholeService = () => {
 
         {/* --- Right Card: Static Info --- */}
         <div className="col-lg-4 col-md-6">
-          {loading ? (
-            <div className="card p-3" style={{ height: "507px" }}>
-              {" "}
-              <Skeleton height={450} width="100%" />{" "}
-            </div>
-          ) : (
-            <ServiceReachOutForm
-              selectedService={selectedService}
-              setSelectedService={setSelectedService}
-              getData={getData}
-            />
-          )}
+          <ServiceReachOutForm
+            selectedService={selectedService}
+            setSelectedService={setSelectedService}
+            getData={getData}
+            proLoading={loading}
+          />
         </div>
       </div>
 

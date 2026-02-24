@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import API_BASE_URL, { LOGIN_BASE_URL } from "../../Api/api";
+import { LOGIN_BASE_URL } from "../../Api/api";
 
 export const landAgreePdfThunk = createAsyncThunk('post/data',
     async (id) => {

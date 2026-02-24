@@ -4,16 +4,12 @@ import {
   useJsApiLoader,
   Marker,
   InfoWindow,
-  Polyline,
   Polygon,
 } from "@react-google-maps/api";
-import { ConfirmPopup, confirmPopup } from "primereact/confirmpopup";
-import { Tooltip } from "primereact/tooltip";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import loc from "../../assets/loc.png";
-import school from "../../assets/school.png";
-import bus from "../../assets/bus.png";
 import { Skeleton } from "primereact/skeleton";
+import MapTheme from "../../Utils/MapTheme";
 
 const loaderOptions = {
   id: "google-map-script",
@@ -26,14 +22,9 @@ const containerStyle = {
   height: "50vh",
 };
 
-const center = {
-  lat: 13.078187,
-  lng: 79.972347,
-};
 
 function Propertylocation({ property, loading }) {
   const { isLoaded } = useJsApiLoader(loaderOptions);
-  const [clickedMarker, setClickedMarker] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState("all");
 
   const data = Array.isArray(property) && property.length > 0 ? property : [];
@@ -45,14 +36,9 @@ function Propertylocation({ property, loading }) {
       setCenter({ lat, lng });
     }
   }, [data]);
-
-  // const localities = data.map((item) => item.nearByLocalities)
   const localities = data.map((item) => item.nearByLocalities).flat();
   const [mapRef, setMapRef] = useState(null);
   const [hoveredMarker, setHoveredMarker] = useState(null);
-  const handleMarkerHover = (index) => {
-    setHoveredMarker(index);
-  };
   const mainLocation = data[0]?.location.split(",").map(parseFloat) || [0, 0];
 
   const calculateDistance = (lat, lng) => {
@@ -71,236 +57,15 @@ function Propertylocation({ property, loading }) {
     return (distanceInMeters / 1000).toFixed(2);
   };
 
-  const closeClick = () => {
-    setHoveredMarker(null);
-  };
-
   const [handleMarker, setHandleMarker] = useState(null);
 
-  const handleMarking = (index) => {
-    setHandleMarker(index);
-  };
 
   useEffect(() => { }, [hoveredMarker]);
 
   const marking = data[0]?.locationAll || [];
 
-  const [activeMarkerId, setActiveMarkerId] = useState(null);
-
-  const handleMarkerClick = (markerId) => {
-    setActiveMarkerId((prevMarkerId) =>
-      prevMarkerId === markerId ? null : markerId
-    );
-  };
-
-  const mapTheme = [
-    {
-      featureType: "administrative",
-      elementType: "labels.text.fill",
-      stylers: [
-        {
-          color: "#686868",
-        },
-      ],
-    },
-    {
-      featureType: "landscape",
-      elementType: "all",
-      stylers: [
-        {
-          color: "#f2f2f2",
-        },
-      ],
-    },
-    {
-      featureType: "poi",
-      elementType: "all",
-      stylers: [
-        {
-          visibility: "off",
-        },
-      ],
-    },
-    {
-      featureType: "road",
-      elementType: "all",
-      stylers: [
-        {
-          saturation: -100,
-        },
-        {
-          lightness: 45,
-        },
-      ],
-    },
-    {
-      featureType: "road.highway",
-      elementType: "all",
-      stylers: [
-        {
-          visibility: "simplified",
-        },
-      ],
-    },
-    {
-      featureType: "road.highway",
-      elementType: "geometry.fill",
-      stylers: [
-        {
-          lightness: "-22",
-        },
-      ],
-    },
-    {
-      featureType: "road.highway",
-      elementType: "geometry.stroke",
-      stylers: [
-        {
-          saturation: "11",
-        },
-        {
-          lightness: "-51",
-        },
-      ],
-    },
-    {
-      featureType: "road.highway",
-      elementType: "labels.text",
-      stylers: [
-        {
-          saturation: "3",
-        },
-        {
-          lightness: "-56",
-        },
-        {
-          weight: "2.20",
-        },
-      ],
-    },
-    {
-      featureType: "road.highway",
-      elementType: "labels.text.fill",
-      stylers: [
-        {
-          lightness: "-52",
-        },
-      ],
-    },
-    {
-      featureType: "road.highway",
-      elementType: "labels.text.stroke",
-      stylers: [
-        {
-          weight: "6.13",
-        },
-      ],
-    },
-    {
-      featureType: "road.highway",
-      elementType: "labels.icon",
-      stylers: [
-        {
-          lightness: "-10",
-        },
-        {
-          gamma: "0.94",
-        },
-        {
-          weight: "1.24",
-        },
-        {
-          saturation: "-100",
-        },
-        {
-          visibility: "off",
-        },
-      ],
-    },
-    {
-      featureType: "road.arterial",
-      elementType: "geometry",
-      stylers: [
-        {
-          lightness: "-16",
-        },
-      ],
-    },
-    {
-      featureType: "road.arterial",
-      elementType: "labels.text.fill",
-      stylers: [
-        {
-          saturation: "-41",
-        },
-        {
-          lightness: "-41",
-        },
-      ],
-    },
-    {
-      featureType: "road.arterial",
-      elementType: "labels.text.stroke",
-      stylers: [
-        {
-          weight: "5.46",
-        },
-      ],
-    },
-    {
-      featureType: "road.arterial",
-      elementType: "labels.icon",
-      stylers: [
-        {
-          visibility: "off",
-        },
-      ],
-    },
-    {
-      featureType: "road.local",
-      elementType: "geometry.fill",
-      stylers: [
-        {
-          weight: "0.72",
-        },
-        {
-          lightness: "-16",
-        },
-      ],
-    },
-    {
-      featureType: "road.local",
-      elementType: "labels.text.fill",
-      stylers: [
-        {
-          lightness: "-37",
-        },
-      ],
-    },
-    {
-      featureType: "transit",
-      elementType: "all",
-      stylers: [
-        {
-          visibility: "off",
-        },
-      ],
-    },
-    {
-      featureType: "water",
-      elementType: "all",
-      stylers: [
-        {
-          color: "#b7e4f4",
-        },
-        {
-          visibility: "on",
-        },
-      ],
-    },
-  ];
   const mapOptions = {
-    styles: mapTheme,
+    styles: MapTheme,
     disableDefaultUI: false,
     zoomControl: true,
   };

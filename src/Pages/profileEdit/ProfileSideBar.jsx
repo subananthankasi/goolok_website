@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import LogoutIcon from "@mui/icons-material/Logout";
 import UnsubscribeIcon from "@mui/icons-material/Unsubscribe";
@@ -26,28 +26,23 @@ function ProfileSideBar() {
   const location = useLocation();
   const navigate = useNavigate();
   const alert = useAlert();
-  const [activeTab, setActiveTab] = useState("");
 
   useEffect(() => {
     if (location.pathname.includes("/profile_edit/mybooking")) {
-      setActiveTab("mybooking");
     } else if (location.pathname.includes("/profile_edit/bookdetails")) {
-      setActiveTab("bookdetails");
+      ;
     }
   }, [location.pathname]);
 
   useEffect(() => {
     if (location.pathname.includes("/profile_edit/address")) {
-      setActiveTab("address");
+
     } else if (location.pathname.includes("/profile_edit/add_address")) {
-      setActiveTab("add_address");
     }
   }, [location.pathname]);
   useEffect(() => {
     if (location.pathname.includes("/profile_edit/service")) {
-      setActiveTab("service");
     } else if (location.pathname.includes("/profile_edit/servicedetails")) {
-      setActiveTab("servicedetails");
     }
   }, [location.pathname]);
 
@@ -71,6 +66,23 @@ function ProfileSideBar() {
   }, []);
   const dispatch = useDispatch();
   const NotifyDeviceId = localStorage.getItem("NotifyDeviceId");
+  const clearAppStorage = () => {
+    const keys = [
+      "zxcvbnm@#",
+      "NotifyDeviceId",
+      "address",
+      "userid",
+      "mobile",
+      "auth",
+      "tempUserId",
+      "fcm_token",
+      "cartId",
+      "activeTab"
+    ];
+
+    keys.forEach(key => localStorage.removeItem(key));
+  };
+
   const logutAuth = async () => {
     try {
       await axios.get(`${LOGIN_BASE_URL}/vendor/Signout/${NotifyDeviceId}`, {
@@ -78,12 +90,12 @@ function ProfileSideBar() {
           Authorization: `${token}`,
         },
       });
-      await localStorage.removeItem("zxcvbnm@#");
-      await localStorage.removeItem("NotifyDeviceId");
+      clearAppStorage();
       await dispatch(logoutAuth());
       await alert
         .success("You have been successfully logged out. See you again soon!")
-        .window.location.reload();
+        // .window.location.reload();
+        navigate('/')
     } catch (error) {
       console.error(error);
       await localStorage.removeItem("zxcvbnm@#");
@@ -154,7 +166,6 @@ function ProfileSideBar() {
             borderBottomLeftRadius: ".5rem",
           }}
         >
-
           <div
             className="Profile_upload"
             style={{

@@ -1,11 +1,8 @@
-import React from "react";
 import { Carousel } from "react-bootstrap";
 import { IMG_PATH } from "../../Api/api";
 import { Skeleton } from "primereact/skeleton";
 
 const TCarousal2 = ({ addBlock_3, loading }) => {
-
-
   return (
     <div className="container-xl  DesKtopView section_container">
       {loading ? (
@@ -32,7 +29,6 @@ const TCarousal2 = ({ addBlock_3, loading }) => {
           ))}
         </Carousel>
       )}
-
     </div>
   );
 };

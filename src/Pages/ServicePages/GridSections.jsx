@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { IoMdArrowRoundForward } from "react-icons/io";
 import axios from "axios";
 import API_BASE_URL, { IMG_PATH } from "../../Api/api";
 import { encryptData } from "../../Utils/encryptData";
 import { Skeleton } from "primereact/skeleton";
+
+
 const GridSections = () => {
   const [getData, setGetData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -42,74 +44,6 @@ const GridSections = () => {
           </>
         ) : (
           getData?.map((item, index) => (
-            // <div key={index} className="col-lg-4 col-md-6 col-sm-12">
-            //   <div
-            //     className="card h-100 border shadow-sm overflow-hidden"
-            //     style={{
-            //       borderRadius: "12px",
-            //       transition: "all 0.3s ease",
-            //       cursor: "pointer",
-            //     }}
-            //     onMouseEnter={(e) => {
-            //       e.currentTarget.style.transform = "translateY(-5px)";
-            //       e.currentTarget.style.boxShadow =
-            //         "0 15px 25px rgba(0,0,0,0.2)";
-            //     }}
-            //     onMouseLeave={(e) => {
-            //       e.currentTarget.style.transform = "translateY(0)";
-            //       e.currentTarget.style.boxShadow = "0 4px 8px rgba(0,0,0,0.1)";
-            //     }}
-            //   >
-            //     <div
-            //       className="card-header  text-center"
-            //       style={{ borderBottom: "1px solid #dee2e6" }}
-            //     >
-            //       <h3 className="mt-2">{item.percentage}</h3>
-            //     </div>
-
-            //     <div className="card-body d-flex flex-column align-items-center">
-            //       <img
-            //         src={`${IMG_PATH}cms_service/servicescms/${item.image}`}
-            //         alt={item.service_title}
-            //         className="img-fluid mb-3"
-            //         style={{
-            //           width: "100%",
-            //           height: "180px",
-            //           objectFit: "",
-            //           borderRadius: "8px",
-            //         }}
-            //       />
-            //       <h6 className="sell_properity text-center">
-            //         {item.service_title}
-            //       </h6>
-            //       <div className="d-flex align-items-center justify-content-center mt-2">
-            //         <span
-            //           className="px-2"
-            //           style={{
-            //             opacity: "0.6",
-            //             textDecorationLine: "line-through",
-            //           }}
-            //         >
-            //           ₹ {item.amount}
-            //         </span>
-            //         <h5 className="text-dark fw-bold ms-2">
-            //           ₹ {item.off_amount}
-            //         </h5>
-            //       </div>
-            //     </div>
-
-            //     <div className="card-footer bg-white border-0 text-center">
-            //       <Link
-            //         to={`/servicepreview/${encryptData(item.service_id)}`}
-            //         className="btn btn-dark w-100 d-flex align-items-center justify-content-center buttonhover"
-            //         style={{ borderRadius: "8px" }}
-            //       >
-            //         {item.button_text}
-            //         <IoMdArrowRoundForward className="ms-2" size={18} />
-            //       </Link>
-            //     </div>
-            //   </div>
-            // </div>
             <div key={index} className="col-lg-4 col-md-6 col-sm-12 mb-4">
               <div
                 className="card h-100 border-0 overflow-hidden position-relative"

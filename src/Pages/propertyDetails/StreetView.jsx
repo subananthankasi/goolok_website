@@ -19,13 +19,3 @@ const StreetView =({data,loading})=> {
 }
 
 export default StreetView;
-
-{/* <iframe
-src="https://www.google.com/maps/embed?pb=!4v1719400822492!6m8!1m7!1s_l1ZIA7MjO_Q9RqE9Sfp-g!2m2!1d13.01085670694035!2d80.2524893449822!3f216.11178502647468!4f-6.174167437453605!5f0.7820865974627469"
-width="100%"
-height="350px"
-style={{ border: 0 }}
-allowFullScreen
-loading="lazy"
-referrerPolicy="no-referrer-when-downgrade"
-/> */}

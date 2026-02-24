@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { FaRegUserCircle } from "react-icons/fa";
 import { FaRegCalendarDays } from "react-icons/fa6";
 import { FiArrowRight } from "react-icons/fi";

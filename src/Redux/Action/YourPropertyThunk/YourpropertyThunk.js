@@ -1,6 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import axiosInstance from "../../../Api/axiosInstance";
 import { LOGIN_BASE_URL } from "../../../Api/api";
 
 export const waitingPropertyThunk = createAsyncThunk(

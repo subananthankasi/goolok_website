@@ -63,7 +63,6 @@ const AdvancePayment = ({ id }) => {
       total: currencyFormatter.format(total),
     };
   };
-  console.log()
   const [loading, setLoading] = useState(false)
   const fetch = async () => {
     setLoading(true)

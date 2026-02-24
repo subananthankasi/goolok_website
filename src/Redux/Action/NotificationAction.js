@@ -1,4 +1,3 @@
-import { LOGIN_BASE_URL } from "../../Api/api";
 import axiosInstance from "../../Api/axiosInstance";
 
 export const NOTIFICATION_MESSAGE = "NOTIFICATION_MESSAGE";
@@ -10,7 +9,9 @@ const fetchNotificationMsgSuccess = (data) => ({
 
 // Api
 export const fetchNotificationMsg = () => {
+
   return async (dispatch) => {
+    dispatch({ type: "NOTIFICATION_LOADING" });
     try {
       const response = await axiosInstance.get("/vendor/notification");
 

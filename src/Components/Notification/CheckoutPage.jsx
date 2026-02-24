@@ -14,7 +14,6 @@ import { faHome, faBriefcase } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Checkbox } from "primereact/checkbox";
 import Button from "@mui/material/Button";
-import { useDispatch, useSelector } from "react-redux";
 import { useRazorpay } from "react-razorpay";
 import { Message } from "primereact/message";
 import { ThreeDots } from "react-loader-spinner";
@@ -48,8 +47,6 @@ const CheckoutPage = () => {
   const [priceBreak, setPriceBreak] = useState(false);
   const [selectedOptions, setSelectedOptions] = useState({});
   const [visibleRight, setVisibleRight] = useState(false);
-
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const stateFetch = async () => {
@@ -84,8 +81,6 @@ const CheckoutPage = () => {
       shoppingFetch(eid);
     }
   }, [eid]);
-  // const shoppingCardDatas = useSelector((state) => state.cart.cartItems);
-  // const cartLoading = useSelector((state) => state.cart.loading);
   const [parsedCardValues, setParsedCardValues] = useState([]);
 
   useEffect(() => {
@@ -194,42 +189,6 @@ const CheckoutPage = () => {
   } catch (err) {
     console.error("Invalid JSON in localStorage:", err);
   }
-
-  const deleteLoadingId = useSelector((state) => state.cart.deleteLoadingId);
-
-  // const handleRemove = async(id) => {
-  //   dispatch(cardDeleteThunk(id)).then(() => {
-  //     dispatch(cardListThunk(id));
-  //     dispatch(cardGetThunk());
-  //   });
-  // };
-
-  // const handleRemove = async (id) => {
-  //   try {
-  //     await dispatch(cardDeleteThunk(id));
-  //     await dispatch(cardListThunk());
-  //     await dispatch(cardGetThunk());
-
-  //     const updatedState = store.getState();
-  //     const cartItems = updatedState.cart?.cartItems;
-  //     const updatingTotal = cartItems?.reduce((total, item) => {
-  //       const chargesNum =
-  //         parseFloat(item.charges_total?.replace(/,/g, "")) || 0;
-  //       return total + chargesNum;
-  //     }, 0);
-
-  //     const payload = {
-  //       coupon_code: responseCoupon?.coupon_code,
-  //       cart_total: updatingTotal,
-  //       user_id: userId,
-  //     };
-
-  //     const response = await axiosInstance.post("/vendor/applyCoupon", payload);
-  //     setResponseCoupon(response.data);
-  //     setCouponsCode("");
-  //   } catch (error) {}
-  // };
-
   const [remainingAmount, setReminingAmount] = useState([]);
 
   useEffect(() => {
@@ -243,26 +202,14 @@ const CheckoutPage = () => {
   }, [shoppingCardDatas]);
 
   const handlePayment = async () => {
-    // const hasSelected = Object.keys(selectedOptions).length > 0;
-    // if (!hasSelected) {
-    //   setShowTooltip(true);
-    //   setTimeout(() => setShowTooltip(false), 2000);
-    //   return;
-    // }
     const allSelected = shoppingCardDatas.every(
       (item) => selectedOptions[item.vacantId]
     );
-
     if (!allSelected) {
       setShowTooltip(true);
       setTimeout(() => setShowTooltip(false), 2000);
       return;
     }
-    // const selectedSchedules = Object.values(selectedOptions);
-    // const selectedSchedules = Object.entries(selectedOptions).map(
-    //   ([vacantId, schedule]) => ({ [vacantId]: schedule })
-    // );
-
     const selectedSchedules = Object.entries(selectedOptions).map(
       ([vacantId, schedule]) => ({
         vacantId,
@@ -361,11 +308,6 @@ const CheckoutPage = () => {
       : getAddress[0]?.id,
   };
 
-  // const total =
-  //   shoppingCardDatas?.reduce((sum, item) => {
-  //     const priceNum = parseFloat(item.price?.replace(/,/g, "")) || 0;
-  //     return sum + priceNum;
-  //   }, 0) || 0;
   const total = Array.isArray(shoppingCardDatas)
     ? shoppingCardDatas?.reduce((sum, item) => {
       const priceNum = parseFloat(item?.price?.replace(/,/g, "")) || 0;
@@ -382,40 +324,6 @@ const CheckoutPage = () => {
     }, 0) || 0;
 
   const discount = total - discountAmount;
-
-  const handleCouponClick = async () => {
-    const payload = {
-      coupon_code: couponsCode,
-      cart_total: discountAmount,
-      user_id: userId,
-    };
-    try {
-      const response = await axiosInstance.post("/vendor/applyCoupon", payload);
-      setResponseCoupon(response.data);
-      setCouponsCode("");
-      alert.success(response.data.message);
-    } catch (error) {
-      alert.error(error.response.data.messages.error);
-      setCouponsCode("");
-    }
-  };
-  const parsedCharges = shoppingCardDatas?.map((item) => item.charges);
-
-  // let items = [];
-  // if (parsedCharges) {
-  //   try {
-  //     const parse = JSON.parse(parsedCharges);
-  //     const chargesArray = Array.isArray(parse) ? parse[0] : [];
-  //     items = chargesArray.map((item, index) => ({
-  //       // label: `${item.charges} : ₹${item.price.toLocaleString()}`,
-  //       label: `${item.charges}`,
-  //       price: `₹${item.price.toLocaleString()}`,
-  //       key: index.toString(),
-  //     }));
-  //   } catch (err) {
-  //     console.error("Error parsing charges:", err);
-  //   }
-  // }
   let items = [];
 
   if (shoppingCardDatas?.length) {
@@ -448,27 +356,12 @@ const CheckoutPage = () => {
     });
   }
 
-  const categories = [
-    { name: "Accounting", key: "A" },
-    { name: "Marketing", key: "M" },
-    { name: "Production", key: "P" },
-    { name: "Research", key: "R" },
-  ];
-  const [selectedCategory, setSelectedCategory] = useState("");
-
-  // const handleOptionChange = (cartId, schedule) => {
-  //   setSelectedOptions((prev) => ({
-  //     ...prev,
-  //     [cartId]: schedule,
-  //   }));
-  // };
   const handleOptionChange = (vacantId, schedule) => {
     setSelectedOptions((prev) => ({
       ...prev,
       [vacantId]: schedule,
     }));
   };
-  const [getCouponCode, setGetCouponCode] = useState("");
   const [selectedCoupon, setSelectedCoupon] = useState(null);
 
   const handleClick = async (coupon) => {
@@ -578,11 +471,13 @@ const CheckoutPage = () => {
                       style={{ alignItems: "center", alignContent: "center" }}
                     >
                       <button
-                        className="btn text-primary"
+                        className="btn"
                         style={{
                           border: "1px solid rgb(224, 224, 224)",
                           fontSize: "13px",
                           fontWeight: "600",
+                          color:"#0000ff",
+                          borderRadius:"0px"
                         }}
                         onClick={() => setVisible(true)}
                       >
@@ -609,11 +504,13 @@ const CheckoutPage = () => {
                       style={{ alignItems: "center", alignContent: "center" }}
                     >
                       <button
-                        className="btn text-primary"
+                        className="btn "
                         style={{
                           border: "1px solid rgb(224, 224, 224)",
                           fontSize: "13px",
                           fontWeight: "600",
+                          borderRadius:"0px",
+                          color:"#0000ff"
                         }}
                         onClick={() => setVisible(true)}
                       >
@@ -819,7 +716,7 @@ const CheckoutPage = () => {
                 </div>
               </>
             ) : (
-              <div className="card mt-1 p-3" style={{ minHeight: "420px" }}>
+              <div className="card mt-1 p-3" style={{ minHeight: "346px" }}>
                 <div className="row">
                   <div className="col-md-7 col-12">
                     <p style={{ fontSize: "14px", fontWeight: "600" }}>
@@ -1068,7 +965,7 @@ const CheckoutPage = () => {
                 <div
                   style={{
                     border: "1px solid #e5e7e8",
-                    borderRadius: "10px",
+                    borderRadius: "0px",
                     backgroundColor: "#eff3f5",
                   }}
                   className="p-2 mt-2"
@@ -1152,6 +1049,7 @@ const CheckoutPage = () => {
                         <img
                           src={offerIcon}
                           style={{ width: "20px", height: "20px" }}
+                          alt="offer"
                         />
                         <span className="mx-2" style={{ fontWeight: "600" }}>
                           Apply Coupon
@@ -1245,7 +1143,7 @@ const CheckoutPage = () => {
                     <button
                       className="btn p-3 w-100 mb-2"
                       style={{
-                        backgroundColor: "#fb641b",
+                        backgroundColor: "#0000ff",
                         fontSize: "16px",
                         fontWeight: "600",
                         color: "white",
@@ -1491,13 +1389,13 @@ const CheckoutPage = () => {
           <>
             <div className="text-end">
               <button
-                className="btn text-primary"
+                className="btn"
                 style={{
                   backgroundColor: "#fff",
-                  color: "#333",
+                  color: "#0000ff",
                   fontWeight: 600,
                   border: "1px solid #ddd",
-                  borderRadius: "6px",
+                  borderRadius: "0px",
                   padding: "8px 16px",
                   fontSize: "14px",
                   boxShadow: "0 1px 4px rgba(0, 0, 0, 0.08)",

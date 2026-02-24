@@ -90,7 +90,7 @@ const AlertTemplate = ({ message, options, style, close }) => {
   const [progress, setProgress] = useState(100);
 
   useEffect(() => {
-    const duration = 4000; // 4 seconds
+    const duration = 4000; 
     const interval = 30;
     const decrement = (interval / duration) * 100;
 

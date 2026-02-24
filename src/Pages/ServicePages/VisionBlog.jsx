@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import API_BASE_URL, { IMG_PATH } from "../../Api/api";
 import axios from "axios";
 import { IoMdArrowRoundForward } from "react-icons/io";

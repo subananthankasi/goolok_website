@@ -1,5 +1,5 @@
 import axios from "axios";
-import API_BASE_URL, { API_BASE_URL_FROM_ADMIN, LOGIN_BASE_URL } from "../../Api/api";
+import API_BASE_URL from "../../Api/api";
  
 export const FETCH_PROPERTY_TYPE = "FETCH_PROPERTY_TYPE"; 
   
@@ -15,6 +15,7 @@ export const FETCH_PROPERTY_TYPE = "FETCH_PROPERTY_TYPE";
 // Api  
 export const fetchPropertyType = () => {
     return async (dispatch) => {
+         dispatch({ type: "FETCH_PROPERTY_TYPE_LOADING" });
         try {
             const response = await axios.get(`${API_BASE_URL}/property`);
             // const response = await axios.get(`${LOGIN_BASE_URL}/property`);

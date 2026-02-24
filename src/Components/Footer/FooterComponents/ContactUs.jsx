@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import CallIcon from "@mui/icons-material/Call";
 import EmailIcon from "@mui/icons-material/Email";
-import { useJsApiLoader } from "@react-google-maps/api";
 import OfficeLocations from "./OfficeLocations";
 import axios from "axios";
 import API_BASE_URL from "../../../Api/api";

@@ -1,20 +1,13 @@
-import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
-import reportWebVitals from "./reportWebVitals";
-import { HashRouter as Router } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "./Redux/Store/store";
-import { registerLicense } from "@syncfusion/ej2-base";
 import { transitions, positions, Provider as AlertProvider } from "react-alert";
 import AlertTemplate from "./Utils/AlertTemplate";
-import "primeicons/primeicons.css";
 import "primereact/resources/themes/lara-light-cyan/theme.css";
 import "rsuite/dist/rsuite.min.css";
-registerLicense(
-  "Ngo9BigBOggjHTQxAR8/V1NDaF5cWGBCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWH9fd3RcRGReWUBwV0A="
-);
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
 const options = {
   position: positions.MIDDLE_RIGHT,
@@ -42,7 +35,4 @@ root.render(
   // </React.StrictMode>
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+

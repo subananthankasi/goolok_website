@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axiosInstance from "../../Api/axiosInstance";
 import NotFound from "../../Pages/NotFound";
@@ -150,7 +150,7 @@ function NotificationDetails() {
                       {doc.doc_type}
                     </label>
 
-                    {data.notifstatus == "complete" ? (
+                    {data.notifstatus === "complete" ? (
                       <>
                         <a
                           href={`${IMG_PATH}/enquiry/${doc.document}`}
@@ -169,7 +169,7 @@ function NotificationDetails() {
                           className="form-control"
                           onChange={handleChange}
                           accept=".pdf,.png,.jpeg,.jpg"
-                          key={`${doc.docid}-${data.docstatus}`} // Unique key for re-rendering
+                          key={`${doc.docid}-${data.docstatus}`}
                         />
                         {fileErrors[doc.docid] && (
                           <p className="validation_msg">
@@ -181,7 +181,7 @@ function NotificationDetails() {
                   </div>
                 ))}
 
-                {data.notifstatus == "complete" ? (
+                {data.notifstatus === "complete" ? (
                   ""
                 ) : (
                   <div className="col-md-10 mb-3">
@@ -441,12 +441,10 @@ function NotificationDetails() {
             <PaymentSuccess />
           </>
         );
-
       default:
         return <p>Unknown status.</p>;
     }
   };
-
   return (
     <>
       {!error ? (

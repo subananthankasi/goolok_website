@@ -1,71 +1,65 @@
-import React, { useEffect, useState } from "react";
-import Gallery from "../propertyDetails/gallery";
-import Description from "../propertyDetails/description";
-import Table from "../propertyDetails/table";
-import RecentProperties from "../propertyDetails/recentProperties";
-import Location from "../propertyDetails/location";
-import Mapdetails from "../propertyDetails/mapdetails";
-import ad from "../../assets/images/smallad.jpg";
-import StreetView from "../propertyDetails/StreetView";
+import { useCallback, useEffect, useState } from "react";
 import MyGallery from "./propertygallery";
 import Propertyaddress from "./propertyaddress";
 import Propertybutton from "./propertybutton";
 import Propertyagent from "./propertyagent";
 import Propertylocation from "./propertylocation";
 import PropertyStreetView from "./proprtystreetview";
-import Propertyplot from "./propertyplot";
 import PropertyComparison from "./propertyomparison";
 import axios from "axios";
 import API_BASE_URL from "../../Api/api";
 import { Link, useParams } from "react-router-dom";
 import axiosInstance from "../../Api/axiosInstance";
 import SimilarProperties from "./SimilarProperties";
-import { Breadcrumb } from "antd";
 import { Skeleton } from "primereact/skeleton";
+import { Breadcrumb } from "antd";
+import '../propertyDetails/propertydetailscss.css';
 
 
 function Propertyview() {
-
 
   const token = localStorage.getItem("zxcvbnm@#");
   const [products, SetProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const { eid, landType } = useParams();
-  const fetch = async (eid) => {
-    setLoading(true);
-    try {
-      const response = await axios.get(`${API_BASE_URL}/properties/${eid}`, {
-        headers: { "Gl-Type": landType },
-      });
-      SetProducts(response?.data || []);
-      setLoading(false);
-    } catch (error) {
-      console.error("Error fetching land data:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-  useEffect(() => {
+  const fetch = useCallback(
+    async (eid) => {
+      setLoading(true);
+      try {
+        const response = await axios.get(`${API_BASE_URL}/properties/${eid}`, {
+          headers: { "Gl-Type": landType },
+        });
+        SetProducts(response?.data || []);
+      } catch (error) {
+        console.error("Error fetching land data:", error);
+      } finally {
+        setLoading(false);
+      }
+    },
+    [landType]
+  );
 
+  useEffect(() => {
     fetch(eid);
-  }, [eid]);
+  }, [eid, fetch]);
 
 
   const [giftData, setGiftData] = useState([]);
-  const fetchGift = async () => {
+  const fetchGift = useCallback(async () => {
     try {
       const response = await axiosInstance.get(`/vendor/gifts/${eid}`);
       setGiftData(response?.data || []);
     } catch (error) {
       console.error("Error", error);
     }
-  };
+  }, [eid]);
+
+
   useEffect(() => {
     if (token) {
       fetchGift();
     }
-  }, [token]);
-
+  }, [token, fetchGift]);
 
 
   return (

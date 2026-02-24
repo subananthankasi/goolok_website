@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "../home/homestyle.css";
 import { Carousel } from "primereact/carousel";
-import "react-multi-carousel/lib/styles.css";
 import "@fortawesome/fontawesome-free/css/all.css";
 import axios from "axios";
 import API_BASE_URL, { IMG_PATH, LOGIN_BASE_URL } from "../../Api/api";
@@ -11,7 +10,6 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import LoginForm from "../../Components/Login/LoginForm";
 import { wishlistGetThunk, wishlistPostThunk, wishlistVerifyThunk } from "../../Redux/Action/WishlistThunk";
-import { buyPropertiesThunk } from "../../Redux/Action/BuyPropertiesThunk";
 import { useAlert } from "react-alert";
 import { Skeleton } from "primereact/skeleton";
 
@@ -178,7 +176,6 @@ function SimilarProperties({ loading }) {
                   aria-hidden="true"
                   style={{ fontSize: 12 }}
                 />
-
                 {product.price}
               </p>
             </div>
@@ -327,7 +324,6 @@ function SimilarProperties({ loading }) {
               ))}
             </div>
           )}
-
         </div>
       </div>
     </section>

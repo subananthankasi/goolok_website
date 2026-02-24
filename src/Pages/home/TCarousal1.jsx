@@ -1,7 +1,4 @@
-import React from "react";
 import { Carousel } from "react-bootstrap";
-import b2 from "../../assets/images/smallbanner.jpg";
-import b3 from "../../assets/images/offer-banner.jpg";
 import { IMG_PATH } from "../../Api/api";
 import { Skeleton } from "primereact/skeleton";
 
@@ -34,7 +31,6 @@ const TCarousal1 = ({ addBlock_2, loading }) => {
           ))}
         </Carousel>
       )}
-
     </div>
   );
 };

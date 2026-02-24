@@ -1,4 +1,4 @@
-import { useEffect, useMemo,useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Uploader } from "rsuite";
 import "./sales.css";
 import { useDispatch, useSelector } from "react-redux";
@@ -23,6 +23,7 @@ import { RxBorderSplit } from "react-icons/rx";
 import toast, { Toaster } from "react-hot-toast";
 import { Breadcrumb } from "antd";
 import { Link } from "react-router-dom";
+import { Skeleton } from "primereact/skeleton";
 
 
 const SellProperty = () => {
@@ -106,7 +107,10 @@ const SellProperty = () => {
     ]);
   };
 
-
+  const isLoading = useSelector((state) => state.PropertyType.isLoading);
+  const subPropertyTypeLoading = useSelector(
+    (state) => state.SubPropertyType.subPropertyTypeLoading,
+  );
   const PropertyTypeData = useSelector(
     (state) => state.PropertyType.PropertyTypeData
   );
@@ -380,7 +384,7 @@ const SellProperty = () => {
                 >
                   <div>
                     <h6>Property Type</h6>
-                    <div className="row mt-4">
+                    {/* <div className="row mt-4">
                       {PropertyTypeData?.slice()
                         .sort((a, b) => a.id - b.id)
                         .map((item, index) => (
@@ -415,11 +419,60 @@ const SellProperty = () => {
                             </div>
                           </div>
                         ))}
-                    </div>
+                    </div> */}
+                    {isLoading ? (
+                      <div className="row mt-4">
+                        {[1, 2, 3, 4, 5, 6, 7]?.map((index) => (
+                          <div
+                            key={index}
+                            className="col-12 col-md-6 col-lg-16 mb-2"
+                          >
+                            <Skeleton height="2.6rem" className="" />
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <div className="row mt-4">
+                        {PropertyTypeData?.slice()
+                          .sort((a, b) => a.id - b.id)
+                          .map((item, index) => (
+                            <div
+                              key={index}
+                              className="col-12 col-md-6 col-lg-16 mb-2"
+                              onClick={() => handlePropertyTypeSelect(item.id)}
+                            >
+                              <div
+                                className="text-center"
+                                style={{
+                                  border: "1px solid #c0d5e7",
+                                  fontSize: "14px",
+                                  fontWeight: "600",
+                                  padding: "10px 15px",
+                                  cursor: "pointer",
+                                  background:
+                                    selectedPropertyType === item.id
+                                      ? "linear-gradient(69.65deg, #0000ff, #78bdf6)"
+                                      : "#fff",
+                                  color:
+                                    selectedPropertyType === item.id
+                                      ? "white"
+                                      : "black",
+                                  transition: "0.3s",
+                                  display: "flex",
+                                  gap: "8px",
+                                  alignItems: "center",
+                                }}
+                              >
+                                {visualIcons(item)} <p>{item.property_type}</p>
+                              </div>
+                            </div>
+                          ))}
+                      </div>
+                    )}
                   </div>
                   <div>
                     <h6 className="mt-4">Subproperty Type</h6>
-                    <div className="d-flex flex-wrap justify-content-center gap-3 mt-4">
+                    {/* <div className="d-flex flex-wrap justify-content-center gap-3 mt-4">
                       {filteredSubPropertyTypeData?.map((item, index) => (
                         <div
                           key={index}
@@ -436,11 +489,6 @@ const SellProperty = () => {
                             )
                               ? "linear-gradient(69.65deg, #0000ff, #78bdf6)"
                               : "#fff",
-                            // background: selectedSubPropertyType.includes(
-                            //   item.id
-                            // )
-                            //   ? "#0505ff"
-                            //   : "#fff",
                             color: selectedSubPropertyType.includes(item.id)
                               ? "white"
                               : "black",
@@ -451,7 +499,54 @@ const SellProperty = () => {
                           {item.subproperty}
                         </div>
                       ))}
-                    </div>
+                    </div> */}
+                    {subPropertyTypeLoading ? (
+                      <div className="row mt-4 justify-content-center ">
+                        {[1, 2, 3]?.map((index) => (
+                          <div className="col-12 col-md-4 col-lg-4 mb-2">
+                            <Skeleton
+                              key={index}
+                              height="2.4rem"
+                              className=""
+                            />
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <div className="d-flex flex-wrap justify-content-center gap-3 mt-4">
+                        {filteredSubPropertyTypeData?.map((item, index) => (
+                          <div
+                            key={index}
+                            className=""
+                            onClick={() => handleSubPropertySelect(item.id)}
+                            style={{
+                              border: "1px solid #c0d5e7",
+                              fontSize: "13px",
+                              fontWeight: "500",
+                              padding: "10px 15px",
+                              cursor: "pointer",
+                              background: selectedSubPropertyType.includes(
+                                item.id,
+                              )
+                                ? "linear-gradient(69.65deg, #0000ff, #78bdf6)"
+                                : "#fff",
+                              // background: selectedSubPropertyType.includes(
+                              //   item.id
+                              // )
+                              //   ? "#0505ff"
+                              //   : "#fff",
+                              color: selectedSubPropertyType.includes(item.id)
+                                ? "white"
+                                : "black",
+                              margin: "3px",
+                              display: "inline-block",
+                            }}
+                          >
+                            {item.subproperty}
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </div>
                   <div>
                     <h6 className="mt-4">Title Document</h6>

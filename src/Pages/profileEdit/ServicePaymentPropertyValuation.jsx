@@ -1,21 +1,13 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
 import { useRazorpay } from "react-razorpay";
 import { useAlert } from "react-alert";
-import { useParams } from "react-router-dom";
 import axiosInstance from "../../Api/axiosInstance";
 import { PAYMENT_KEY, PAYMENT_KEY_SECRET } from "../../Api/api";
+
+
 const ServicePaymentPropertyValuation = ({ fetchInvoice, invoiceData, eid }) => {
-    const { id } = useParams();
+
     const { error, isLoading, Razorpay } = useRazorpay();
     const alert = useAlert();
-    const updateData = {
-        invoiceid: invoiceData.invid,
-        invoice_id: invoiceData.invoiceid,
-        enqid: eid,
-        invoicedpt: invoiceData.invoice,
-    };
-
 
     const paymentIdHandle = async (data) => {
 

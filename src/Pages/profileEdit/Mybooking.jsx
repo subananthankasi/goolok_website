@@ -7,6 +7,9 @@ import SearchOffIcon from "@mui/icons-material/SearchOff";
 import { Paginator } from "primereact/paginator";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
 import cancelimg from "../../assets/cancelled-stamp-icon-vector-design-template-in-white-background-2XGEPA0.jpg";
+import MarginIcon from '@mui/icons-material/Margin';
+import RoomIcon from '@mui/icons-material/Room';
+
 
 
 const Mybooking = () => {
@@ -51,7 +54,6 @@ const Mybooking = () => {
   };
   const paginatedBookingData = bookingData.slice(first, first + rows);
 
-
   const getBookingStatusUI = (status) => {
     switch (status?.toLowerCase()) {
       case "registered":
@@ -78,11 +80,27 @@ const Mybooking = () => {
         </div>
         {loading ? (
           <>
-            <Skeleton width="100%" height="260px" className="mb-2 mt-3" />
-            <Skeleton width="100%" height="260px" className="mb-2" />
-            <Skeleton width="100%" height="260px" className="mb-2" />
+            {[1, 2, 3].map((item, index) => (
+              <div className="row g-2 p-2" key={index}>
+                <div className="col-md-4">
+                  <Skeleton height="180px" />
+                </div>
+                <div className="col-md-8">
+                  <div className="d-flex justify-content-between align-items-start mt-2">
+                    <Skeleton width="180px" height="22px" />
+                    <Skeleton width="90px" height="30px" />
+                  </div>
+
+                  <Skeleton width="160px" height="18px" className="mt-2" />
+                  <Skeleton width="120px" height="18px" className="mt-2" />
+                  <Skeleton width="140px" height="18px" className="mt-2" />
+                  <Skeleton width="100px" height="20px" className="mt-2" />
+                  <Skeleton width="60%" height="20px" className="mt-3" />
+                </div>
+              </div>
+            ))}
           </>
-        ) : bookingData.length === 0 ? (
+        ) : bookingData?.length === 0 ? (
           <div className="text-center mt-5">
             <h6 className="mt-3 text-muted">No bookings found</h6>
             <SearchOffIcon
@@ -161,16 +179,18 @@ const Mybooking = () => {
                             style={{
                               position: "absolute",
                               backgroundColor:
-                                item.booking_status.toLowerCase() === "registered"
+                                item.booking_status.toLowerCase() ===
+                                  "registered"
                                   ? "green"
-                                  : item.booking_status.toLowerCase() === "booking"
+                                  : item.booking_status.toLowerCase() ===
+                                    "booking"
                                     ? "#0ea5e9"
                                     : "red",
                               color: "white",
                               padding: "5px 10px",
                               right: "4px",
                               fontWeight: "600",
-                              top: "10px"
+                              top: "10px",
                             }}
                           >
                             {item.booking_status.toLowerCase() === "registered"
@@ -180,8 +200,6 @@ const Mybooking = () => {
                                 : "Cancelled"}
                           </div>
                         )}
-
-
 
                         {/* {item.booking_status?.toLowerCase() === "registered" ? (
                           <Badge
@@ -204,12 +222,10 @@ const Mybooking = () => {
                         ) : (
                           ""
                         )} */}
-
-
                       </div>
 
                       <div>
-                        <div className="d-flex justify-content-between mt-4">
+                        <div className="d-flex justify-content-between align-items-center mt-4">
                           <h6
                             className="book-text mb-1"
                             style={{ fontWeight: "600", fontSize: "17px" }}
@@ -220,18 +236,27 @@ const Mybooking = () => {
                             BOOKING ID :{item.booking_id}{" "}
                           </p>
                         </div>
-                        <h6 className="mb-2" style={{ fontSize: "15px" }}>
-                          <i
-                            className="fa-solid fa-ruler-combined"
-                            style={{ color: "#071aa8" }}
-                          ></i>{" "}
-                          {item.units}
-                        </h6>
+                        <div className="d-flex justify-content-between align-items-center ">
+                          <h6 className="mb-2" style={{ fontSize: "15px" }}>
+                            <i
+                              className="fa-solid fa-ruler-combined"
+                              style={{ color: "#969595" }}
+                            ></i>{" "}
+                            {item.units}
+                          </h6>
+                          {item.property_type?.toLowerCase() === "layout" && (
+                            <h6 className="mb-2" style={{ fontSize: "15px" }}>
+                              <MarginIcon sx={{color:"#969595",fontSize:20}} /> {" "}Plot No : {" "}
+                              {item.plot_no}
+                            </h6>
+                          )}
+                        </div>
                         <h6 className="mb-2" style={{ fontSize: "15px" }}>
                           <i
                             className="fa fa-map-marker"
-                            style={{ color: "#071aa8" }}
+                            style={{ color: "#969595" }}
                           ></i>{" "}
+                          {/* <RoomIcon sx={{color:"#969595",fontSize:20}}/> */}
                           {item.village}
                         </h6>
                         <div className="d-flex align-items-center mt-3">

@@ -10,7 +10,9 @@ import GridViewOutlinedIcon from "@mui/icons-material/GridViewOutlined";
 
 
 function MapView({ propertyData, loading, prRoot }) {
-  const products = propertyData ? propertyData : [];
+  const products = useMemo(() => {
+    return propertyData ? propertyData : [];
+  }, [propertyData]);
   const [sort, setSort] = useState("relevance");
   const [first, setFirst] = useState(0);
   const [rows, setRows] = useState(6);
@@ -153,7 +155,7 @@ function MapView({ propertyData, loading, prRoot }) {
                             <div className="project-single">
                               <div className=" product-img">
                                 <div className="homes">
-                                  <a href="#" className="homes-img">
+                                  <div className="homes-img">
                                     <Carousel
                                       interval={3000}
                                       controls={true}
@@ -183,7 +185,7 @@ function MapView({ propertyData, loading, prRoot }) {
                                           %
                                         </p>
                                       )}
-                                  </a>
+                                  </div>
                                 </div>
                               </div>
                               <div className="homes-content p-2">
@@ -233,12 +235,7 @@ function MapView({ propertyData, loading, prRoot }) {
                                     {product.price}
                                   </p>
                                 )}
-                                {/* <hr className="p-0 m-0"/> */}
-                                {/* <div className="d-block mt-2"> */}
                                 <div className="d-flex gap-1 mt-2 align-items-center ">
-                                  {/* <AspectRatioSharpIcon
-                                    sx={{ color: "#1675e2", fontSize: 16 }}
-                                  /> */}
                                   <i
                                     className="fa-solid fa-ruler-combined"
                                     style={{ color: "black", fontSize: "12px" }}
@@ -255,10 +252,6 @@ function MapView({ propertyData, loading, prRoot }) {
                                   </p>
                                 </div>
                                 <div className="d-flex gap-1 mt-1 align-items-center">
-                                  {" "}
-                                  {/* <FmdGoodOutlinedIcon
-                                    sx={{ color: "#1675e2", fontSize: 16 }}
-                                  /> */}
                                   <i
                                     className="fa fa-map-marker"
                                     style={{ color: "black", fontSize: "12px" }}
@@ -273,7 +266,6 @@ function MapView({ propertyData, loading, prRoot }) {
                                     {product?.taluk}
                                   </p>
                                 </div>
-                                {/* </div> */}
                               </div>
                             </div>
                           </div>

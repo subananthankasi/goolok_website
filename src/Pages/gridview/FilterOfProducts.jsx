@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import axios from "axios";
 import API_BASE_URL from "../../Api/api";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -13,8 +13,8 @@ import { InputIcon } from "primereact/inputicon";
 import { IconField } from "primereact/iconfield";
 import { InputText } from "primereact/inputtext";
 import { encryptData } from "../../Utils/encryptData";
-import { Dialog } from "@mui/material";
 import { Drawer } from "antd";
+import { Skeleton } from "primereact/skeleton";
 
 const FilterOfProducts = ({
   landType,
@@ -35,7 +35,7 @@ const FilterOfProducts = ({
     marginBottom: 10,
   };
   // const [products, SetProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const [isCategoryOpen, setCategoryOpen] = useState(true);
   const [isPriceOpen, setPriceOpen] = useState(false);
@@ -60,26 +60,27 @@ const FilterOfProducts = ({
     setSelectRoadWidth((prev) =>
       prev.includes(width)
         ? prev.filter((item) => item !== width)
-        : [...prev, width]
+        : [...prev, width],
     );
   };
   const handleAprovalSelect = (width) => {
     setSelectAprovalType((prev) =>
       prev.includes(width)
         ? prev.filter((item) => item !== width)
-        : [...prev, width]
+        : [...prev, width],
     );
   };
 
   const [value, setValue] = useState(
-    JSON.parse(sessionStorage.getItem("priceRange")) || [0, 0]
+    JSON.parse(sessionStorage.getItem("priceRange")) || [0, 0],
   );
 
   const [selectedFilters, setSelectedFilters] = useState(
-    JSON.parse(sessionStorage.getItem("selectedFilters")) || []
+    JSON.parse(sessionStorage.getItem("selectedFilters")) || [],
   );
   useEffect(() => {
     const fetch = async () => {
+      setLoading(true);
       try {
         const response = await axios.get(`${API_BASE_URL}/subproperty`, {
           headers: {
@@ -89,6 +90,8 @@ const FilterOfProducts = ({
         setFillData(response.data || []);
       } catch (error) {
         console.error("Error fetching land data:", error);
+      } finally {
+        setLoading(false);
       }
     };
     fetch();
@@ -97,7 +100,7 @@ const FilterOfProducts = ({
   const handleCheckboxChange = (e) => {
     const { value, checked } = e.target;
     setSelectedFilters((prev) =>
-      checked ? [...prev, value] : prev.filter((item) => item !== value)
+      checked ? [...prev, value] : prev.filter((item) => item !== value),
     );
   };
 
@@ -199,7 +202,7 @@ const FilterOfProducts = ({
       selectAprovalType,
       range,
       amenitiesTags,
-    ]
+    ],
   );
 
   const handleSubmit = (e) => {
@@ -215,7 +218,7 @@ const FilterOfProducts = ({
         range,
         landType,
         payload,
-      })
+      }),
     );
     setMobileFilter(false);
   };
@@ -247,7 +250,7 @@ const FilterOfProducts = ({
       Number(
         String(value)
           .replace(/,/g, "")
-          .replace(/[^0-9]/g, "")
+          .replace(/[^0-9]/g, ""),
       ) || 0
     );
   };
@@ -297,74 +300,86 @@ const FilterOfProducts = ({
         <div className="filter-section" style={{ padding: "10px" }}>
           {isCategoryOpen && (
             <div className="">
-              <div className="">
-                {Object.entries(
-                  fillData.reduce((acc, item) => {
-                    if (!acc[item.property_type]) acc[item.property_type] = [];
-                    acc[item.property_type].push(item);
-                    return acc;
-                  }, {})
-                ).map(([propertyType, items]) => (
-                  <div
-                    key={propertyType}
-                    className="mb-2 pb-2"
-                    style={{
-                      borderBottom: "1px solid #ddd",
-                    }}
-                  >
+              {loading ? (
+                <div className="row g-1">
+                  {[1, 2, 3, 4, 5, 6, 7].map((item, index) => (
+                    <Skeleton key={index} height="2rem" className="" />
+                  ))}
+                </div>
+              ) : (
+                <div className="">
+                  {Object.entries(
+                    fillData.reduce((acc, item) => {
+                      if (!acc[item.property_type])
+                        acc[item.property_type] = [];
+                      acc[item.property_type].push(item);
+                      return acc;
+                    }, {}),
+                  ).map(([propertyType, items]) => (
                     <div
-                      className="d-flex justify-content-between align-items-center"
-                      style={{ cursor: "pointer" }}
-                      onClick={() => toggleType(propertyType)}
+                      key={propertyType}
+                      className="mb-2 pb-2"
+                      style={{
+                        borderBottom: "1px solid #ddd",
+                      }}
                     >
-                      <h6
-                        className="fw-bold text-capitalize  mb-0"
-                        style={{ fontSize: "14px" }}
-                      >
-                        {propertyType}
-                      </h6>
-                      <FontAwesomeIcon
-                        icon={openTypes[propertyType] ? faMinus : faPlus}
-                      />
-                    </div>
-
-                    {openTypes[propertyType] && (
                       <div
-                        className="mt-2 p-2"
-                        // style={{
-                        //   backgroundColor: "rgb(237 237 237)",
-                        // }}
+                        className="d-flex justify-content-between align-items-center"
+                        style={{ cursor: "pointer" }}
+                        onClick={() => toggleType(propertyType)}
                       >
-                        {items.map((item) => (
-                          <div key={item.id} className="form-check mb-1">
-                            <input
-                              className="form-check-input"
-                              type="checkbox"
-                              id={`checkbox-${item.id}`}
-                              value={item.id}
-                              checked={selectedFilters.includes(
-                                item.id.toString()
-                              )}
-                              onChange={handleCheckboxChange}
-                              style={{
-                                border: "1px solid #0000ff",
-                                cursor: "pointer",
-                              }}
-                            />
-                            <label
-                              className="form-check-label ms-1"
-                              htmlFor={`checkbox-${item.id}`}
-                              style={{ fontSize: "13px",fontFamily:"poppins" }}
-                            >
-                              {item.subproperty}
-                            </label>
-                          </div>
-                        ))}
+                        <h6
+                          className="fw-bold text-capitalize  mb-0"
+                          style={{ fontSize: "14px" }}
+                        >
+                          {propertyType}
+                        </h6>
+                        <FontAwesomeIcon
+                          icon={openTypes[propertyType] ? faMinus : faPlus}
+                        />
                       </div>
-                    )}
-                  </div>
-                ))}
-              </div>
+
+                      {openTypes[propertyType] && (
+                        <div
+                          className="mt-2 p-2"
+                          // style={{
+                          //   backgroundColor: "rgb(237 237 237)",
+                          // }}
+                        >
+                          {items.map((item) => (
+                            <div key={item.id} className="form-check mb-1">
+                              <input
+                                className="form-check-input"
+                                type="checkbox"
+                                id={`checkbox-${item.id}`}
+                                value={item.id}
+                                checked={selectedFilters.includes(
+                                  item.id.toString(),
+                                )}
+                                onChange={handleCheckboxChange}
+                                style={{
+                                  border: "1px solid #0000ff",
+                                  cursor: "pointer",
+                                }}
+                              />
+                              <label
+                                className="form-check-label ms-1"
+                                htmlFor={`checkbox-${item.id}`}
+                                style={{
+                                  fontSize: "13px",
+                                  fontFamily: "poppins",
+                                }}
+                              >
+                                {item.subproperty}
+                              </label>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           )}
         </div>
@@ -556,7 +571,7 @@ const FilterOfProducts = ({
                 >
                   {width}
                 </div>
-              )
+              ),
             )}
           </div>
         </div>

@@ -1,6 +1,4 @@
-import React from "react";
 import ProfileSideBar from "./ProfileSideBar";
-// import Bookslider from "./bookslider";
 import coupen from "../../assets/images/coupon.png";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -27,19 +25,13 @@ const Refferals = () => {
           <ProfileSideBar />
 
           <div className="col-md-9 py-5" style={{ paddingTop: 50 }}>
-            {/* <div>
-                            <h6>Referrals</h6>
-                            <hr />
-                        </div> */}
             <div>
               <h5 className="text-center" style={{ color: "#36454f" }}>
                 Referrals
               </h5>
               <hr className="hr-gradient" />
             </div>
-
             <div className="container">
-              {/* <Bookslider /> */}
               <div className="carousel">
                 <Slider {...settings}>
                   <div>
@@ -71,7 +63,6 @@ const Refferals = () => {
               <h6 className="section-head mt-2 mb-3">Coupons and Offers</h6>
 
               <div className="row">
-                {/* Card 1 */}
                 <div className="col-md-6 col-lg-4 mb-2">
                   <div
                     className="card coupon-card"
@@ -80,8 +71,6 @@ const Refferals = () => {
                     <img src={coupen} alt="New Winterwear Drip" className="" />
                   </div>
                 </div>
-
-                {/* Card 2 */}
                 <div className="col-md-6 col-lg-4 mb-2">
                   <div
                     className="card coupon-card"
@@ -90,8 +79,6 @@ const Refferals = () => {
                     <img src={coupen} alt="New Winterwear Drip" className="" />
                   </div>
                 </div>
-
-                {/* Card 3 */}
                 <div className="col-md-6 col-lg-4 mb-2">
                   <div
                     className="card coupon-card"

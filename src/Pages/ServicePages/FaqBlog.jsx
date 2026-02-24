@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "./FirstBanner.css";
 import Accordion from "@mui/material/Accordion";
 import AccordionDetails from "@mui/material/AccordionDetails";
@@ -11,7 +11,7 @@ import API_BASE_URL from "../../Api/api";
 const FaqBlog = () => {
   const [expanded, setExpanded] = useState(false);
 
-  const handleChange = (panel) => (event, isExpanded) => {
+  const handleChange = (panel) => (isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
 
@@ -77,119 +77,6 @@ const FaqBlog = () => {
             </Accordion>
           );
         })}
-        {/* <Accordion
-          expanded={expanded === "panel1"}
-          onChange={handleChange("panel1")}
-        >
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel1bh-content"
-            id="panel1bh-header"
-          >
-            <Typography component="span" sx={{ width: "55%", flexShrink: 0 }}>
-              <div className="drop_line">
-                <span className="questionmark fs-4 px-3 py-2">?</span>
-                <span className="lines">
-                  {" "}
-                  What should I consider before investing in real estate with
-                  Goolok?
-                </span>
-              </div>
-            </Typography>
-          </AccordionSummary>
-          <hr />
-          <AccordionDetails>
-            <Typography>
-              Consider location, property type, potential rental income, market
-              trends, and your financial readiness before making an investment.
-            </Typography>
-          </AccordionDetails>
-        </Accordion> */}
-        {/* <Accordion
-          expanded={expanded === "panel2"}
-          onChange={handleChange("panel2")}
-        >
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel2bh-content"
-            id="panel2bh-header"
-          >
-            <Typography component="span" sx={{ width: "53%", flexShrink: 0 }}>
-              <div className="drop_line">
-                {" "}
-                <span className="questionmark fs-4 px-3 py-2">?</span>
-                <span className="lines">
-                  {" "}
-                  What financing options are available for investment
-                  properties?{" "}
-                </span>
-              </div>
-            </Typography>
-          </AccordionSummary>
-          <hr />
-          <AccordionDetails>
-            <Typography>
-              You can explore traditional mortgages, hard money loans, or cash
-              purchases. Our team can assist you in understanding the best
-              options for your situation.
-            </Typography>
-          </AccordionDetails>
-        </Accordion> */}
-        {/* <Accordion
-          expanded={expanded === "panel3"}
-          onChange={handleChange("panel3")}
-        >
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel3bh-content"
-            id="panel3bh-header"
-          >
-            <Typography component="span" sx={{ width: "53%", flexShrink: 0 }}>
-              <div className="drop_line">
-                <span className="questionmark fs-4 px-3 py-2">?</span>
-                <span className="lines">
-                  {" "}
-                  What are the potential risks of real estate investing?
-                </span>
-              </div>
-            </Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <hr />
-            <Typography>
-              Risks may include market fluctuations, tenant turnover, unexpected
-              repairs, and legal issues. We recommend thorough research and
-              consultation with our professionals.
-            </Typography>
-          </AccordionDetails>
-        </Accordion> */}
-        {/* <Accordion
-          expanded={expanded === "panel4"}
-          onChange={handleChange("panel4")}
-        >
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel4bh-content"
-            id="panel4bh-header"
-          >
-            <Typography component="span" sx={{ width: "53%", flexShrink: 0 }}>
-              <div className="drop_line">
-                <span className="questionmark fs-4 px-3 py-2">?</span>
-                <span className="lines">
-                  Does Goolok offer property management services?
-                </span>
-              </div>
-            </Typography>
-          </AccordionSummary>
-          <hr />
-          <AccordionDetails>
-            <Typography>
-              Yes, we provide comprehensive property management services,
-              including tenant screening, rent collection, and maintenance
-              coordination to ensure smooth operations.
-            </Typography>
-          </AccordionDetails>
-        </Accordion> */}
       </div>
     </div>
   );

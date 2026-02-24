@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Nav, NavItem, Tab, Tabs } from "react-bootstrap";
 import ProfileSideBar from "./ProfileSideBar";
-import { FaChevronRight, FaSearch } from "react-icons/fa";
+import { FaChevronRight } from "react-icons/fa";
 
 const faqData = [
   {

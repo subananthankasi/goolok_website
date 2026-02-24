@@ -1,14 +1,11 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faEllipsisH,
   faHome,
   faBriefcase,
 } from "@fortawesome/free-solid-svg-icons";
-// import ProfileSideBar from "./ProfileSideBar";
 import { FaChevronRight, FaPlus } from "react-icons/fa6";
 import { Link, useNavigate } from "react-router-dom";
-import ProfileSideBar from "../ProfileSideBar";
 import axiosInstance from "../../../Api/axiosInstance";
 import axios from "axios";
 import API_BASE_URL from "../../../Api/api";
@@ -17,14 +14,9 @@ import Button from "@mui/material/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserData } from "../../../Redux/Action/UserData";
 import { FaEdit } from "react-icons/fa";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import { TbPhoneCall } from "react-icons/tb";
-import { IoIosMail } from "react-icons/io";
-import { MdWifiCalling3 } from "react-icons/md";
 import { ThreeDots } from "react-loader-spinner";
 import { Skeleton } from "primereact/skeleton";
 import { useAlert } from "react-alert";
-import { Breadcrumb } from "antd";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import GradeIcon from '@mui/icons-material/Grade';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
@@ -38,7 +30,6 @@ const AddressList = () => {
   const [loading, setLoading] = useState(false);
   const [getData, setGetData] = useState([]);
   const [deleteId, setDeleteId] = useState(null);
-  const [openMenuId, setOpenMenuId] = useState(null);
   const [getLoading, setGetLoading] = useState(false);
 
 
@@ -75,7 +66,7 @@ const AddressList = () => {
   };
   const handleDelete = async () => {
     try {
-      const response = await axiosInstance.delete(
+      await axiosInstance.delete(
         `/vendor/address/${deleteId}`
       );
       setDeleteDialog(false);
@@ -165,7 +156,7 @@ const AddressList = () => {
 
   const handlePrimaryAddress = async (id) => {
     try {
-      const response = await axiosInstance.put(`/vendor/address/${id}`);
+      await axiosInstance.put(`/vendor/address/${id}`);
       alert.success("Successfull set us primary address!");
       fetch();
     } catch (error) {
@@ -176,11 +167,7 @@ const AddressList = () => {
 
   return (
     <>
-      {/* <div className="container profile_edit">
-        <div className="row w-100"> */}
-      {/* <ProfileSideBar /> */}
-
-      <div style={{ paddingTop: 50 }} className="p-0 m-0">
+      <div style={{ paddingTop: 50 }} className="p-0 m-0 mt-3">
         <div>
           <h5 className="text-center" style={{ color: "#36454f" }}>
             Profile
@@ -188,35 +175,6 @@ const AddressList = () => {
           <hr className="hr-gradient" />
         </div>
         <div className="mt-4">
-          {/* <div className="d-flex mb-3" style={{
-                flexDirection: "column",
-                fontSize: "13px",
-                color: "#555",
-                marginBottom: "15px",
-                background: "#f8f9ff",
-                padding: "10px 12px",
-                borderRadius: "8px",
-                borderLeft: "3px solid #0000ff"
-              }}>
-                <div className="d-flex justify-content-between mb-1">
-                  <p className="profile_name">
-                    <AccountCircleIcon />  Name :
-                    <span className="profile_value">{userData?.customer}</span>
-                  </p>
-                  <FaEdit style={{fontSize:"18px", marginLeft: "3px", cursor: "pointer" }} onClick={handleEditName} />
-                </div>
-
-
-                <p className="profile_name">
-                  <MdWifiCalling3 />  Mobile :
-                  <span className="profile_value">{userData?.phone}</span>
-                </p>
-                <p className="profile_name">
-                  <IoIosMail />  Mail Id :
-                  <span className="profile_value">{userData?.mail ? userData.mail : "-"}</span>
-                </p>
-
-              </div> */}
           {getLoading ? (
             <>
               <Skeleton height="200px" className="mb-2" />
@@ -480,53 +438,8 @@ const AddressList = () => {
                             ?.state_name || "Unknown State"}
                           , {item.pincode}
                         </h6>
-
-                        {/* {item.active === "primary" && (
-                              <span
-                                className="badge bg-primary ms-2"
-                                style={{ fontSize: "0.75rem", fontWeight: 500 }}
-                              >
-                                Primary
-                              </span>
-                            )} */}
                       </div>
-
-
                     </div>
-
-                    {/* Menu button */}
-                    {/* <div className="position-absolute end-0 top-0 mt-2 me-3" ref={dropdownRef}>
-                          <button
-                            className="btn btn-light border-0"
-                            onClick={() =>
-                              setOpenMenuId(openMenuId === item.id ? null : item.id)
-                            }
-                          >
-                            <FontAwesomeIcon icon={faEllipsisH} />
-                          </button>
-
-                          {openMenuId === item.id && (
-                            <div className="dropdown-menu d-block shadow-sm p-2">
-                              <button className="dropdown-item" onClick={() => handleEdit(item)}>
-                                Edit
-                              </button>
-                              <button
-                                className="dropdown-item text-danger"
-                                onClick={() => openDelete(item.id)}
-                              >
-                                Remove
-                              </button>
-                              {item.active !== "primary" && (
-                                <button
-                                  className="dropdown-item"
-                                  onClick={() => handlePrimaryAddress(item.id)}
-                                >
-                                  Set as primary address
-                                </button>
-                              )}
-                            </div>
-                          )}
-                        </div> */}
                     <div className="d-flex justify-content-end"></div>
                   </div>
                 );

@@ -1,37 +1,19 @@
-import React, { useState, useEffect, useRef } from "react";
-import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Accordion } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 import { Message } from "primereact/message";
-import { FileUpload } from "primereact/fileupload";
 import axiosInstance from "../../Api/axiosInstance";
-// import { useAlert } from "react-alert";
 import { ThreeDots } from "react-loader-spinner";
-import axios from "axios";
 import {
-  IMG_PATH,
-  LOGIN_BASE_URL,
   PAYMENT_KEY,
   PAYMENT_KEY_SECRET,
 } from "../../Api/api";
-import DownloadIcon from "@mui/icons-material/Download";
-import { DateFormateCustom } from "../../Utils/DateFormateCustom";
-import { Empty } from "antd";
-import { Timeline } from "antd";
-import { DataTable } from "primereact/datatable";
-import { Column } from "primereact/column";
 import Button from "@mui/material/Button";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import PaymentIcon from "@mui/icons-material/Payment";
 import { Dialog } from "primereact/dialog";
 import { Radio, RadioGroup } from "rsuite";
-import { InputText } from "primereact/inputtext";
-import { Tooltip, Whisper } from "rsuite";
 import { useAlert } from "react-alert";
 import { useRazorpay } from "react-razorpay";
-import { useFormik } from "formik";
-import * as yup from "yup";
+
 const PaymentScheduleBooking = ({
   paymentData,
   statusData,
@@ -319,10 +301,12 @@ const PaymentScheduleBooking = ({
           onChange={(val) => setSelectedOption(val)}
         >
           <Radio value="Total due amount">
-            Total due amount ({formatCurrency(dueAmount?.total_due)})
+            {/* Total due amount ({formatCurrency(dueAmount?.total_due)}) */}
+            Total due amount   (₹{dueAmount?.total_due})
           </Radio>
           <Radio value="Current due amount">
-            Current due amount ({formatCurrency(dueAmount?.current_due)})
+            {/* Current due amount ({formatCurrency(dueAmount?.current_due)}) */}
+            Current due amount  (₹{(dueAmount?.current_due)})
           </Radio>
 
           <Radio value="Custom amount">Custom amount</Radio>

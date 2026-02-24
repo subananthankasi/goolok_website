@@ -63,59 +63,6 @@ const Features = ({ data, loading }) => {
             </>
           )}
         </div>
-        {/* <div className="row amenities"> 
-            <div className="col-6 col-md-4 mt-3">
-            <i className="fa-solid fa-charging-station" />
-            <span>Electrical trench</span>
-            </div> 
-
-            <div className="col-6 col-md-4 mt-3">
-            <i className="fa-solid fa-water" />
-            <span>Storm water drain</span>
-            </div> 
-
-
-            <div className="col-6 col-md-4 mt-3">
-            <i className="fa-solid fa-tower-observation" />
-            <span>LED Street Lights</span>
-            </div> 
-
-            <div className="col-6 col-md-4 mt-3">
-            <i className="fa-solid fa-tree" />
-            <span>Avenue trees</span>
-            </div> 
-
-
-            <div className="col-6 col-md-4 mt-3">
-            <i className="fa-solid fa-torii-gate" />
-            <span>Entry portal with gate</span>
-            </div> 
-
-            <div className="col-6 col-md-4 mt-3">
-            <i className="fa-solid fa-shield-halved" />
-            <span>Security cabin</span>
-            </div> 
-
-
-            <div className="col-6 col-md-4 mt-3">
-            <i className="fa-regular fa-calendar-days" />
-            <span>Ready to construct</span>
-            </div> 
-
-
-            <div className="col-6 col-md-4 mt-3">
-            <i className="fa-solid fa-group-arrows-rotate" />
-            <span>Hopscotch</span>
-            </div> 
-
-
-            <div className="col-6 col-md-4 mt-3">
-            <i className="fa-solid fa-road" />
-            <span>Elevated Blacktop Roads</span>
-            </div> 
- 
-            
-        </div>  */}
       </div>
 
       <div className="mobile_feature">

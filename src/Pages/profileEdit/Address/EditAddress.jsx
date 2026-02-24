@@ -1,13 +1,10 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faLocationDot,
   faHome,
   faBriefcase,
-  faPaperPlane,
 } from "@fortawesome/free-solid-svg-icons";
-import ProfileSideBar from "../ProfileSideBar";
-// import ProfileSideBar from "./ProfileSideBar";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { Dialog } from "primereact/dialog";
@@ -15,14 +12,7 @@ import {
   GoogleMap,
   useJsApiLoader,
   Marker,
-  Autocomplete,
-  InfoWindow,
-  Polyline,
-  Polygon,
 } from "@react-google-maps/api";
-import Button from "@mui/material/Button";
-import LocationOnIcon from "@mui/icons-material/LocationOn";
-import LocationSearchingIcon from "@mui/icons-material/LocationSearching";
 import axiosInstance from "../../../Api/axiosInstance";
 import axios from "axios";
 import API_BASE_URL from "../../../Api/api";
@@ -40,10 +30,6 @@ const containerStyle = {
   height: "50vh",
 };
 
-const center = {
-  lat: 13.078187,
-  lng: 79.972347,
-};
 
 const EditAddress = () => {
   const { isLoaded } = useJsApiLoader(loaderOptions);
@@ -91,7 +77,7 @@ const EditAddress = () => {
       active: item?.active
     };
     try {
-      const response = await axiosInstance.post("/vendor/address", payload, {});
+       await axiosInstance.post("/vendor/address", payload, {});
       navigate("/profile_edit/address");
     } catch (error) {
       console.error(error);
@@ -162,10 +148,6 @@ const EditAddress = () => {
 
   return isLoaded ? (
     <>
-      {/* <div className="container profile_edit">
-        <div className="row w-100">
-          <ProfileSideBar /> */}
-
       <div className="" style={{ paddingTop: 50 }}>
         <div>
           <div
@@ -213,37 +195,6 @@ const EditAddress = () => {
               className="p-4 shadow-sm rounded bg-white"
               style={{ fontFamily: "poppins" }}
             >
-              {/* <div className="mb-3">
-                                        <label className="form-label">Full Name *</label>
-                                        <input
-                                            type="text"
-                                            name="name"
-                                            className="form-control"
-                                            placeholder="Enter your Name"
-                                            value={formik.values.name}
-                                            onChange={formik.handleChange}
-                                            onBlur={formik.handleBlur}
-                                        />
-                                        {formik.errors.name && formik.touched.name ? (
-                                            <p style={{ color: "red", fontSize: '12px' }}>{formik.errors.name}</p>
-                                        ) : null}
-                                    </div> */}
-
-              {/* <div className="mb-3">
-                                        <label className="form-label">Mobile No *</label>
-                                        <input
-                                            type="text"
-                                            name="mobile"
-                                            className="form-control"
-                                            placeholder="Enter your mobile number"
-                                            value={formik.values.mobile}
-                                            onChange={formik.handleChange}
-                                            onBlur={formik.handleBlur}
-                                        />
-                                        {formik.errors.mobile && formik.touched.mobile ? (
-                                            <p style={{ color: "red", fontSize: '12px' }}>{formik.errors.mobile}</p>
-                                        ) : null}
-                                    </div> */}
               <div className="mb-3">
                 <label className="form-label">
                   House No,Building Name *

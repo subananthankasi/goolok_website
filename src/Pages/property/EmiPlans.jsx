@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import EventAvailableIcon from "@mui/icons-material/EventAvailable";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import { Modal, ListGroup } from "react-bootstrap";
+import {  ListGroup } from "react-bootstrap";
 import { Steps } from "antd";
 import { Dialog } from "primereact/dialog";
 
@@ -43,20 +43,6 @@ const EmiPlans = ({ items }) => {
 
   const installments = getInstallments(selectedBank);
 
-  const customRound = (num) => {
-    const floor = Math.floor(num);
-    const decimal = num - floor;
-
-    if (decimal === 0.5) {
-      return Math.ceil(num);
-    }
-    return Math.round(num);
-  };
-  const toNumber = (value) => {
-    if (!value) return 0;
-    return parseFloat(value.toString().replace(/,/g, ""));
-  };
-
   return (
     <>
       <p className="text-center" style={{ alignItems: "center" }}>
@@ -77,59 +63,6 @@ const EmiPlans = ({ items }) => {
           </b>
         </span>
       </p>
-
-      {/* <Modal show={emiShow} onHide={() => setEmiShow(false)} size="lg">
-        <Modal.Header closeButton>
-          <Modal.Title>EMI Plans</Modal.Title>
-        </Modal.Header>
-        <Modal.Body className="d-flex" style={{ minHeight: "400px" }}>
-          <div style={{ width: "40%", borderRight: "1px solid #ddd" }}>
-            <ListGroup variant="flush">
-              {items?.pay_option?.map((option, i) => (
-                <ListGroup.Item
-                  key={i}
-                  action
-                  active={selectedBank === option.schedule}
-                  onClick={() => setSelectedBank(option.schedule)}
-                >
-                  {option.schedule}
-                </ListGroup.Item>
-              ))}
-            </ListGroup>
-          </div>
-
-          <div style={{ width: "60%", paddingLeft: "20px" }}>
-            <h6>{selectedBank} EMI PLANS</h6>
-
-            <div className="text-center mt-3">
-              {installments.length > 0 ? (
-                <Steps
-                  direction="vertical"
-                  current={-1}
-                  items={installments.map((plan) => ({
-                    title: plan.installment,
-                    description: (
-                      <div className="d-flex justify-content-between">
-                        <p>
-                          {`${plan.percentage_of_amount}% after ${plan.days} days`}{" "}
-                        </p>
-                        <p>2000 </p>
-                      </div>
-                    ),
-                  }))}
-                />
-              ) : (
-                <p className="mt-3">
-                  {items?.pay_option?.find(
-                    (opt) => opt.schedule === selectedBank
-                  )?.payment_details || "No installment details available."}
-                </p>
-              )}
-            </div>
-          </div>
-        </Modal.Body>
-      </Modal> */}
-
       <Dialog
         visible={emiShow}
         style={{ width: "52rem" }}

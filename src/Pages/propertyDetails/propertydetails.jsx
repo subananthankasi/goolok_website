@@ -9,14 +9,13 @@ import Mapdetails from "./mapdetails";
 import StreetView from "./StreetView"; 
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import API_BASE_URL from "../../Api/api";
-import Skeleton from 'react-loading-skeleton';  
+import API_BASE_URL from "../../Api/api"; 
 import NotFound from "../NotFound";
 
 
 function Propertydetails() {
 
-  const { slug, id } = useParams();
+  const {  id } = useParams();
   const decodedString = decodeURIComponent(id);
 
   const [basicData,setBasicData] = useState([])
@@ -72,12 +71,6 @@ function Propertydetails() {
               <div className="bg-white table_hide">
                 <Table />
               </div>
-              {/* <div className="bg-white mt-4">
-                <RecentProperties />
-              </div> */}
-              {/* <div className="bg-white mt-4">
-                <PropertyFeatures />
-              </div> */}
               <div className="mt-4 ad-img">
                 <img src={ad} />
               </div>

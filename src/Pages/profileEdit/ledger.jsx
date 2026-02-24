@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
 import "./profilecss.css";
 import { SearchData } from "../../Utils/search";
@@ -7,12 +7,10 @@ import { InvoicePdfDownloadButton } from "../../Utils/InvoicePdfDownload.jsx/Inv
 import axiosInstance from "../../Api/axiosInstance";
 import { Skeleton } from 'primereact/skeleton';
 
-// import ExportButton from "../../../Utils/ExportButton";
 
 function Ledger() {
   const [isLoading, setIsLoading] = useState(true)
   const token = localStorage.getItem('zxcvbnm@#')
-
 
   const columns = [
     {
@@ -85,31 +83,6 @@ function Ledger() {
     },
   ];
 
-  // const data = [
-  //   {
-  //     slno: "1",
-  //     transactiondate: "10/04/2023 08:12:45",
-  //     transactiontype: "Invoice",
-  //     transactionnumber: "trnsGT6587454",
-  //     details:
-  //       "Invoice Number:100047 Custom Invoice Created Trans ID:trnsGT6587454 ",
-  //     debit: "5500",
-  //     credit: "2000",
-  //     balance: "3500",
-  //   },
-  //   {
-  //     slno: "2",
-  //     transactiondate: "15/04/2023 04:47:08",
-  //     transactiontype: "Credit Note",
-  //     transactionnumber: "trnsGT6587554",
-  //     details:
-  //       "Invoice Number:100047 Custom Invoice Created Trans ID:trnsGT6587454 ",
-  //     debit: "8000",
-  //     credit: "5000",
-  //     balance: "3000",
-  //   },
-  // ];
-
   const customStyle = {
     headRow: {
       style: {
@@ -131,10 +104,7 @@ function Ledger() {
     },
   };
 
-
-
   const [data, setData] = useState([])
-  // fetch data 
   const fetchData = async () => {
     try {
       const response = await axiosInstance.get(`/vendor/ledger`, {
@@ -148,15 +118,13 @@ function Ledger() {
 
     }
   }
- 
+
 
   useEffect(() => {
     fetchData()
   }, [])
 
 
-
-  // search function
   const [filterText, setFilterText] = useState("");
   const searchColumns = [
     "slno",
@@ -172,18 +140,7 @@ function Ledger() {
     setFilterText(event.target.value);
   };
 
-
-
-
-
-
-
-
   const filterdata = SearchData(data, filterText, searchColumns);
-
-
-
-
 
   /////////////////////////////////////
 
@@ -214,22 +171,9 @@ function Ledger() {
                               placeholder="..Search"
                             ></input>
                           </div>
-
-                          {/* <DataTable
-                                columns={columns}
-                                data={filterdata}
-                                customStyles={customStyle}
-                                pagination
-                                // selectableRows
-                                persistTableHead={true}
-
-                              /> */}
                           {isLoading ? (
                             <div className="skeleton-wrapper">
-                              {/* Skeleton for table header */}
                               <Skeleton height="2rem" className="mb-3" width="100%" />
-
-                              {/* Skeleton rows based on filterdata */}
                               {filterdata.length > 0
                                 ? filterdata.map((_, index) => (
                                   <Skeleton

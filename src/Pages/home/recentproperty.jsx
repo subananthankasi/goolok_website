@@ -1,7 +1,6 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "../home/homestyle.css";
 import { Carousel } from "primereact/carousel";
-import "react-multi-carousel/lib/styles.css";
 import "@fortawesome/fontawesome-free/css/all.css";
 import axios from "axios";
 import { IMG_PATH, LOGIN_BASE_URL } from "../../Api/api";
@@ -13,35 +12,16 @@ import { wishlistGetThunk, wishlistPostThunk, wishlistVerifyThunk } from "../../
 import LoginForm from "../../Components/Login/LoginForm";
 import { useAlert } from "react-alert";
 import { Skeleton } from "primereact/skeleton";
-import { nearbyPropertiesGetThunk } from "../../Redux/Action/NearbyPropertiesThunk";
 import { recommendGetThunk } from "../../Redux/Action/RecommendThunk";
-import UseLocationFetcher from "./UseLocationFetcher";
+
 
 function Recentlyadded({ loading }) {
   const token = localStorage.getItem("zxcvbnm@#");
   const userid = localStorage.getItem("userid");
   const dispatch = useDispatch()
   const alert = useAlert()
-
-
-
   const getData =
     useSelector((state) => state.nearbyPropertiesGetData?.data) || [];
-
-
-  const handleLocation = useCallback(
-    ({ lat, lon, neighborhood }) => {
-      dispatch(
-        nearbyPropertiesGetThunk({
-          lat,
-          lon,
-          neighborhood,
-          userid,
-        })
-      );
-    },
-    [dispatch, userid]
-  );
 
   const responsiveOptions = [
     {
@@ -96,7 +76,6 @@ function Recentlyadded({ loading }) {
       } else {
         alert.success("Great choice! This property successfully added to your wishlist");
         return [...prev, eid];
-
       }
     });
     try {
@@ -104,7 +83,6 @@ function Recentlyadded({ loading }) {
       await dispatch(wishlistPostThunk(payload));
       await dispatch(wishlistVerifyThunk(eid));
       await dispatch(wishlistGetThunk());
-      // alert.success("Item added to your wishlist");
       dispatch(recommendGetThunk(userid))
     } catch (error) {
       console.error("Error:", error);
@@ -117,9 +95,7 @@ function Recentlyadded({ loading }) {
       setIsModalOpenlogin(true);
       return;
     }
-
     setStore((prev) => prev.filter((id) => id !== eid));
-
     try {
       await axios.delete(`${LOGIN_BASE_URL}/vendor/wishlist/${eid}`, {
         headers: { Authorization: token },
@@ -245,7 +221,6 @@ function Recentlyadded({ loading }) {
     );
   };
 
-
   return (
     <section className="section_container">
       <LoginForm isOpen={isModalOpenlogin} closeModal={closeModalLogin} />
@@ -268,7 +243,6 @@ function Recentlyadded({ loading }) {
               Discover Verified Properties Near You
             </h3>
           )}
-
         </div>
         {loading ? (
           <div className="row mt-4">

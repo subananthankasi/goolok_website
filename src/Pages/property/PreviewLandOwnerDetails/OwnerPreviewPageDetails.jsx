@@ -1,4 +1,3 @@
-import React from "react";
 
 const LandOwnerPreview = ({ property }) => {
     const data = property?.agreement || {};
@@ -18,7 +17,7 @@ const LandOwnerPreview = ({ property }) => {
         <span className="agreemnt_atriputes_name">Village</span> <span>{data.village_name} </span>
       </li>
       <li className="list-group-item d-flex justify-content-between">
-        <span className="agreemnt_atriputes_name">Pincode</span> <span>{data.pincode} </span>
+        <span className="agreemnt_atriputes_name">Pincode</span> <span>{data.pincode ?? ""} </span>
       </li>
       <li className="list-group-item d-flex justify-content-between">
         <span className="agreemnt_atriputes_name">Land classification</span> <span>{data.classification} </span>
@@ -62,7 +61,7 @@ const ApartmentOwnerPre = ({ property }) => {
           <span className="agreemnt_atriputes_name">Village</span> <span>{data.village_name} </span>
         </li>
         <li className="list-group-item d-flex justify-content-between">
-          <span className="agreemnt_atriputes_name">Pincode</span> <span>{data.pincode} </span>
+          <span className="agreemnt_atriputes_name">Pincode</span> <span>{data.pincode ?? ""} </span>
         </li>
         <li className="list-group-item d-flex justify-content-between">
           <span className="agreemnt_atriputes_name"> CMDA / DTCP </span> <span>{data.approval_no} </span>
@@ -134,7 +133,7 @@ const HouseOwnerPreview = ({ property }) => {
           <span className="agreemnt_atriputes_name">Village</span> <span>{data.taluk_name} </span>
         </li>
         <li className="list-group-item d-flex justify-content-between">
-          <span className="agreemnt_atriputes_name">Pincode</span> <span>{data.pincode} </span>
+          <span className="agreemnt_atriputes_name">Pincode</span> <span>{data.pincode ?? ""} </span>
         </li>
         <li className="list-group-item d-flex justify-content-between">
           <span className="agreemnt_atriputes_name"> CMDA / DTCP </span> <span>{data.aprovalno} </span>
@@ -219,7 +218,7 @@ const PlotOwnerPreview = ({ property }) => {
           <span className="agreemnt_atriputes_name">Village</span> <span>{data.village_name} </span>
         </li>
         <li className="list-group-item d-flex justify-content-between">
-          <span className="agreemnt_atriputes_name">Pincode</span> <span>{data.pincode} </span>
+          <span className="agreemnt_atriputes_name">Pincode</span> <span>{data.pincode ?? ""} </span>
         </li>
         <li className="list-group-item d-flex justify-content-between">
           <span className="agreemnt_atriputes_name">
@@ -300,7 +299,7 @@ const CommercialOwnerPreview = ({ property }) => {
           <span className="agreemnt_atriputes_name">Village</span> <span>{data.village_name} </span>
         </li>
         <li className="list-group-item d-flex justify-content-between">
-          <span className="agreemnt_atriputes_name">Pincode</span> <span>{data.pincode} </span>
+          <span className="agreemnt_atriputes_name">Pincode</span> <span>{data.pincode ?? ""} </span>
         </li>
         {property?.subpro_name === "Land" && (
           <li className="list-group-item d-flex justify-content-between">
@@ -424,7 +423,7 @@ const LayoutOwnerPreview = ({ property }) => {
           <span>Village</span> <span>{data.village_name} </span>
         </li>
         <li className="list-group-item d-flex justify-content-between">
-          <span>Pincode</span> <span>{data.pincode} </span>
+          <span>Pincode</span> <span>{data.pincode ?? ""} </span>
         </li>
         <li className="list-group-item d-flex justify-content-between">
           <span>Land classification</span> <span>{data.land_classification} </span>
@@ -505,7 +504,7 @@ const ApartmentProjectOwnerPreview = ({ property }) => {
           <span>Village</span> <span>{data.village_name} </span>
         </li>
         <li className="list-group-item d-flex justify-content-between">
-          <span>Pincode</span> <span>{data.pincode} </span>
+          <span>Pincode</span> <span>{data.pincode ?? ""} </span>
         </li>
         <li className="list-group-item d-flex justify-content-between">
           <span>CMDA / DTCP</span> <span>{data.approval_no} </span>

@@ -1,6 +1,3 @@
-@import "../node_modules/@syncfusion/ej2-base/styles/material.css";
-@import "../node_modules/@syncfusion/ej2-popups/styles/material.css";
-@import "../node_modules/@syncfusion/ej2-navigations/styles/material.css";
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 @import "slick-carousel/slick/slick.css";
 @import "slick-carousel/slick/slick-theme.css";
@@ -8,27 +5,32 @@
 @import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&family=Varela+Round&family=Zalando+Sans:ital,wght@0,200..900;1,200..900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&family=Varela+Round&family=Zalando+Sans:ital,wght@0,200..900;1,200..900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&family=Varela+Round&family=Zalando+Sans:ital,wght@0,200..900;1,200..900&display=swap");
- 
-
+@import url("https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&family=Fredoka:wght@300..700&family=Google+Sans+Flex:opsz,wght@6..144,1..1000&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Solway:wght@300;400;500;700;800&family=Sono:wght,MONO@200..800,1&family=Sora:wght@100..800&family=Spinnaker&family=Telex&family=Tilt+Warp&display=swap");
 /* layouts */
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
+    "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-family: Rialta, Helvetica Neue, Helvetica, Roboto, sans-serif !important;
+  font-family:
+    Rialta,
+    Helvetica Neue,
+    Helvetica,
+    Roboto,
+    sans-serif !important;
   /* font-family: "DM Sans", sans-serif !important; */
   font-size: 13px;
-   overflow-x: hidden;
+  overflow-x: hidden;
 }
-html, body {
+html,
+body {
   height: 100%;
   margin: 0;
 }
 .profile-layout {
-  min-height: calc(100vh - 70px - 300px); 
+  min-height: calc(100vh - 70px - 300px);
 }
 
 .app-layout {
@@ -38,18 +40,22 @@ html, body {
 }
 
 .app-content {
-  flex: 1;     
+  flex: 1;
   width: 100%;
 }
 
 /* layouts */
- 
 
-
+.poppins {
+  font-family: "Poppins", sans-serif;
+}
+.fredoka {
+  font-family: "Fredoka", sans-serif;
+}
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+  font-family:
+    source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 iframe {
   width: 100%;
@@ -207,5 +213,186 @@ iframe {
   }
 }
 
+/* lyout booking...................................................................css */
+/* .layout-page {
+  font-family: "Poppins", sans-serif;
+} */
+.layout-page {
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.layout-content {
+  flex: 1;
+  overflow-y: auto;
+  padding-bottom: 100px;
+}
 
+.brand-title {
+  color: #0000ff;
+  letter-spacing: 1px;
+}
 
+.location-text {
+  color: #666;
+  font-weight: 500;
+}
+
+.plot-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+  gap: 10px;
+}
+
+.plot-card {
+  position: relative;
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 5px;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.3s ease;
+  /* border: 2px solid transparent; */
+  border: 2px solid #d0d0e1;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.plot-card:hover {
+  transform: translateY(-5px);
+  border-color: #0000ff;
+}
+
+.plot-card.selected {
+  border: 2px solid #0000ff;
+  background: #eef1ff;
+}
+
+.plot-card.sold {
+  background: #ffe5e5;
+  cursor: not-allowed;
+  opacity: 0.8;
+  border: 2px solid #f05b5b;
+}
+
+.sold-badge {
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  background: red;
+  color: white;
+  padding: 3px 6px;
+  font-size: 10px;
+  border-radius: 12px;
+}
+
+.booking-summary {
+  background: #ffffff;
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 255, 0.1);
+  border-top: 4px solid #0000ff;
+}
+
+.btn-book {
+  background: #0000ff;
+  color: white;
+  border: none;
+  padding: 12px;
+  /* border-radius: 8px; */
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.btn-book:hover {
+  background: #0015ff;
+}
+
+.location-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  margin-top: 8px;
+}
+
+.line {
+  height: 1.5px;
+  width: 25px;
+  /* background: linear-gradient(to right, transparent, #0000ff, transparent); */
+  background: linear-gradient(to right, transparent, #666, transparent);
+  border-radius: 2px;
+}
+.tick-icon {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  background: #0000ff;
+  color: white;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 255, 0.4);
+  border: 3px solid #fff;
+  z-index: 2;
+}
+
+.bottom-booking-card {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #ffffff;
+  box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.08);
+  padding: 15px 25px;
+  z-index: 999;
+  animation: slideUp 0.3s ease-in-out;
+}
+
+.booking-info {
+  max-width: 1200px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.book-btn {
+  background-color: #0000ff;
+  color: #fff;
+  border: none;
+  padding: 10px 25px;
+  border-radius: 0px;
+  font-weight: 600;
+  transition: 0.3s ease;
+}
+.book-btn-cancel {
+  background-color: #ff5100;
+  color: #fff;
+  border: none;
+  padding: 10px 25px;
+  border-radius: 0px;
+  font-weight: 600;
+  transition: 0.3s ease;
+}
+
+.book-btn:hover {
+  background-color: #0015ff;
+}
+
+.small-text {
+  font-size: 13px;
+  color: #777;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}

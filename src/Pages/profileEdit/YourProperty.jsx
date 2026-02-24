@@ -1,14 +1,9 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { DateFormateCustom } from "../../Utils/DateFormateCustom";
-import ProfileSideBar from "./ProfileSideBar";
-import { Tab, Tabs } from "react-bootstrap";
 import { Skeleton } from "primereact/skeleton";
 import {
-  completePropertyThunk,
-  pendingPropertyThunk,
   progressPropertyThunk,
-  waitingPropertyThunk,
 } from "../../Redux/Action/YourPropertyThunk/YourpropertyThunk";
 import { useDispatch, useSelector } from "react-redux";
 import SearchOffIcon from "@mui/icons-material/SearchOff";
@@ -16,54 +11,19 @@ import { Paginator } from "primereact/paginator";
 import { FaAngleDoubleRight } from "react-icons/fa";
 
 
-const YourProperty = ({ activeTab }) => {
-  const [activeKey, setActiveKey] = useState("tab1");
+const YourProperty = () => {
   const dispatch = useDispatch();
-
   useEffect(() => {
-    // dispatch(waitingPropertyThunk());
     dispatch(progressPropertyThunk());
-    // dispatch(pendingPropertyThunk());
-    // dispatch(completePropertyThunk());
-  }, []);
+  }, [dispatch]);
 
-  // const waitingData =
-  //   useSelector((state) => state.yourPropertydata?.waiting?.data) || [];
-  // const wholeData =
-  //   useSelector((state) => state.yourPropertydata?.progress?.data) || [];
 
   const dataFromStore = useSelector((state) => state.yourPropertydata?.progress?.data);
   const wholeData = Array.isArray(dataFromStore) ? dataFromStore : [];
-  // const pendingData =
-  //   useSelector((state) => state.yourPropertydata?.pending?.data) || [];
-  // const completeData =
-  //   useSelector((state) => state.yourPropertydata?.complete?.data) || [];
-
-  // const waitingLoading = useSelector(
-  //   (state) => state.yourPropertydata?.waiting?.loading
-  // );
   const dataLoading = useSelector(
     (state) => state.yourPropertydata?.progress?.loading
   );
-  // const pendingLoading = useSelector(
-  //   (state) => state.yourPropertydata?.pending?.loading
-  // );
-  // const completeLoading = useSelector(
-  //   (state) => state.yourPropertydata?.complete?.loading
-  // );
 
-  const handleTabChange = (key) => {
-    setActiveKey(key);
-    if (key === "tab1") {
-      dispatch(waitingPropertyThunk());
-    } else if (key === "tab2") {
-      dispatch(progressPropertyThunk());
-    } else if (key === "tab3") {
-      dispatch(pendingPropertyThunk());
-    } else if (key === "tab4") {
-      dispatch(completePropertyThunk());
-    }
-  };
   const [first, setFirst] = useState(0);
   const [rows, setRows] = useState(6);
 
@@ -75,9 +35,6 @@ const YourProperty = ({ activeTab }) => {
 
   return (
     <>
-      {/* <div className="container profile_edit">
-        <div className="row w-100">
-          <ProfileSideBar /> */}
       <div className=" mt-3">
         <section className="mt-4">
           <div className="continer">
@@ -114,7 +71,9 @@ const YourProperty = ({ activeTab }) => {
                               : data.status === "progress"
                                 ? "status-processing"
                                 : data.status === "pending"
-                                  ? "status-pending"
+                                  ? "status-pending" :
+                                 data.status === "closed"
+                                  ? "status-closed"
                                   : "status-success"
                               }`}
                           >
@@ -143,8 +102,6 @@ const YourProperty = ({ activeTab }) => {
                             <label style={{ fontWeight: "600" }}>{data.subpro_name}</label>
                           </div>
                         </div>
-
-                        {/* <hr className="mt-2 mb-3 m-0" /> */}
                         <div className="text-end mt-4 mb-3">
                           <Link
                             to={`/profile_edit/property_status/${data.id}`}

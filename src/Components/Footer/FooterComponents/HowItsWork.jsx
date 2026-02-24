@@ -1,9 +1,5 @@
-import React, { useEffect, useState } from "react";
-import EventAvailableIcon from "@mui/icons-material/EventAvailable";
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import { Modal, ListGroup } from "react-bootstrap";
-import { Steps } from "antd";
-import { Dialog } from "primereact/dialog";
+import { useEffect, useState } from "react";
+import {ListGroup } from "react-bootstrap";
 import axios from "axios";
 import API_BASE_URL, { IMG_PATH } from "../../../Api/api";
 import { Skeleton } from "primereact/skeleton";

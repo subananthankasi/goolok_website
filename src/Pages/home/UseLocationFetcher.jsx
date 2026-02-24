@@ -7,14 +7,12 @@ const UseLocationFetcher = (callback) => {
     useEffect(() => {
         const fetchLocation = async () => {
             const googleApiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
-
             if (!navigator.geolocation) {
                 console.warn("Geolocation not supported");
                 callback({ lat: null, lon: null, neighborhood: "Chennai" });
                 setMapLoading(false);
                 return;
             }
-
             navigator.geolocation.getCurrentPosition(
                 async (pos) => {
                     const lat = pos.coords.latitude;
@@ -26,7 +24,6 @@ const UseLocationFetcher = (callback) => {
                         );
 
                         const components = geoRes.data.results[0]?.address_components || [];
-
                         const neighborhood =
                             components.find((c) => c.types.includes("sublocality_level_1"))
                                 ?.long_name ||

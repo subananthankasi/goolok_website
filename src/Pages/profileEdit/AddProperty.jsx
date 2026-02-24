@@ -11,7 +11,7 @@ import * as yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchPropertyType } from "../../Redux/Action/PropertyTypeAction";
 import { fetchSubPropertyType } from "../../Redux/Action/SubPropertyAction";
-import { PDFDocument } from "pdf-lib";
+
 
 function AddProperty() {
   const alert = useAlert();
@@ -22,17 +22,9 @@ function AddProperty() {
   const aadhaarRef1 = useRef(null);
   const SaledeedRef1 = useRef(null);
   const [loading, setloading] = useState(false);
-  const [visible, setVisible] = useState(false);
-
   // dropdown set
   const [selectedProperty, setSelectedProperty] = useState(null);
   const [selectedSubProperty, setSelectedSubProperty] = useState(null);
-
-  //   radio select
-  const [selectedProceedOption, setSelectedProceedOption] = useState("sale");
-  const handleProceedChange = (event) => {
-    setSelectedProceedOption(event.target.value);
-  };
 
   const options = [
     {
@@ -44,10 +36,13 @@ function AddProperty() {
       label: "Service",
     },
   ];
+
+
   const [selectedType, setSelectedType] = useState({
     value: "sale",
     label: "Sale",
   });
+
   const handleSelected = (data) => {
     setSelectedType(data);
   };
@@ -82,7 +77,6 @@ function AddProperty() {
         "image/jpg",
       ];
       if (!file) {
-        // If no file selected
         setFileErrors({
           ...fileErrors,
           [name]: "Please upload a file.",
@@ -93,7 +87,6 @@ function AddProperty() {
         });
         return;
       }
-      // Validate file type
       if (file && validTypes.includes(file.type)) {
         setFormData({
           ...formData,

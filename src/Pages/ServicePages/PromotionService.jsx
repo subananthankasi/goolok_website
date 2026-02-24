@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import API_BASE_URL, { IMG_PATH } from "../../Api/api";
 
 const PromotionService = () => {

@@ -1,27 +1,8 @@
-import React, { useState } from "react";
-import gallery1 from "../../assets/images/person.jpg";
-import gallery2 from "../../assets/images/land2.jpg";
-import gallery3 from "../../assets/images/land3.jpg";
-import gallery4 from "../../assets/images/land4.jpg";
+import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faBackward,
-  faComment,
   faDownload,
-  faEnvelope,
-  faEye,
-  faHeart,
-  faHome,
-  faPrint,
 } from "@fortawesome/free-solid-svg-icons";
-import {
-  faAndroid,
-  faApple,
-  faFacebook,
-  faPinterest,
-  faTwitter,
-} from "@fortawesome/free-brands-svg-icons";
-import PdfDownloadPage from "../../Test/PdfDownloadPage";
 import { IMG_PATH } from "../../Api/api";
 import { Dialog } from "primereact/dialog";
 import { Skeleton } from "primereact/skeleton";
@@ -196,7 +177,7 @@ function Propertyagent({ property, giftData, loading }) {
             className="text-center mb-2"
             style={{ fontWeight: "bold", color: "rgb(47, 79, 79)" }}
           >
-            🎁 Our Exclusive Gifts
+             Our Exclusive Gifts
           </h3>
 
           <div className="row p-0">
@@ -266,3 +247,4 @@ function Propertyagent({ property, giftData, loading }) {
 }
 
 export default Propertyagent;
+  

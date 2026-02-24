@@ -2,9 +2,7 @@ import Box from "@mui/material/Box";
 import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  fetchNotificationMsgUpdate,
-} from "../../Redux/Action/NotificationAction";
+import { fetchNotificationMsgUpdate } from "../../Redux/Action/NotificationAction";
 import { truncateContent } from "../../Utils/truncateContent";
 import { useEffect, useState } from "react";
 import axiosInstance from "../../Api/axiosInstance";
@@ -17,13 +15,15 @@ import groovyWalkAnimation from "../../assets/Celebrations Begin.json";
 export default function TicketNotification() {
   const dispatch = useDispatch();
   const location = useLocation();
-  const { navNotifiData,navSHow } = location.state || {};
+  const { navNotifiData, navSHow } = location.state || {};
   const [showFullMessage, setShowFullMessage] = useState(false);
-
 
   const [data, setData] = useState([]);
   const notifications =
     useSelector((state) => state.notificationData.notification) || [];
+  const notificationLoading = useSelector(
+    (state) => state.notificationData.notificationLoading,
+  );
 
   const fetch = async (id) => {
     setLoading(true);
@@ -44,7 +44,6 @@ export default function TicketNotification() {
     setShowFullMessage(!!navSHow);
   }, [navNotifiData?.id, navSHow]);
 
-
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
@@ -59,7 +58,7 @@ export default function TicketNotification() {
     };
     try {
       await dispatch(fetchNotificationMsgUpdate(updateData));
-    } catch (error) { }
+    } catch (error) {}
   };
   const timeAgo = (timestamp) => {
     const now = new Date();
@@ -198,7 +197,7 @@ export default function TicketNotification() {
                           <button
                             onClick={() =>
                               navigate(
-                                `/profile_edit/property_status/${data.enqid}`
+                                `/profile_edit/property_status/${data.enqid}`,
                               )
                             }
                             className="btn shadow-sm notify-btn"
@@ -221,7 +220,7 @@ export default function TicketNotification() {
                           <button
                             onClick={() =>
                               navigate(
-                                `/profile_edit/property_status/${data.enqid}`
+                                `/profile_edit/property_status/${data.enqid}`,
                               )
                             }
                             className="btn shadow-sm notify-btn"
@@ -240,7 +239,7 @@ export default function TicketNotification() {
                           <button
                             onClick={() =>
                               navigate(
-                                `/profile_edit/property_status/${data.enqid}`
+                                `/profile_edit/property_status/${data.enqid}`,
                               )
                             }
                             className="btn shadow-sm notify-btn"
@@ -261,7 +260,7 @@ export default function TicketNotification() {
                           <button
                             onClick={() =>
                               navigate(
-                                `/profile_edit/property_status/${data.enqid}`
+                                `/profile_edit/property_status/${data.enqid}`,
                               )
                             }
                             className="btn shadow-sm notify-btn"
@@ -281,7 +280,7 @@ export default function TicketNotification() {
                           <button
                             onClick={() =>
                               navigate(
-                                `/profile_edit/property_status/${data.enqid}`
+                                `/profile_edit/property_status/${data.enqid}`,
                               )
                             }
                             className="btn shadow-sm"
@@ -298,12 +297,12 @@ export default function TicketNotification() {
                               transition: "all 0.3s ease",
                             }}
                             onMouseEnter={(e) =>
-                            (e.currentTarget.style.backgroundColor =
-                              "#374550")
+                              (e.currentTarget.style.backgroundColor =
+                                "#374550")
                             }
                             onMouseLeave={(e) =>
-                            (e.currentTarget.style.backgroundColor =
-                              "#2f4f4f")
+                              (e.currentTarget.style.backgroundColor =
+                                "#2f4f4f")
                             }
                           >
                             Agree
@@ -317,9 +316,7 @@ export default function TicketNotification() {
                         {data?.type === "schedule" ? (
                           <button
                             onClick={() =>
-                              navigate(
-                                `/profile_edit/bookdetails/${data.link}`
-                              )
+                              navigate(`/profile_edit/bookdetails/${data.link}`)
                             }
                             className="btn shadow-sm notify-btn"
                           >
@@ -344,7 +341,7 @@ export default function TicketNotification() {
                               animation: "fadeUp 1s ease-in-out",
                               position: "absolute",
                               top: "0",
-                              left:"120px"
+                              left: "120px",
                             }}
                           >
                             <Lottie
@@ -364,6 +361,25 @@ export default function TicketNotification() {
                   </>
                 )}
               </div>
+            ) : notificationLoading ? (
+              <>
+                <ul className=" m-0 p-0 list-unstyled">
+                  {[1, 2, 3, 4, 5, 6, 7].map((item, index) => (
+                    <li
+                      className="row mb-3 w-100 align-items-center"
+                      key={index}
+                    >
+                      <div className="col-1">
+                        <Skeleton shape="circle" size="3rem" className="mr-2" />
+                      </div>
+                      <div className="col-11">
+                        <Skeleton width="100%" className="mb-2" />
+                        <Skeleton width="75%" />
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </>
             ) : notifications.length ? (
               notifications?.map((notification) => (
                 <div
@@ -379,17 +395,15 @@ export default function TicketNotification() {
                         </div>
                       </div>
                       <div className="col-sm-12 col-lg-7">
-                        <p
-                          className="card-text"
-                          style={{ fontSize: "14px" }}
-                        >
+                        <p className="card-text" style={{ fontSize: "14px" }}>
                           <strong>
                             {notification.notif_title}
                             <span
-                              className={`${notification.notif_read === "false"
-                                ? "read"
-                                : ""
-                                }  ms-1`}
+                              className={`${
+                                notification.notif_read === "false"
+                                  ? "read"
+                                  : ""
+                              }  ms-1`}
                             ></span>
                           </strong>{" "}
                           -{truncateContent(notification.notif_content, 50)}

@@ -1,28 +1,18 @@
-import React, { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { Loader } from "@googlemaps/js-api-loader";
 import { LOGIN_BASE_URL } from "../../Api/api";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  cardDeleteThunk,
-  cardGetThunk,
-  cardListThunk,
-  cardPostThunk,
-} from "../../Redux/Action/AddToCardThunk";
-import Login from "../../Components/Login/Login";
 import {
   wishlistGetThunk,
   wishlistPostThunk,
   wishlistVerifyThunk,
 } from "../../Redux/Action/WishlistThunk";
 import { Skeleton } from "primereact/skeleton";
-import { DateFormateCustom } from "../../Utils/DateFormateCustom";
 import LoginForm from "../../Components/Login/LoginForm";
 import { useAlert } from "react-alert";
-import { openCartSidebar } from "../../Redux/Reducer/SliderForAddToCart";
 import PropertybuttonCard from "./PropertybuttonCard";
 import InfoIcon from "@mui/icons-material/Info";
-import { Tooltip } from "antd";
 import EmiPlans from "./EmiPlans";
 import { useNavigate } from "react-router-dom";
 import { Dialog } from "primereact/dialog";
@@ -38,8 +28,6 @@ const loaderOptions = {
 function PropertyButton({ property, eid, loading }) {
   const alert = useAlert();
   const navigate = useNavigate();
-
-  const [locationNames, setLocationNames] = useState({});
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -55,7 +43,7 @@ function PropertyButton({ property, eid, loading }) {
             if (isNaN(lat) || isNaN(lng)) {
               console.error(
                 `Invalid coordinates for ${item.subpro_name}:`,
-                item.location
+                item.location,
               );
               return "Invalid coordinates";
             }
@@ -84,7 +72,7 @@ function PropertyButton({ property, eid, loading }) {
                   } else {
                     resolve("Location not found");
                   }
-                }
+                },
               );
             });
           }
@@ -92,7 +80,6 @@ function PropertyButton({ property, eid, loading }) {
         });
 
         const resolvedLocations = await Promise.all(locationPromises);
-        setLocationNames(resolvedLocations);
       } catch (error) {
         console.error("Google Maps API error:", error);
       }
@@ -104,10 +91,6 @@ function PropertyButton({ property, eid, loading }) {
   }, [property]);
 
   const data = property ? property : [];
-  const [getData, setGetData] = useState([]);
-
-  const location = data?.map((item) => item.location);
-  const [distance, setDistance] = useState(null);
 
   const getDistance = (lat1, lon1, lat2, lon2) => {
     const R = 6371;
@@ -124,44 +107,6 @@ function PropertyButton({ property, eid, loading }) {
     return distance;
   };
 
-  const handleClick = () => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const userLat = position.coords.latitude;
-          const userLon = position.coords.longitude;
-
-          const location = data.map((item) => item.location);
-
-          const targetLocation = location[0];
-
-          if (targetLocation) {
-            const [lat, lon] = targetLocation
-              .split(",")
-              .map((coord) => parseFloat(coord.trim()));
-
-            if (lat && lon) {
-              const calculatedDistance = getDistance(
-                userLat,
-                userLon,
-                lat,
-                lon
-              );
-              setDistance(calculatedDistance.toFixed(2));
-            } else {
-              console.error("Invalid targetLocation format");
-            }
-          } else {
-            console.error("Target location is not available");
-          }
-        },
-        (error) => {
-          console.error(error);
-        }
-      );
-    }
-  };
-
   const token = localStorage.getItem("zxcvbnm@#");
   const fetch = async () => {
     try {
@@ -170,7 +115,6 @@ function PropertyButton({ property, eid, loading }) {
           Authorization: token,
         },
       });
-      setGetData(response.data);
     } catch (error) {
       console.error("Error during the request:", error);
     }
@@ -194,9 +138,7 @@ function PropertyButton({ property, eid, loading }) {
       fetchWishlist();
       fetchProducts();
     }
-    // fetchCardList()
     if (localStorageCartId) {
-      // dispatch(cardListThunk(localStorageCartId));
     }
   }, [localStorageCartId, token]);
 
@@ -212,30 +154,11 @@ function PropertyButton({ property, eid, loading }) {
       console.error("Error during the request:", error);
     }
   };
-  const [cardData, setCardData] = useState([]);
-
-  // const fetchShopingCard = async () => {
-  //   try {
-  //     const response = await axios.get(
-  //       `${LOGIN_BASE_URL}/vendor/shoppingcart`,
-  //       {
-  //         headers: {
-  //           Authorization: token,
-  //         },
-  //       }
-  //     );
-  //     setCardData(response.data);
-  //   } catch (error) {
-  //     console.error("Error during the request:", error);
-  //   }
-  // };
   useEffect(() => {
-    // fetchShopingCard();
     if (token) {
       dispatch(wishlistGetThunk());
       dispatch(wishlistVerifyThunk(eid));
     }
-
   }, [token, dispatch]);
 
   const fetchWishlist = async () => {
@@ -246,7 +169,7 @@ function PropertyButton({ property, eid, loading }) {
           headers: {
             Authorization: token,
           },
-        }
+        },
       );
       setWishlist(response.data);
     } catch (error) {
@@ -254,27 +177,7 @@ function PropertyButton({ property, eid, loading }) {
     }
   };
 
-  // const [cardList, setCardList] = useState([])
-
-  // const fetchCardList = async () => {
-  //   try {
-  //     const response = await axios.get(
-  //       `${LOGIN_BASE_URL}/vendor/shoppingcart/${eid}/edit`,
-  //       {
-  //         headers: {
-  //           'Authorization': token
-  //         }
-  //       }
-  //     )
-  //     setCardList(response.data);
-  //   } catch (error) {
-  //     console.error('Error during the request:', error);
-  //   }
-
-  // };
   const cardList = useSelector((state) => state.shoppingCardListData?.data);
-  // const cardList = useSelector((state) => state.cart);
-
   const addToWishlist = async (productId) => {
     try {
       const payload = {
@@ -285,39 +188,14 @@ function PropertyButton({ property, eid, loading }) {
         dispatch(wishlistGetThunk());
       });
       await dispatch(wishlistGetThunk());
-      // fetchShopingCard();
       alert.success("Item added to your wishlist ");
     } catch (error) {
       console.error("Error during the request:", error);
     } finally {
-      // fetchCardList();
       dispatch(wishlistVerifyThunk(eid));
       dispatch(wishlistGetThunk());
     }
   };
-  // const handleAddToCard = async (productId) => {
-  //   try {
-  //     const payload = {
-  //       enqid: localStorageCartId ? localStorageCartId : eid,
-  //     };
-  //     dispatch(cardPostThunk(payload)).then(() => {
-  //       dispatch(cardListThunk(localStorageCartId));
-  //       dispatch(cardGetThunk());
-  //     });
-  //     alert.success("Item added to your cart successfully 🛒");
-  //     await dispatch(cardGetThunk());
-  //     await dispatch(openCartSidebar());
-
-  //     fetchShopingCard();
-  //   } catch (error) {
-  //     console.error("Error during the request:", error);
-  //     alert.error("Failed to add item to cart. Please try again.");
-  //   } finally {
-  //     // fetchCardList();
-  //     dispatch(cardListThunk(localStorageCartId));
-  //     dispatch(cardGetThunk());
-  //   }
-  // };
 
   const removeFromWishlist = async (productId) => {
     try {
@@ -337,23 +215,8 @@ function PropertyButton({ property, eid, loading }) {
       dispatch(wishlistVerifyThunk(eid));
     }
   };
-  // const removeFromCard = async (productId) => {
-  //   try {
-  //     dispatch(cardDeleteThunk(eid)).then(() => {
-  //       dispatch(cardListThunk(localStorageCartId));
-  //       dispatch(cardGetThunk());
-  //     });
-  //     alert.success("Item removed from your cart 🗑️");
-  //   } catch (error) {
-  //     console.error("Error during the request:", error);
-  //   } finally {
-  //     dispatch(cardListThunk(localStorageCartId));
-  //   }
-  // };
 
-  // const isInWishlist = (productId) => wishlist.includes(productId);
   const isInWishlist = wishlist;
-  const isInCardList = cardList;
   const condition = useSelector((state) => state.auth.isAuthenticated);
 
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -367,34 +230,10 @@ function PropertyButton({ property, eid, loading }) {
 
   const [isModalOpenlogin, setIsModalOpenlogin] = useState(false);
 
-  const openModallogin = () => {
-    setIsModalOpenlogin(true);
-  };
-
   const closeModalLogin = () => {
     setIsModalOpenlogin(false);
   };
   const [pendingAction, setPendingAction] = useState(null);
-  // const handleAddToCartClick = (productId) => {
-  //   if (!isAuthenticated) {
-  //     setPendingAction(() => () => handleAddToCard(productId));
-  //     openModallogin();
-  //   } else {
-  //     handleAddToCard(productId);
-  //   }
-  // };
-  const [arrow, setArrow] = useState("Show");
-  const mergedArrow = useMemo(() => {
-    if (arrow === "Hide") {
-      return false;
-    }
-    if (arrow === "Show") {
-      return true;
-    }
-    return {
-      pointAtCenter: true,
-    };
-  }, [arrow]);
   const [priceShow, setPriceShow] = useState(false);
   const formatIndianPrice = (num) => {
     const value = Number(String(num).replace(/,/g, ""));
@@ -406,6 +245,15 @@ function PropertyButton({ property, eid, loading }) {
     return `₹ ${value.toLocaleString("en-IN")}`;
   };
   const isSoldOut = property?.[0]?.status?.toLowerCase() === "booking";
+
+
+  const handleBookingButton = (item) => {
+    if (item.property_type.toLowerCase() === "layout") {
+      navigate("/layout", { state: item });
+    } else {
+      navigate(`/Checkoutpage/${item.id}`);
+    }
+  };
 
   return (
     <>
@@ -454,13 +302,12 @@ function PropertyButton({ property, eid, loading }) {
                         letterSpacing: "0.5px",
                         marginBottom: "7px",
                         color: "#0000ff",
-                        fontFamily: "poppins"
+                        fontFamily: "poppins",
                       }}
                     >
                       {item.property_type.toLowerCase() === "commercial"
                         ? `${item.property_type} ${item.subpro_name}`
                         : item.subpro_name}
-
                     </h2>
 
                     <h2
@@ -471,7 +318,7 @@ function PropertyButton({ property, eid, loading }) {
                         fontWeight: "600",
                         letterSpacing: "0.3px",
                         marginTop: "0",
-                        fontFamily: "poppins"
+                        fontFamily: "poppins",
                       }}
                     >
                       {item.propertyName}
@@ -497,7 +344,10 @@ function PropertyButton({ property, eid, loading }) {
                         </>
                       ) : (
                         <>
-                          <h4 className="original-price" style={{ fontSize: "17px" }}>
+                          <h4
+                            className="original-price"
+                            style={{ fontSize: "17px" }}
+                          >
                             {formatIndianPrice(item.price)}
                           </h4>{" "}
                           <InfoIcon
@@ -553,15 +403,25 @@ function PropertyButton({ property, eid, loading }) {
                         </div>
                       </div>
                     </div>
-                    <div className="d-flex mt-4" style={{ flexDirection: "column", alignItems: "center" }}>
-
-                      {isAuthenticated ? (<button
-                        className=" premium-buy-btn btn-theme w-75 "
-                        onClick={() => navigate(`/Checkoutpage/${item.id}`)}
-                        disabled={isSoldOut}
-                      >
-                        {isSoldOut ? "Sold Out" : "Buy now"}
-                      </button>) : (
+                    <div
+                      className="d-flex mt-4"
+                      style={{ flexDirection: "column", alignItems: "center" }}
+                    >
+                      {isAuthenticated ? (
+                        <button
+                          className=" premium-buy-btn btn-theme w-75 "
+                          // onClick={() => navigate(`/Checkoutpage/${item.id}`)}
+                          onClick={() => handleBookingButton(item)}
+                          disabled={isSoldOut}
+                        >
+                          {isSoldOut
+                            ? "Sold Out"
+                            : property[0]?.property_type.toLowerCase() ===
+                              "layout"
+                              ? "Book now "
+                              : "Buy Now"}
+                        </button>
+                      ) : (
                         <button
                           className=" premium-buy-btn btn-theme w-75 "
                           onClick={() => setIsModalOpenlogin(true)}
@@ -569,8 +429,6 @@ function PropertyButton({ property, eid, loading }) {
                           Buy now
                         </button>
                       )}
-
-
 
                       {isAuthenticated ? (
                         wishlistVerify?.whishlist === "false" ? (
@@ -609,13 +467,6 @@ function PropertyButton({ property, eid, loading }) {
                           Wishlist
                         </button>
                       )}
-
-                      {/* <button
-                        className="btn btn-transparent w-75 mt-3"
-                        onClick={handleClick}
-                      >
-                        {distance ? `${distance} km` : "Calculate Distance"}
-                      </button> */}
                     </div>
                     <div className="col-6 w-75 mx-5 mt-3">
                       <EmiPlans items={item} />
